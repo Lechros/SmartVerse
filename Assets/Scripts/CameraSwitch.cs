@@ -10,6 +10,10 @@ public class CameraSwitch : MonoBehaviour
     private Animator animator;
     private CameraState state;
 
+    public int ReturnState()
+    {
+        return (int)state;
+    }
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -36,11 +40,13 @@ public class CameraSwitch : MonoBehaviour
                 animator.Play("EditorCamera");
                 Cursor.lockState = CursorLockMode.None;
                 state = CameraState.Editor;
+                Debug.Log(ReturnState());
                 break;
             case CameraState.Editor:
                 animator.Play("PlayerCamera");
                 Cursor.lockState = CursorLockMode.Locked;
                 state = CameraState.Player;
+                Debug.Log(ReturnState());
                 break;
         }
     }
