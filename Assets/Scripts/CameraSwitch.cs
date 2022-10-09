@@ -8,7 +8,7 @@ public class CameraSwitch : MonoBehaviour
     private InputAction action;
 
     private Animator animator;
-    private CameraState state;
+    public CameraState state;
 
     public int ReturnState()
     {
@@ -56,7 +56,7 @@ public class CameraSwitch : MonoBehaviour
 
     }
 
-    enum CameraState
+    public enum CameraState
     {
         Editor = 0,
         Player = 1,

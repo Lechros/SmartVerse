@@ -1,49 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using CameraState = CameraSwitch.CameraState;
 
 public class Editor : MonoBehaviour
 {
-    //
     private Camera mainCam;
-    public Animator animator;
-    private CameraState state;
+    private CameraSwitch cameraSwitch;
     public GameObject prefab;
-    public GameObject parentObject;
-    float dist;
+
     void Start()
     {
         mainCam = Camera.main;
-        state = animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerCamera") ? CameraState.Player : CameraState.Editor;
+        cameraSwitch = GameObject.Find("State Driven Camera").GetComponent<CameraSwitch>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))
         {
-            PlaceObject();
+            TryPlaceObjectAtMouse();
         }
     }
 
-    void PlaceObject()
+    bool TryPlaceObjectAtMouse()
     {
-        state = animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerCamera") ? CameraState.Player : CameraState.Editor;
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(-Vector3.forward, Vector3.zero);
-        RaycastHit hit;
-        if (state == CameraState.Editor && Physics.Raycast(ray, out hit))
+        if(cameraSwitch.state != CameraState.Editor)
         {
-            GameObject instance = Instantiate(prefab);
-            Vector3 tempVec = hit.point; //First, get this vector
-            instance.transform.position = new Vector3(tempVec.x, 1.0f, tempVec.z);
-            instance.transform.parent = parentObject.transform;
+            Debug.Log("state is not editor");
+            return false;
         }
+
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+
+        foreach(var hit in Physics.RaycastAll(ray))
+        {
+            if(hit.collider.CompareTag("Ground"))
+            {
+                PlaceObject(prefab, new Vector3(hit.point.x, 1.0f, hit.point.z), Quaternion.identity);
+                return true;
+            }
+        }
+
+        return false;
     }
-    enum CameraState
+
+    GameObject PlaceObject(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        Editor = 0,
-        Player = 1,
+        return Instantiate(prefab, position, rotation);
     }
 }
