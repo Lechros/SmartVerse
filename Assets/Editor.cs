@@ -28,7 +28,6 @@ public class Editor : MonoBehaviour
     {
         if(cameraSwitch.state != CameraState.Editor)
         {
-            Debug.Log("state is not editor");
             return false;
         }
 
