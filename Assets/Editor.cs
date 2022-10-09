@@ -47,6 +47,8 @@ public class Editor : MonoBehaviour
 
     GameObject PlaceObject(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        return Instantiate(prefab, position, rotation);
+        GameObject obj = Instantiate(prefab, position, rotation);
+        obj.transform.SetParent(transform);
+        return obj;
     }
 }
