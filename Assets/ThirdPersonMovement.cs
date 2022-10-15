@@ -8,6 +8,7 @@ public class ThirdPersonMovement : NetworkBehaviour
 {
     public CharacterController controller;
     public Transform frontFacing;
+    private CameraSwitch cameraSwitch;
 
     public float speed = 6;
     public float gravity = -9.81f;
@@ -23,9 +24,10 @@ public class ThirdPersonMovement : NetworkBehaviour
         frontFacing = Camera.main.transform;
         if(isLocalPlayer)
         {
-            var tpc_cmFl = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
-            tpc_cmFl.Follow = this.transform;
-            tpc_cmFl.LookAt = this.transform;
+            var thirdPersonCam_cmFreeLook = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
+            thirdPersonCam_cmFreeLook.Follow = this.transform;
+            thirdPersonCam_cmFreeLook.LookAt = this.transform;
+            cameraSwitch = GameObject.Find("State Driven Camera").GetComponent<CameraSwitch>();
         }
     }
 
@@ -36,6 +38,15 @@ public class ThirdPersonMovement : NetworkBehaviour
         {
             return;
         }
+
+        if(ShouldMove())
+        {
+            HandleMovement();
+        }
+    }
+
+    void HandleMovement()
+    {
         //walk
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -50,5 +61,10 @@ public class ThirdPersonMovement : NetworkBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
+    }
+
+    bool ShouldMove()
+    {
+        return cameraSwitch.state == CameraSwitch.CameraState.Player;
     }
 }
