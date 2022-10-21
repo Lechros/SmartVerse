@@ -9,6 +9,7 @@ public class EditorCameraPosition : MonoBehaviour
 {
     private Transform frontFacing;
     public float MoveSpeed;
+    public float VerticalMoveSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -21,5 +22,6 @@ public class EditorCameraPosition : MonoBehaviour
     {
         transform.position += frontFacing.forward * Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
         transform.position += frontFacing.right * Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
+        transform.position += Vector3.up * Input.GetAxis("Keyboard Y Axis") * VerticalMoveSpeed * Time.deltaTime;
     }
 }
