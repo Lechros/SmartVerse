@@ -1,8 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,13 +21,14 @@ public class SpawnUI : MonoBehaviour
         if(IsCursorObjectSet())
         {
             // Show cursor object at mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out RaycastHit hitInfo))
+            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo))
             {
-                // TODO: Change 1.0f to object collider size
-                Vector3 normal = hitInfo.normal * 1.0f;
-                cursorObject.transform.position = hitInfo.point + normal;
                 cursorObject.SetActive(true);
+
+                var bounds = cursorObject.GetComponent<Renderer>()?.bounds ?? cursorObject.GetComponent<Collider>()?.bounds ?? new Bounds();
+                Vector3 normal = hitInfo.normal * bounds.extents.y;
+                Vector3 offset = cursorObject.transform.position - bounds.center;
+                cursorObject.transform.position = hitInfo.point + offset + normal;
             }
             else
             {
@@ -170,6 +167,10 @@ public class SpawnUI : MonoBehaviour
 
         cursorObject = Instantiate(original, new Vector3(0, 0, 0), Quaternion.identity, tempObjectParent.transform);
         cursorObject.layer = tempObjectParent.layer;
+        if(!cursorObject.GetComponent<Collider>())
+        {
+            cursorObject.AddComponent<MeshCollider>();
+        }
         return true;
     }
 
