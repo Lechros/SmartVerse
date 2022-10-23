@@ -176,9 +176,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5182974830441390444}
-  - component: {fileID: 5182974830441390446}
   - component: {fileID: 5182974830441390447}
   - component: {fileID: 5925432309470615919}
+  - component: {fileID: 5339528155954405786}
   m_Layer: 0
   m_Name: HatCapsule 4
   m_TagString: Player
@@ -202,24 +202,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &5182974830441390446
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5182974830441390435}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5182974830441390447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +217,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: c3e6a10eea30cd54db892286705f1242
+  m_AssetId: 6ec1fb06c1b51634398f5a20bf7b337f
   hasSpawned: 0
 --- !u!114 &5925432309470615919
 MonoBehaviour:
@@ -274,3 +256,16 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!65 &5339528155954405786
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5182974830441390435}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
