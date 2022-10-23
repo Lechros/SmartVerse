@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
 
     void OnWorldEditButtonClick()
     {
-        // SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
     }
 
     void OnCharEditButtonClick()

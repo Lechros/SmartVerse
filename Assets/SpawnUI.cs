@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class SpawnUI : MonoBehaviour
 {
     const string PREFAB_PATH = @"Prefabs";
@@ -59,7 +59,7 @@ public class SpawnUI : MonoBehaviour
     public GameObject pageText;
     public GameObject leftPageButton;
     public GameObject rightPageButton;
-
+    public GameObject leaveButton;
     void InitButtons()
     {
         //Insert button objects into list
@@ -73,6 +73,7 @@ public class SpawnUI : MonoBehaviour
         // Init page components
         leftPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(-1));
         rightPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(1));
+        leaveButton.GetComponent<Button>().onClick.AddListener(OnLeaveButtonClick);
         UpdatePageName();
         UpdateMovePageInteractable();
     }
@@ -122,6 +123,10 @@ public class SpawnUI : MonoBehaviour
         TrySetPage(currentPage + addValue);
     }
 
+    void OnLeaveButtonClick()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
     bool TrySetPage(int page)
     {
         if(!CanSetPageTo(page))
