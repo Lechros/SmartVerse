@@ -29,12 +29,12 @@ public class MainMenu : MonoBehaviour
 
     void OnStartButtonClick()
     {
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("PlayScene", LoadSceneMode.Single);
     }
 
     void OnWorldEditButtonClick()
     {
-        // SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
     }
 
     void OnCharEditButtonClick()
