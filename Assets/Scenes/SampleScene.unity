@@ -29607,12 +29607,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonParent: {fileID: 382899519}
+  pageText: {fileID: 169314618}
+  leftPageButton: {fileID: 738960481}
+  rightPageButton: {fileID: 1552726051}
   objectParent: {fileID: 1821814577}
   tempObjectParent: {fileID: 601184314}
-  pageText: {fileID: 169314618}
-  pageButton:
-  - {fileID: 738960481}
-  - {fileID: 1552726051}
 --- !u!1 &1791343473
 GameObject:
   m_ObjectHideFlags: 3
