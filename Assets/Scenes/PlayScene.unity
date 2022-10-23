@@ -11802,7 +11802,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721823273}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e6889ff719b08d4eb11aa2318c0c61d, type: 3}
   m_Name: 
@@ -11871,10 +11871,6 @@ MonoBehaviour:
   m_ChildCameras:
   - {fileID: 1981337285}
   m_Instructions:
-  - m_FullHash: -353839120
-    m_VirtualCamera: {fileID: 0}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
   - m_FullHash: -1211623630
     m_VirtualCamera: {fileID: 1981337285}
     m_ActivateAfter: 0
@@ -28986,7 +28982,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900562714}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
@@ -29038,8 +29034,8 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/MainMenu.unity
+  onlineScene: Assets/Scenes/PlayScene.unity
   transport: {fileID: 1900562716}
   networkAddress: localhost
   maxConnections: 100
