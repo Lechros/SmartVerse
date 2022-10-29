@@ -1,28 +1,19 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
-using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class SpawnUI : MonoBehaviour
+public class SpawnUI_Old : MonoBehaviour
 {
-    // Label of Addressables that we need to load
-    public AssetLabelReference assetLabel;
+    const string PREFAB_PATH = @"Prefabs";
 
-    // Locations of Addressables (will be initialized inside InitAddressables()
-    private AsyncOperationHandle<IList<IResourceLocation>> _locations;
+    private GameObject[] prefabs; //Prefabs in PATH "Assets/Resources/prefabPath/..."
 
-    // Now elements in prefabs need .Result before get text, transform or anything
-    private List<AsyncOperationHandle<GameObject>> prefabs = new List<AsyncOperationHandle<GameObject>>();
     void Start()
     {
-        Ready.AddListener(OnAssetsReady);
-        StartCoroutine(InitAddressables());
-        //InitButton will be activated after InitAddressables invoke Ready.
+        //Load Prefabs in PATH "Assets/Resource/prefabPath"
+        prefabs = Resources.LoadAll<GameObject>(PREFAB_PATH);
+
+        InitButtons();
     }
 
     void Update()
@@ -69,7 +60,6 @@ public class SpawnUI : MonoBehaviour
     public GameObject leftPageButton;
     public GameObject rightPageButton;
     public GameObject leaveButton;
-    public UnityEvent Ready;
     void InitButtons()
     {
         //Insert button objects into list
@@ -77,7 +67,7 @@ public class SpawnUI : MonoBehaviour
         {
             spawnButtons.Add(child.gameObject);
         }
-        totalPages = prefabs.Count / spawnButtons.Count;
+        totalPages = prefabs.Length / spawnButtons.Count;
         UpdateSpawnButtons();
 
         // Init page components
@@ -96,7 +86,7 @@ public class SpawnUI : MonoBehaviour
             button.GetComponent<Button>().onClick.RemoveAllListeners();
 
             var prefabIndex = currentPage * spawnButtons.Count + i;
-            if(prefabIndex >= prefabs.Count)
+            if(prefabIndex >= prefabs.Length)
             {
                 button.GetComponent<Button>().interactable = false;
                 button.GetComponentInChildren<Text>().text = "";
@@ -104,8 +94,8 @@ public class SpawnUI : MonoBehaviour
             else
             {
                 var prefab = prefabs[prefabIndex];
-                button.GetComponent<Button>().onClick.AddListener(() => OnSpawnButtonClick(prefab.Result));
-                button.GetComponentInChildren<Text>().text = prefab.Result.name;
+                button.GetComponent<Button>().onClick.AddListener(() => OnSpawnButtonClick(prefab));
+                button.GetComponentInChildren<Text>().text = prefab.name;
             }
         }
     }
@@ -152,69 +142,6 @@ public class SpawnUI : MonoBehaviour
         return true;
     }
 
-    #endregion
-
-    #region Addressables
-    public IEnumerator InitAddressables()
-    {
-        // Get locations of Addressables here
-        _locations = Addressables.LoadResourceLocationsAsync(assetLabel.labelString);
-        yield return _locations;
-
-        var loadOps = new List<AsyncOperationHandle>(_locations.Result.Count);
-        Debug.Log(_locations.Result.Count);
-
-        // Now we have locations for each Addressables, load assets
-        foreach (IResourceLocation location in _locations.Result)
-        {
-            AsyncOperationHandle<GameObject> handle =
-                Addressables.LoadAssetAsync<GameObject>(location);
-            handle.Completed += obj =>
-            {
-                prefabs.Add(handle);
-            };
-            loadOps.Add(handle);
-        }
-        yield return Addressables.ResourceManager.CreateGenericGroupOperation(loadOps, true);
-
-        // We are now ready for Initiate buttons
-        Ready.Invoke();
-    }
-
-    private void OnAssetsReady()
-    {
-        // Activate InitButtons after all async job is done.
-        InitButtons();
-    }
-    /*
-    public IEnumerator InstantiateAll()
-    {
-        foreach (var location in _locations)
-        {
-            var instantiateOne = Addressables.InstantiateAsync(location);
-            instantiateOne.Completed +=
-            (handle) =>
-            {
-                Debug.Log(handle.Result);
-                prefabs.Add(handle.Result);
-            };
-            yield return instantiateOne;
-        }
-    }
-    
-
-    public void Release()
-    {
-        if (_gameObjects.Count == 0)
-            return;
-
-        var index = _gameObjects.Count - 1;
-        // InstantiateAsync <-> ReleaseInstance
-        // Destroy함수로써 ref count가 0이면 메모리 상의 에셋을 언로드한다.
-        Addressables.ReleaseInstance(_gameObjects[index]);
-        _gameObjects.RemoveAt(index);
-    }
-    */
     bool CanSetPageTo(int page) => page >= 0 && page < totalPages;
 
     string GetPageName() => $"Page {currentPage + 1}";

@@ -29707,7 +29707,7 @@ GameObject:
   - component: {fileID: 1790193938}
   - component: {fileID: 1790193942}
   - component: {fileID: 1790193941}
-  - component: {fileID: 1790193943}
+  - component: {fileID: 1790193944}
   m_Layer: 5
   m_Name: SpawnUI
   m_TagString: Untagged
@@ -29736,7 +29736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 762.8248, y: 0.000061035156}
+  m_AnchoredPosition: {x: 762.8248, y: 0}
   m_SizeDelta: {x: -1525.6497, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1790193941
@@ -29777,7 +29777,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790193937}
   m_CullTransparentMesh: 1
---- !u!114 &1790193943
+--- !u!114 &1790193944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29786,16 +29786,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1790193937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fac685211decfa34fbbc68c1434ec10e, type: 3}
+  m_Script: {fileID: 11500000, guid: c52ef844a2128484ab646315285b854a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assetLabel:
+    m_LabelString: prefabs
+  currentPage: 0
+  totalPages: 0
   buttonParent: {fileID: 382899519}
+  spawnButtons: []
   pageText: {fileID: 169314618}
   leftPageButton: {fileID: 738960481}
   rightPageButton: {fileID: 1552726051}
   leaveButton: {fileID: 1946515346}
+  Ready:
+    m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
   objectParent: {fileID: 1821814577}
   tempObjectParent: {fileID: 601184314}
+  cursorObject: {fileID: 0}
 --- !u!1 &1791343473
 GameObject:
   m_ObjectHideFlags: 3
