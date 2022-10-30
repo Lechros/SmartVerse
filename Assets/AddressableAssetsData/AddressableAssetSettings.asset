@@ -65,7 +65,7 @@ MonoBehaviour:
       - m_Id: 64281708bae112d45a28be2070e3bb9e
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 22655035e6c040840a29329d31465871
-        m_Value: E:/Unity/Projects/SmartVerse/Assets
+        m_Value: E:/Unity/Projects/SmartVerse/Asset-temp
     - m_InheritedParent: 
       m_Id: 9d064523bcaa2bc419b73abc967cca80
       m_ProfileName: New Profile
