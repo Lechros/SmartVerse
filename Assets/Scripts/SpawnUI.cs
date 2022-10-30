@@ -8,6 +8,10 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using cakeslice;
+using Outline = cakeslice.Outline;
+
 public class SpawnUI : MonoBehaviour
 {
     // Label of Addressables that we need to load
@@ -18,8 +22,10 @@ public class SpawnUI : MonoBehaviour
 
     // Now elements in prefabs need .Result before get text, transform or anything
     private List<AsyncOperationHandle<GameObject>> prefabs = new List<AsyncOperationHandle<GameObject>>();
+
     void Start()
     {
+        ButtonsOnAwake();
         Ready.AddListener(OnAssetsReady);
         StartCoroutine(InitAddressables());
         //InitButton will be activated after InitAddressables invoke Ready.
@@ -38,11 +44,24 @@ public class SpawnUI : MonoBehaviour
                 Vector3 normal = hitInfo.normal * bounds.extents.y;
                 Vector3 offset = cursorObject.transform.position - bounds.center;
                 cursorObject.transform.position = hitInfo.point + offset + normal;
+
+                if(hitInfo.collider.gameObject.CompareTag("Void"))
+                {
+                    cursorObject.GetComponent<Outline>().color = 1;
+                    canPlace = false;
+                }
+                else
+                {
+                    cursorObject.GetComponent<Outline>().color = 0;
+                    canPlace = true;
+                }
             }
             else
             {
                 cursorObject.SetActive(false);
             }
+
+            cursorObject.transform.Rotate(Vector3.up, Input.mouseScrollDelta.y * 10);
 
             // Place object at mouse position
             if(Input.GetMouseButtonDown(0))
@@ -70,20 +89,30 @@ public class SpawnUI : MonoBehaviour
     public GameObject rightPageButton;
     public GameObject leaveButton;
     public UnityEvent Ready;
-    void InitButtons()
+
+    void ButtonsOnAwake()
     {
         //Insert button objects into list
         foreach(Transform child in buttonParent.transform)
         {
             spawnButtons.Add(child.gameObject);
+            child.GetComponent<Button>().interactable = false;
+            child.GetComponentInChildren<Text>().text = "Loading...";
         }
+
+        // Init page components
+        leftPageButton.GetComponent<Button>().interactable = false;
+        leftPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(-1));
+        rightPageButton.GetComponent<Button>().interactable = false;
+        rightPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(1));
+        leaveButton.GetComponent<Button>().onClick.AddListener(OnLeaveButtonClick);
+    }
+
+    void ButtonsOnStart()
+    {
         totalPages = prefabs.Count / spawnButtons.Count;
         UpdateSpawnButtons();
 
-        // Init page components
-        leftPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(-1));
-        rightPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(1));
-        leaveButton.GetComponent<Button>().onClick.AddListener(OnLeaveButtonClick);
         UpdatePageName();
         UpdateMovePageInteractable();
     }
@@ -105,6 +134,7 @@ public class SpawnUI : MonoBehaviour
             {
                 var prefab = prefabs[prefabIndex];
                 button.GetComponent<Button>().onClick.AddListener(() => OnSpawnButtonClick(prefab.Result));
+                button.GetComponent<Button>().interactable = true;
                 button.GetComponentInChildren<Text>().text = prefab.Result.name;
             }
         }
@@ -137,6 +167,7 @@ public class SpawnUI : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
+
     bool TrySetPage(int page)
     {
         if(!CanSetPageTo(page))
@@ -165,7 +196,7 @@ public class SpawnUI : MonoBehaviour
         Debug.Log(_locations.Result.Count);
 
         // Now we have locations for each Addressables, load assets
-        foreach (IResourceLocation location in _locations.Result)
+        foreach(IResourceLocation location in _locations.Result)
         {
             AsyncOperationHandle<GameObject> handle =
                 Addressables.LoadAssetAsync<GameObject>(location);
@@ -184,7 +215,7 @@ public class SpawnUI : MonoBehaviour
     private void OnAssetsReady()
     {
         // Activate InitButtons after all async job is done.
-        InitButtons();
+        ButtonsOnStart();
     }
     /*
     public IEnumerator InstantiateAll()
@@ -231,7 +262,9 @@ public class SpawnUI : MonoBehaviour
     /// </summary>
     private GameObject cursorObject;
 
-    bool IsCursorObjectSet()
+    private bool canPlace;
+
+    public bool IsCursorObjectSet()
     {
         return cursorObject;
     }
@@ -244,11 +277,13 @@ public class SpawnUI : MonoBehaviour
         }
 
         cursorObject = Instantiate(original, new Vector3(0, 0, 0), Quaternion.identity, tempObjectParent.transform);
+        cursorObject.name = original.name;
         cursorObject.layer = tempObjectParent.layer;
         if(!cursorObject.GetComponent<Collider>())
         {
             cursorObject.AddComponent<MeshCollider>();
         }
+        cursorObject.AddComponent<Outline>();
         return true;
     }
 
@@ -257,6 +292,7 @@ public class SpawnUI : MonoBehaviour
         if(cursorObject)
         {
             Destroy(cursorObject);
+            cursorObject = null;
             return true;
         }
         return false;
@@ -264,10 +300,11 @@ public class SpawnUI : MonoBehaviour
 
     bool PlaceCursorObject()
     {
-        if(IsCursorObjectSet() && cursorObject.activeInHierarchy)
+        if(IsCursorObjectSet() && cursorObject.activeInHierarchy && canPlace)
         {
             cursorObject.transform.SetParent(objectParent.transform);
             cursorObject.layer = objectParent.layer;
+            cursorObject.GetComponent<Outline>().enabled = false;
             cursorObject = null;
             return true;
         }
