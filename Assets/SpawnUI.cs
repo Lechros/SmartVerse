@@ -20,6 +20,7 @@ public class SpawnUI : MonoBehaviour
     private List<AsyncOperationHandle<GameObject>> prefabs = new List<AsyncOperationHandle<GameObject>>();
     void Start()
     {
+        ButtonsOnAwake();
         Ready.AddListener(OnAssetsReady);
         StartCoroutine(InitAddressables());
         //InitButton will be activated after InitAddressables invoke Ready.
@@ -70,20 +71,28 @@ public class SpawnUI : MonoBehaviour
     public GameObject rightPageButton;
     public GameObject leaveButton;
     public UnityEvent Ready;
-    void InitButtons()
+
+    void ButtonsOnAwake()
     {
         //Insert button objects into list
         foreach(Transform child in buttonParent.transform)
         {
             spawnButtons.Add(child.gameObject);
+            child.GetComponent<Button>().interactable = false;
+            child.GetComponentInChildren<Text>().text = "Loading...";
         }
-        totalPages = prefabs.Count / spawnButtons.Count;
-        UpdateSpawnButtons();
 
         // Init page components
         leftPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(-1));
         rightPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(1));
         leaveButton.GetComponent<Button>().onClick.AddListener(OnLeaveButtonClick);
+    }
+
+    void ButtonsOnStart()
+    {
+        totalPages = prefabs.Count / spawnButtons.Count;
+        UpdateSpawnButtons();
+
         UpdatePageName();
         UpdateMovePageInteractable();
     }
@@ -105,6 +114,7 @@ public class SpawnUI : MonoBehaviour
             {
                 var prefab = prefabs[prefabIndex];
                 button.GetComponent<Button>().onClick.AddListener(() => OnSpawnButtonClick(prefab.Result));
+                button.GetComponent<Button>().interactable = true;
                 button.GetComponentInChildren<Text>().text = prefab.Result.name;
             }
         }
@@ -165,7 +175,7 @@ public class SpawnUI : MonoBehaviour
         Debug.Log(_locations.Result.Count);
 
         // Now we have locations for each Addressables, load assets
-        foreach (IResourceLocation location in _locations.Result)
+        foreach(IResourceLocation location in _locations.Result)
         {
             AsyncOperationHandle<GameObject> handle =
                 Addressables.LoadAssetAsync<GameObject>(location);
@@ -184,7 +194,7 @@ public class SpawnUI : MonoBehaviour
     private void OnAssetsReady()
     {
         // Activate InitButtons after all async job is done.
-        InitButtons();
+        ButtonsOnStart();
     }
     /*
     public IEnumerator InstantiateAll()
