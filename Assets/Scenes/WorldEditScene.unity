@@ -7029,8 +7029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb4b1f10b3ad9f4f988cf812f67d9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 8
-  VerticalMoveSpeed: 6
+  moveSpeed: 6
 --- !u!4 &406005750
 Transform:
   m_ObjectHideFlags: 0
@@ -18920,7 +18919,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 2
+  m_StandbyUpdate: 1
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 406005750}
   m_Lens:
@@ -22281,7 +22280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnUI: {fileID: 1790193937}
-  EditUI: {fileID: 0}
+  EditUI: {fileID: 955072596}
 --- !u!1 &1314002619
 GameObject:
   m_ObjectHideFlags: 3
@@ -34227,7 +34226,7 @@ MonoBehaviour:
   m_VerticalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 1000
+    m_MaxSpeed: 600
     m_AccelTime: 0.05
     m_DecelTime: 0.05
     m_InputAxisName: Mouse Y Right Down
@@ -34251,7 +34250,7 @@ MonoBehaviour:
   m_HorizontalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 600
+    m_MaxSpeed: 400
     m_AccelTime: 0.05
     m_DecelTime: 0.05
     m_InputAxisName: Mouse X Right Down
