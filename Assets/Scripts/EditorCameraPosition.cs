@@ -8,8 +8,7 @@ using UnityEngine.EventSystems;
 public class EditorCameraPosition : MonoBehaviour
 {
     private Transform frontFacing;
-    public float MoveSpeed;
-    public float VerticalMoveSpeed;
+    public float moveSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +19,9 @@ public class EditorCameraPosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += frontFacing.forward * Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
-        transform.position += frontFacing.right * Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
-        transform.position += Vector3.up * Input.GetAxis("Keyboard Y Axis") * VerticalMoveSpeed * Time.deltaTime;
+        Vector3 move = frontFacing.forward * Input.GetAxis("Vertical")
+             + frontFacing.right * Input.GetAxis("Horizontal")
+             + Vector3.up * Input.GetAxis("Keyboard Y Axis");
+        transform.position += Vector3.ClampMagnitude(move, 1) * moveSpeed * Time.deltaTime;
     }
 }
