@@ -8,6 +8,10 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using cakeslice;
+using Outline = cakeslice.Outline;
+
 public class SpawnUI : MonoBehaviour
 {
     // Label of Addressables that we need to load
@@ -18,6 +22,7 @@ public class SpawnUI : MonoBehaviour
 
     // Now elements in prefabs need .Result before get text, transform or anything
     private List<AsyncOperationHandle<GameObject>> prefabs = new List<AsyncOperationHandle<GameObject>>();
+
     void Start()
     {
         ButtonsOnAwake();
@@ -39,11 +44,24 @@ public class SpawnUI : MonoBehaviour
                 Vector3 normal = hitInfo.normal * bounds.extents.y;
                 Vector3 offset = cursorObject.transform.position - bounds.center;
                 cursorObject.transform.position = hitInfo.point + offset + normal;
+
+                if(hitInfo.collider.gameObject.CompareTag("Void"))
+                {
+                    cursorObject.GetComponent<Outline>().color = 1;
+                    canPlace = false;
+                }
+                else
+                {
+                    cursorObject.GetComponent<Outline>().color = 0;
+                    canPlace = true;
+                }
             }
             else
             {
                 cursorObject.SetActive(false);
             }
+
+            cursorObject.transform.Rotate(Vector3.up, Input.mouseScrollDelta.y * 10);
 
             // Place object at mouse position
             if(Input.GetMouseButtonDown(0))
@@ -149,6 +167,7 @@ public class SpawnUI : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
+
     bool TrySetPage(int page)
     {
         if(!CanSetPageTo(page))
@@ -243,7 +262,9 @@ public class SpawnUI : MonoBehaviour
     /// </summary>
     private GameObject cursorObject;
 
-    bool IsCursorObjectSet()
+    private bool canPlace;
+
+    public bool IsCursorObjectSet()
     {
         return cursorObject;
     }
@@ -262,6 +283,7 @@ public class SpawnUI : MonoBehaviour
         {
             cursorObject.AddComponent<MeshCollider>();
         }
+        cursorObject.AddComponent<Outline>();
         return true;
     }
 
@@ -270,6 +292,7 @@ public class SpawnUI : MonoBehaviour
         if(cursorObject)
         {
             Destroy(cursorObject);
+            cursorObject = null;
             return true;
         }
         return false;
@@ -277,10 +300,11 @@ public class SpawnUI : MonoBehaviour
 
     bool PlaceCursorObject()
     {
-        if(IsCursorObjectSet() && cursorObject.activeInHierarchy)
+        if(IsCursorObjectSet() && cursorObject.activeInHierarchy && canPlace)
         {
             cursorObject.transform.SetParent(objectParent.transform);
             cursorObject.layer = objectParent.layer;
+            cursorObject.GetComponent<Outline>().enabled = false;
             cursorObject = null;
             return true;
         }
