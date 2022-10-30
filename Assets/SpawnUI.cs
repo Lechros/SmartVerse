@@ -83,7 +83,9 @@ public class SpawnUI : MonoBehaviour
         }
 
         // Init page components
+        leftPageButton.GetComponent<Button>().interactable = false;
         leftPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(-1));
+        rightPageButton.GetComponent<Button>().interactable = false;
         rightPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(1));
         leaveButton.GetComponent<Button>().onClick.AddListener(OnLeaveButtonClick);
     }
@@ -254,6 +256,7 @@ public class SpawnUI : MonoBehaviour
         }
 
         cursorObject = Instantiate(original, new Vector3(0, 0, 0), Quaternion.identity, tempObjectParent.transform);
+        cursorObject.name = original.name;
         cursorObject.layer = tempObjectParent.layer;
         if(!cursorObject.GetComponent<Collider>())
         {
