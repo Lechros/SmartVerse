@@ -21,92 +21,92 @@ MonoBehaviour:
     m_Address: AirFryer
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: f405272c022df854ab15dca108ac038c
     m_Address: Bed
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 773a62c7dc375e34896c6dc10123fb36
     m_Address: Bed2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: d2f3642c88771434a92834394a040c6a
     m_Address: Camera Lens
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 2b211bbcd0c64bd41a4a3e5b6e8d2da4
     m_Address: Coffee Maker
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: cf0730b4df5963348ae15cb121b14a54
     m_Address: FanV2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 856165a11384170499ff5fa22e8fd9c2
     m_Address: Glass Table
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: e49095a1a8487584eae10830e69ad9df
     m_Address: Mixer
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 555c54a10b357df4ba1a1a1e27936082
     m_Address: Monitor
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 5e81813601eb0b24191078fbf6862210
     m_Address: Printer
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 90d6629c2fa4ac040ad7f7330b49c939
     m_Address: sek1
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 38891c89301cc33429662c5cc47c5feb
     m_Address: sek2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 51a89dc9aa80df043a711b3396c292a4
     m_Address: sek3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 88217d2f2df92994da9e54983829db63
     m_Address: sek4
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 6b252286d10affc4cadbf78879118c9b
     m_Address: Speaker
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 175d0214bd037a84ba02b11e57c7d3bf
     m_Address: Stovetop
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 64556c0ca60751941a4f850e8596c6f5
     m_Address: tumba_fur
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   - m_GUID: 3abcfb09b5ce9114eba5831250724a79
     m_Address: TV
     m_ReadOnly: 0
     m_SerializedLabels:
-    - prefabs
+    - prefab
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 39d1e5c5c0b84d145bbb2fc7c85eb2df, type: 2}
   m_SchemaSet:

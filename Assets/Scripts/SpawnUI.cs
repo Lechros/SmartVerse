@@ -9,47 +9,19 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
-using cakeslice;
 using Outline = cakeslice.Outline;
 
-[Serializable]
-public class ObjectData
-{
-    public List<string> objectName = new List<string>();
-    public List<Vector3> objectPos = new List<Vector3>();
-    public List<Quaternion> objectRot = new List<Quaternion>();
-}
 public class SpawnUI : MonoBehaviour
 {
-    // Label of Addressables that we need to load
-    public AssetLabelReference assetLabel;
+    public ObjectManager ObjectManager;
+    public SaveManager SaveManager;
 
-    // Locations of Addressables (will be initialized inside InitAddressables()
-    private AsyncOperationHandle<IList<IResourceLocation>> _locations;
-
-    // Now elements in prefabs need .Result before get text, transform or anything
-    private List<AsyncOperationHandle<GameObject>> prefabs = new List<AsyncOperationHandle<GameObject>>();
-
-    // Directory to save
-    private string saveDirectory;
-    private string saveFileNameHead = "world";
-
-    void Start()
+    void Awake()
     {
-        //Save and Load
-        saveDirectory = Application.dataPath + "/WorldSave/";
-        if (!Directory.Exists(saveDirectory)) Directory.CreateDirectory(saveDirectory);
-
-        //Button Initialization
         ButtonsOnAwake();
-        Ready.AddListener(OnAssetsReady);
-
-        //Addressables(Prefabs and Textures) Initialization
-        StartCoroutine(InitAddressables());
-        //InitButton will be activated after InitAddressables invoke Ready.
+        ObjectManager.AssetReady.AddListener(ButtonsOnStart);
     }
-
+    
     void Update()
     {
         if(IsCursorObjectSet())
@@ -80,7 +52,15 @@ public class SpawnUI : MonoBehaviour
                 cursorObject.SetActive(false);
             }
 
-            cursorObject.transform.Rotate(Vector3.up, Input.mouseScrollDelta.y * 10);
+            // Rotate cursor object
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                cursorObject.transform.Rotate(Vector3.up, -30);
+            }
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                cursorObject.transform.Rotate(Vector3.up, 30);
+            }
 
             // Place object at mouse position
             if(Input.GetMouseButtonDown(0))
@@ -109,7 +89,6 @@ public class SpawnUI : MonoBehaviour
     public GameObject saveButton;
     public GameObject loadButton;
     public GameObject leaveButton;
-    public UnityEvent Ready;
 
     void ButtonsOnAwake()
     {
@@ -133,7 +112,7 @@ public class SpawnUI : MonoBehaviour
 
     void ButtonsOnStart()
     {
-        totalPages = prefabs.Count / spawnButtons.Count;
+        totalPages = Mathf.CeilToInt((float)ObjectManager.prefabs.Count / spawnButtons.Count);
         UpdateSpawnButtons();
 
         UpdatePageName();
@@ -148,17 +127,17 @@ public class SpawnUI : MonoBehaviour
             button.GetComponent<Button>().onClick.RemoveAllListeners();
 
             var prefabIndex = currentPage * spawnButtons.Count + i;
-            if(prefabIndex >= prefabs.Count)
+            if(prefabIndex >= ObjectManager.prefabs.Count)
             {
                 button.GetComponent<Button>().interactable = false;
                 button.GetComponentInChildren<Text>().text = "";
             }
             else
             {
-                var prefab = prefabs[prefabIndex];
-                button.GetComponent<Button>().onClick.AddListener(() => OnSpawnButtonClick(prefab.Result));
+                var prefab = ObjectManager.prefabs[prefabIndex];
+                button.GetComponent<Button>().onClick.AddListener(() => OnSpawnButtonClick(prefab));
                 button.GetComponent<Button>().interactable = true;
-                button.GetComponentInChildren<Text>().text = prefab.Result.name;
+                button.GetComponentInChildren<Text>().text = prefab.name;
             }
         }
     }
@@ -193,13 +172,14 @@ public class SpawnUI : MonoBehaviour
 
     void OnSaveButtonClick()
     {
-        SaveObjects();
+        SaveManager.Save("TempWorld");
     }
 
     void OnLoadButtonClick()
     {
-        LoadObjects();
+        SaveManager.Load("TempWorld");
     }
+
     bool TrySetPage(int page)
     {
         if(!CanSetPageTo(page))
@@ -215,70 +195,6 @@ public class SpawnUI : MonoBehaviour
         return true;
     }
 
-
-
-    #endregion
-
-    #region Addressables
-    public IEnumerator InitAddressables()
-    {
-        // Get locations of Addressables here
-        _locations = Addressables.LoadResourceLocationsAsync(assetLabel.labelString);
-        yield return _locations;
-
-        var loadOps = new List<AsyncOperationHandle>(_locations.Result.Count);
-
-        // Now we have locations for each Addressables, load assets
-        foreach(IResourceLocation location in _locations.Result)
-        {
-            AsyncOperationHandle<GameObject> handle =
-                Addressables.LoadAssetAsync<GameObject>(location);
-            handle.Completed += obj =>
-            {
-                prefabs.Add(handle);
-            };
-            loadOps.Add(handle);
-        }
-        yield return Addressables.ResourceManager.CreateGenericGroupOperation(loadOps, true);
-
-        // We are now ready for Initiate buttons
-        Ready.Invoke();
-    }
-
-    private void OnAssetsReady()
-    {
-        // Activate InitButtons after all async job is done.
-        ButtonsOnStart();
-    }
-    /*
-    public IEnumerator InstantiateAll()
-    {
-        foreach (var location in _locations)
-        {
-            var instantiateOne = Addressables.InstantiateAsync(location);
-            instantiateOne.Completed +=
-            (handle) =>
-            {
-                Debug.Log(handle.Result);
-                prefabs.Add(handle.Result);
-            };
-            yield return instantiateOne;
-        }
-    }
-    
-
-    public void Release()
-    {
-        if (_gameObjects.Count == 0)
-            return;
-
-        var index = _gameObjects.Count - 1;
-        // InstantiateAsync <-> ReleaseInstance
-        // Destroy함수로써 ref count가 0이면 메모리 상의 에셋을 언로드한다.
-        Addressables.ReleaseInstance(_gameObjects[index]);
-        _gameObjects.RemoveAt(index);
-    }
-    */
     bool CanSetPageTo(int page) => page >= 0 && page < totalPages;
 
     string GetPageName() => $"Page {currentPage + 1}";
@@ -287,8 +203,8 @@ public class SpawnUI : MonoBehaviour
 
     #region CursorObject
 
-    public GameObject objectParent;
-    public GameObject tempObjectParent;
+    public Transform objectParent;
+    public Transform tempObjectParent;
 
     /// <summary>
     /// 커서 위치에 표시되는 물체
@@ -309,14 +225,9 @@ public class SpawnUI : MonoBehaviour
             return false;
         }
 
-        cursorObject = Instantiate(original, new Vector3(0, 0, 0), Quaternion.identity, tempObjectParent.transform);
-        cursorObject.name = original.name;
-        cursorObject.layer = tempObjectParent.layer;
-        if(!cursorObject.GetComponent<Collider>())
-        {
-            cursorObject.AddComponent<MeshCollider>();
-        }
-        cursorObject.AddComponent<Outline>();
+        cursorObject = ObjectManager.Spawn(original, Vector3.zero, Quaternion.identity, tempObjectParent);
+        cursorObject.GetComponent<Outline>().enabled = true;
+
         return true;
     }
 
@@ -335,8 +246,7 @@ public class SpawnUI : MonoBehaviour
     {
         if(IsCursorObjectSet() && cursorObject.activeInHierarchy && canPlace)
         {
-            cursorObject.transform.SetParent(objectParent.transform);
-            cursorObject.layer = objectParent.layer;
+            ObjectManager.SetParentAndLayer(cursorObject, objectParent);
             cursorObject.GetComponent<Outline>().enabled = false;
             cursorObject = null;
             return true;
@@ -348,91 +258,5 @@ public class SpawnUI : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region SaveLoad
-
-    private ObjectData saveData = new ObjectData();
-    private ObjectData loadData = new ObjectData();
-
-    void DestroyAllObjects()
-    {
-        var parentTransform = objectParent.transform;
-        if (parentTransform.childCount > 0)
-        {
-            for (int i = 0; i < parentTransform.childCount; i++)
-            {
-                var child = parentTransform.GetChild(i).gameObject;
-                Destroy(child);
-            }
-        }
-    }
-    void SaveObjects()
-    {
-        var parentTransform = objectParent.transform;
-        for (int i = 0; i < parentTransform.childCount; i++)
-        {
-            var child = parentTransform.GetChild(i).gameObject;
-            saveData.objectName.Add(child.name);
-            saveData.objectPos.Add(child.transform.position);
-            saveData.objectRot.Add(child.transform.rotation);
-        }
-        string json = JsonUtility.ToJson(saveData);
-        string fullPath = saveDirectory + saveFileNameHead + ".json";
-        try
-        {
-            File.WriteAllText(fullPath, json);
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
-            return;
-        }
-    }
-
-    void LoadObjects()
-    {
-        // Variables
-        var parentTransform = objectParent.transform;
-        string fullPath = saveDirectory + saveFileNameHead + ".json";
-        string json = File.ReadAllText(fullPath);
-        try
-        {
-            loadData = JsonUtility.FromJson<ObjectData>(json);
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
-            return;
-        }
-
-
-        //Destroy All Objects First
-        DestroyAllObjects();
-
-        // Is data clean?
-        if (loadData.objectName.Count == loadData.objectPos.Count && loadData.objectPos.Count == loadData.objectRot.Count)
-        {
-            // Time to instantiate Objects
-            for(int i = 0; i < loadData.objectName.Count; i++)
-            {
-                //Find original GameObject from prefabs
-                GameObject targetObject = prefabs.Find(obj => obj.Result.name == loadData.objectName[i]).Result;
-                Debug.Log(targetObject);
-                if (targetObject != null)
-                {
-                    var instance = Instantiate(targetObject, loadData.objectPos[i], loadData.objectRot[i], parentTransform);
-                    instance.transform.SetParent(parentTransform);
-                    if (!instance.GetComponent<Collider>())
-                    {
-                        instance.AddComponent<MeshCollider>();
-                    }
-                    instance.AddComponent<Outline>();
-                    instance.GetComponent<Outline>().enabled = false;
-                }
-            }
-        }
-
-    }
     #endregion
 }

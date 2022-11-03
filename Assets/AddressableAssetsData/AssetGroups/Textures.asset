@@ -21,62 +21,62 @@ MonoBehaviour:
     m_Address: cloth_1
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: 06d346647450a0d4688aa76e20b03d78
     m_Address: cloth_2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: 4acc9fdd66048cb4e96d08ca021d5f41
     m_Address: cloth_3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: 8742cf5389ec13846ae404783db50532
     m_Address: cloth_4
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: b8daff8b7c3733a4c89e2dc3cbd49222
     m_Address: cloth_5
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: 5b23a0b3534da9b44975ad134ad8033a
     m_Address: floor
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: e062115192ae44040b73f45112562490
     m_Address: floor_nm
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: e985334e4a9d3ab448b77393b5c06265
     m_Address: wood_1
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: 2d3f16073f817e74ca26282b96b3593b
     m_Address: wood_2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: b85f57159dd296e40941510cbde61814
     m_Address: wood_3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: a2a56db6421bc114ab94a5e145006cd6
     m_Address: StoveTop
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   - m_GUID: 9a1a78cd418cf1747abdb83401565c91
     m_Address: Texture
     m_ReadOnly: 0
     m_SerializedLabels:
-    - textures
+    - texture
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 39d1e5c5c0b84d145bbb2fc7c85eb2df, type: 2}
   m_SchemaSet:
