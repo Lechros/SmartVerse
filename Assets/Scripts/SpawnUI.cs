@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -12,6 +13,13 @@ using Unity.VisualScripting;
 using cakeslice;
 using Outline = cakeslice.Outline;
 
+[Serializable]
+public class ObjectData
+{
+    public List<string> objectName = new List<string>();
+    public List<Vector3> objectPos = new List<Vector3>();
+    public List<Quaternion> objectRot = new List<Quaternion>();
+}
 public class SpawnUI : MonoBehaviour
 {
     // Label of Addressables that we need to load
@@ -23,10 +31,21 @@ public class SpawnUI : MonoBehaviour
     // Now elements in prefabs need .Result before get text, transform or anything
     private List<AsyncOperationHandle<GameObject>> prefabs = new List<AsyncOperationHandle<GameObject>>();
 
+    // Directory to save
+    private string saveDirectory;
+    private string saveFileNameHead = "world";
+
     void Start()
     {
+        //Save and Load
+        saveDirectory = Application.dataPath + "/WorldSave/";
+        if (!Directory.Exists(saveDirectory)) Directory.CreateDirectory(saveDirectory);
+
+        //Button Initialization
         ButtonsOnAwake();
         Ready.AddListener(OnAssetsReady);
+
+        //Addressables(Prefabs and Textures) Initialization
         StartCoroutine(InitAddressables());
         //InitButton will be activated after InitAddressables invoke Ready.
     }
@@ -87,6 +106,8 @@ public class SpawnUI : MonoBehaviour
     public GameObject pageText;
     public GameObject leftPageButton;
     public GameObject rightPageButton;
+    public GameObject saveButton;
+    public GameObject loadButton;
     public GameObject leaveButton;
     public UnityEvent Ready;
 
@@ -106,6 +127,8 @@ public class SpawnUI : MonoBehaviour
         rightPageButton.GetComponent<Button>().interactable = false;
         rightPageButton.GetComponent<Button>().onClick.AddListener(() => OnMovePageClick(1));
         leaveButton.GetComponent<Button>().onClick.AddListener(OnLeaveButtonClick);
+        loadButton.GetComponent<Button>().onClick.AddListener(OnLoadButtonClick);
+        saveButton.GetComponent<Button>().onClick.AddListener(OnSaveButtonClick);
     }
 
     void ButtonsOnStart()
@@ -168,6 +191,15 @@ public class SpawnUI : MonoBehaviour
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
+    void OnSaveButtonClick()
+    {
+        SaveObjects();
+    }
+
+    void OnLoadButtonClick()
+    {
+        LoadObjects();
+    }
     bool TrySetPage(int page)
     {
         if(!CanSetPageTo(page))
@@ -183,6 +215,8 @@ public class SpawnUI : MonoBehaviour
         return true;
     }
 
+
+
     #endregion
 
     #region Addressables
@@ -193,7 +227,6 @@ public class SpawnUI : MonoBehaviour
         yield return _locations;
 
         var loadOps = new List<AsyncOperationHandle>(_locations.Result.Count);
-        Debug.Log(_locations.Result.Count);
 
         // Now we have locations for each Addressables, load assets
         foreach(IResourceLocation location in _locations.Result)
@@ -315,5 +348,69 @@ public class SpawnUI : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region SaveLoad
+
+    private ObjectData saveData = new ObjectData();
+    private ObjectData loadData = new ObjectData();
+
+    void DestroyAllObjects()
+    {
+        var parentTransform = objectParent.transform;
+        if (parentTransform.childCount > 0)
+        {
+            for (int i = 0; i < parentTransform.childCount; i++)
+            {
+                var child = parentTransform.GetChild(i).gameObject;
+                Destroy(child);
+            }
+        }
+    }
+    void SaveObjects()
+    {
+        var parentTransform = objectParent.transform;
+        if (parentTransform.childCount > 0) {
+            for (int i = 0; i < parentTransform.childCount; i++)
+            {
+                var child = parentTransform.GetChild(i).gameObject;
+                saveData.objectName.Add(child.name);
+                saveData.objectPos.Add(child.transform.position);
+                saveData.objectRot.Add(child.transform.rotation);
+            }
+            string json = JsonUtility.ToJson(saveData);
+            string fullPath = saveDirectory + saveFileNameHead + ".json";
+            File.WriteAllText(fullPath, json);
+        }
+    }
+
+    void LoadObjects()
+    {
+        // Variables
+        var parentTransform = objectParent.transform;
+        string fullPath = saveDirectory + saveFileNameHead + ".json";
+        string json = File.ReadAllText(fullPath);
+        loadData = JsonUtility.FromJson<ObjectData>(json);
+
+        //Destroy All Objects First
+        DestroyAllObjects();
+
+        // Is data clean?
+        if (loadData.objectName.Count == loadData.objectPos.Count && loadData.objectPos.Count == loadData.objectRot.Count)
+        {
+            // Time to instantiate Objects
+            for(int i = 0; i < loadData.objectName.Count; i++)
+            {
+                //Find original GameObject from prefabs
+                GameObject targetObject = prefabs.Find(obj => obj.Result.name == loadData.objectName[i]).Result;
+                Debug.Log(targetObject);
+                if (targetObject != null)
+                {
+                    Instantiate(targetObject, loadData.objectPos[i], loadData.objectRot[i], parentTransform);
+                }
+            }
+        }
+
+    }
     #endregion
 }
