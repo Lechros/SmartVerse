@@ -370,17 +370,23 @@ public class SpawnUI : MonoBehaviour
     void SaveObjects()
     {
         var parentTransform = objectParent.transform;
-        if (parentTransform.childCount > 0) {
-            for (int i = 0; i < parentTransform.childCount; i++)
-            {
-                var child = parentTransform.GetChild(i).gameObject;
-                saveData.objectName.Add(child.name);
-                saveData.objectPos.Add(child.transform.position);
-                saveData.objectRot.Add(child.transform.rotation);
-            }
-            string json = JsonUtility.ToJson(saveData);
-            string fullPath = saveDirectory + saveFileNameHead + ".json";
+        for (int i = 0; i < parentTransform.childCount; i++)
+        {
+            var child = parentTransform.GetChild(i).gameObject;
+            saveData.objectName.Add(child.name);
+            saveData.objectPos.Add(child.transform.position);
+            saveData.objectRot.Add(child.transform.rotation);
+        }
+        string json = JsonUtility.ToJson(saveData);
+        string fullPath = saveDirectory + saveFileNameHead + ".json";
+        try
+        {
             File.WriteAllText(fullPath, json);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            return;
         }
     }
 
@@ -390,7 +396,16 @@ public class SpawnUI : MonoBehaviour
         var parentTransform = objectParent.transform;
         string fullPath = saveDirectory + saveFileNameHead + ".json";
         string json = File.ReadAllText(fullPath);
-        loadData = JsonUtility.FromJson<ObjectData>(json);
+        try
+        {
+            loadData = JsonUtility.FromJson<ObjectData>(json);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            return;
+        }
+
 
         //Destroy All Objects First
         DestroyAllObjects();
@@ -406,7 +421,14 @@ public class SpawnUI : MonoBehaviour
                 Debug.Log(targetObject);
                 if (targetObject != null)
                 {
-                    Instantiate(targetObject, loadData.objectPos[i], loadData.objectRot[i], parentTransform);
+                    var instance = Instantiate(targetObject, loadData.objectPos[i], loadData.objectRot[i], parentTransform);
+                    instance.transform.SetParent(parentTransform);
+                    if (!instance.GetComponent<Collider>())
+                    {
+                        instance.AddComponent<MeshCollider>();
+                    }
+                    instance.AddComponent<Outline>();
+                    instance.GetComponent<Outline>().enabled = false;
                 }
             }
         }
