@@ -1,89 +1,32 @@
-using System.Linq;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
-using UnityEngine.Events;
-using System.Collections;
 using cakeslice;
+using System;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    public Transform objectParent;
+    AddressableManager addressableManager;
 
-    // Label of Addressables that we need to load
-    public AssetLabelReference assetLabel;
+    [SerializeField]
+    Transform objectParent;
+    [SerializeField]
+    Transform tempObjectParent;
 
-    public IList<GameObject> prefabs;
-    Dictionary<string, GameObject> prefabsIndex;
+    public GameObject tempObject;
 
-    AsyncOperationHandle<IList<GameObject>> loadHandle;
-
-/*    // Now elements in prefabs need .Result before get text, transform or anything
-    List<AsyncOperationHandle<GameObject>> prefabs = new List<AsyncOperationHandle<GameObject>>();*/
-
-    public UnityEvent AssetReady;
-
-    public bool isLoaded = false;
-
-    void Awake()
+    public void Constructor(AddressableManager addressableManager)
     {
-        prefabs = new List<GameObject>();
-        AssetReady.AddListener(() => isLoaded = true);
-    }
-
-    public IEnumerator Start()
-    {
-        // Get locations of Addressables here
-        var locations = Addressables.LoadResourceLocationsAsync(assetLabel.labelString);
-        yield return locations;
-
-        loadHandle = Addressables.LoadAssetsAsync<GameObject>(locations.Result, (a) => { });
-
-        yield return loadHandle;
-
-        prefabs = loadHandle.Result;
-        BuildPrefabsIndex();
-
-        /*        List<AsyncOperationHandle> handles = new();
-
-                // Now we have locations for each Addressables, load assets
-                foreach(IResourceLocation location in locations.Result)
-                {
-                    AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(location);
-                    handle.Completed += (obj) => prefabs.Add(handle);
-                    handles.Add(handle);
-                }
-                yield return Addressables.ResourceManager.CreateGenericGroupOperation(handles, true);*/
-
-        // We are now ready for Initiate buttons
-        AssetReady.Invoke();
-    }
-
-    private void OnDestroy()
-    {
-        Addressables.Release(loadHandle);
-    }
-
-    public GameObject Spawn(string name)
-    {
-        return Spawn(name, Vector3.zero, Quaternion.identity);
+        this.addressableManager = addressableManager;
     }
 
     public GameObject Spawn(string name, Vector3 position, Quaternion rotation)
     {
-        if(!prefabsIndex.TryGetValue(name, out GameObject prefab))
+        if(!addressableManager.TryGetPrefab(name, out GameObject prefab))
         {
             return null;
         }
 
         return Spawn(prefab, position, rotation);
-    }
-
-    public GameObject Spawn(GameObject original)
-    {
-        return Spawn(original, original.transform.position, original.transform.rotation);
     }
 
     public GameObject Spawn(GameObject original, Vector3 position, Quaternion rotation)
@@ -96,29 +39,88 @@ public class ObjectManager : MonoBehaviour
         var obj = Instantiate(original, position, rotation, parent);
 
         obj.name = original.name;
-        obj.layer = parent.gameObject.layer;
 
+        obj.layer = parent.gameObject.layer;
         if(!obj.GetComponent<Collider>())
         {
             obj.AddComponent<MeshCollider>();
+        }
+        foreach(Transform child in obj.transform)
+        {
+            child.gameObject.layer = parent.gameObject.layer;
+            if(!child.GetComponent<Collider>())
+            {
+                child.AddComponent<MeshCollider>();
+            }
         }
         obj.AddComponent<Outline>().enabled = false;
 
         return obj;
     }
 
+    public GameObject SpawnTempObject(GameObject original, Vector3 position, Quaternion rotation)
+    {
+        DestoryTempObject();
+
+        tempObject = Spawn(original, position, rotation, tempObjectParent);
+
+        tempObject.GetComponent<Outline>().enabled = true;
+
+        return tempObject;
+    }
+
+    public bool PlaceTempObject()
+    {
+        if(!tempObject)
+        {
+            return false;
+        }
+
+        SetParentAndLayer(tempObject, objectParent);
+        tempObject.GetComponent<Outline>().enabled = false;
+        tempObject = null;
+        return true;
+    }
+
+    public bool DestoryTempObject()
+    {
+        if(!tempObject)
+        {
+            return false;
+        }
+
+        Destroy(tempObject);
+        tempObject = null;
+        return true;
+    }
+
+    public bool IsSpawnedObject(Transform transform)
+    {
+        return transform.IsChildOf(objectParent);
+    }
+
+    public GameObject GetRootObject(GameObject gameObject)
+    {
+        if(!IsSpawnedObject(gameObject.transform))
+        {
+            return gameObject;
+        }
+
+        Transform transform = gameObject.transform;
+        while(transform.parent != objectParent)
+        {
+            transform = transform.parent;
+        }
+        return transform.gameObject;
+    }
+
     public void SetParentAndLayer(GameObject child, Transform parent)
     {
         child.transform.SetParent(parent.transform);
         child.gameObject.layer = parent.gameObject.layer;
-    }
-
-    void BuildPrefabsIndex()
-    {
-        prefabsIndex = new Dictionary<string, GameObject>();
-        foreach(var prefab in prefabs)
+        foreach(Transform gChild in child.transform)
         {
-            prefabsIndex.TryAdd(prefab.name, prefab);
+            gChild.gameObject.layer = parent.gameObject.layer;
         }
     }
 }

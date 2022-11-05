@@ -107,6 +107,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - prefab
+  - m_GUID: 925a146030dab184892bca63c1fe0274
+    m_Address: cloth_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 39d1e5c5c0b84d145bbb2fc7c85eb2df, type: 2}
   m_SchemaSet:

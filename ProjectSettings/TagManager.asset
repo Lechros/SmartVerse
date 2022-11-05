@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Void
+  - EditCollider
   layers:
   - Default
   - TransparentFX

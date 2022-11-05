@@ -11,9 +11,15 @@ public class SaveManager : MonoBehaviour
     static string SAVE_FOLDER = "Worlds";
     public static string SavePath { get; private set; }
 
-    public ObjectManager ObjectManager;
+    [SerializeField]
+    Transform objectParent;
 
-    public Transform objectParent;
+    ObjectManager objectManager;
+
+    public void Constructor(ObjectManager objectManager)
+    {
+        this.objectManager = objectManager;
+    }
 
     private void Awake()
     {
@@ -70,7 +76,7 @@ public class SaveManager : MonoBehaviour
 
         foreach(var obj in world.objects)
         {
-            ObjectManager.Spawn(obj.name, obj.position, obj.rotation);
+            objectManager.Spawn(obj.name, obj.position, obj.rotation);
         }
 
         return true;
