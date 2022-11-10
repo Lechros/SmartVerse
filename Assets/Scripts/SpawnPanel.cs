@@ -34,7 +34,7 @@ public class SpawnPanel : MonoBehaviour, IPanel
         interactionManager = SingletonManager.instance.interactionManager;
 
         ButtonsOnAwake();
-        addressableManager.prefabReady.AddListener(ButtonsOnStart);
+        addressableManager.listReady.AddListener(ButtonsOnStart);
     }
     
     void Update()

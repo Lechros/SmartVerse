@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -17,36 +18,53 @@ public class AddressableManager : MonoBehaviour
 
     [SerializeField]
     AssetLabelReference prefabLabel;
+    [SerializeField]
+    AssetLabelReference materialLabel;
+
     public IList<GameObject> prefabs;
+    public IList<Material> materials;
     [HideInInspector]
-    public UnityEvent prefabReady;
+    public UnityEvent listReady;
     [HideInInspector]
-    public bool isPrefabLoaded = false;
+    public bool isListLoaded = false;
 
     Dictionary<string, GameObject> prefabsIndex;
+    Dictionary<string, Material> materialIndex;
     AsyncOperationHandle<IList<GameObject>> loadHandle;
+    AsyncOperationHandle<IList<Material>> materialHandle;
 
     public void Constructor() { }
 
     void Awake()
     {
-        prefabReady.AddListener(() => isPrefabLoaded = true);
+        listReady.AddListener(() => isListLoaded = true);
     }
 
     public IEnumerator Start()
     {
         // Get locations of Addressables here
-        var locations = Addressables.LoadResourceLocationsAsync(prefabLabel.labelString);
-        yield return locations;
+        var prefab_locations = Addressables.LoadResourceLocationsAsync(prefabLabel.labelString);
+        yield return prefab_locations;
 
-        loadHandle = Addressables.LoadAssetsAsync<GameObject>(locations.Result, (a) => { });
+        loadHandle = Addressables.LoadAssetsAsync<GameObject>(prefab_locations.Result, (a) => { });
         yield return loadHandle;
 
         prefabs = loadHandle.Result;
+
+        var material_locations = Addressables.LoadResourceLocationsAsync(materialLabel.labelString);
+        yield return material_locations;
+
+        materialHandle = Addressables.LoadAssetsAsync<Material>(material_locations.Result, (a) => { });
+        yield return materialHandle;
+
+        materials = materialHandle.Result;
+
+
         BuildPrefabsIndex();
+        BuildTexturesIndex();
 
         // We are now ready for Initiate buttons
-        prefabReady.Invoke();
+        listReady.Invoke();
     }
 
     private void OnDestroy()
@@ -65,6 +83,15 @@ public class AddressableManager : MonoBehaviour
         foreach(var prefab in prefabs)
         {
             prefabsIndex.TryAdd(prefab.name, prefab);
+        }
+    }
+
+    void BuildTexturesIndex()
+    {
+        materialIndex = new Dictionary<string, Material>();
+        foreach (var material in materials)
+        {
+            materialIndex.TryAdd(material.name, material);
         }
     }
 }
