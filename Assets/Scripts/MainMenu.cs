@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour
 
     void OnCharEditButtonClick()
     {
-        // SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("CharEditScene", LoadSceneMode.Single);
     }
     void OnExitButtonClick()
     {
