@@ -44,11 +44,11 @@ public class SpawnPanel : MonoBehaviour, IPanel
             var obj = objectManager.tempObject;
 
             // Rotate cursor object (Must be before move to ensure no glitching frame)
-            if(Input.GetKeyDown(KeyCode.Q))
+            if(Input.GetKeyDown(KeyCode.Z))
             {
                 obj.transform.Rotate(Vector3.up, -30);
             }
-            if(Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKeyDown(KeyCode.X))
             {
                 obj.transform.Rotate(Vector3.up, 30);
             }

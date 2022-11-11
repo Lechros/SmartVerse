@@ -5,15 +5,13 @@ using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
 {
-    InteractionManager interactionManager;
+    static readonly int StartTab = 0;
 
     [SerializeField]
     List<TabPanel> tabPanels = new List<TabPanel>();
 
     void Awake()
     {
-        interactionManager = SingletonManager.instance.interactionManager;
-
         foreach(TabPanel tp in tabPanels)
         {
             tp.tab.onValueChanged.AddListener((call) => PanelSetActive(tp.panel, call));
@@ -27,7 +25,7 @@ public class TabManager : MonoBehaviour
         {
             tp.panel.SetActive(false);
         }
-        SetTab(2);
+        SetTab(StartTab);
     }
 
     void PanelSetActive(GameObject panel, bool call)
