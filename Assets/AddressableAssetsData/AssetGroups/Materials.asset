@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Materials
+  m_EditorClassIdentifier: 
+  m_GroupName: Materials
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 717ff1cf805785e469d46c7e3fc00e9f
+  m_SerializeEntries:
+  - m_GUID: 925a146030dab184892bca63c1fe0274
+    m_Address: cloth_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: d8920ac2ca276b7499ac8c00bdf5fbc8
+    m_Address: bed1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: d1a39f9a5dcebb343b003dbf2caf1d63
+    m_Address: bed2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: fbe3b40107ec370468ffa5062af311ea
+    m_Address: 12 - Default
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: d8f4052b91b762347b808acd0daef4a9
+    m_Address: 18 - Default
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 0c55d4ae09569a04e90ec2e1f9e814f9
+    m_Address: glass
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 6481cd78347cf9143be28ea0d8e353c7
+    m_Address: wall
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: d2e0e8a83d787c341a2bcf7afe475d42
+    m_Address: 12 - Default
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: c50b7926dfc877a4181e893febe49a7e
+    m_Address: fonas1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 1bc221fceb34586459ba6ae1ed591959
+    m_Address: wallpaper
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: c421f6023c85c174bb30a1fcf090af7c
+    m_Address: Material #35
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: ce10802fb73da18439a79c6d38bc6e25
+    m_Address: floor
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 0646241ed45a4584496c9f961b9fc144
+    m_Address: Material #47
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 430f0e4de0a4f814c9e18f04833b5771
+    m_Address: okno
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: db3b42d38dcb41147b9a270dec49a21b
+    m_Address: up
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 5b5e6b42a30a82e449fd787865b58a3d
+    m_Address: floor
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: d11b72c7d1cbeff4e8ff9794cdb5f062
+    m_Address: wall2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 8f35e825251e22f428131d8b214b4a93
+    m_Address: wallpaper
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 9aca3cac790e78f49aa255c2efa10daf
+    m_Address: texture
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 6e6ad01b38823a24f9bf58056de9efef
+    m_Address: printer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: a0ac5b90895077743a3196de11276987
+    m_Address: screen
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 4eb757cb0fc539d4f87bfe06c2a35c21
+    m_Address: sek2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 26021274ef3a7314b9f0df5fc9678ac0
+    m_Address: sek1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: b3b5395afc760c04da69a48b948d6525
+    m_Address: ruch
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 8d54a38647251354a9756ef4864e4e67
+    m_Address: bx5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: da10c0ded77b4284e9101c1ef05e3f2d
+    m_Address: speaker
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: 809a31aaed7d3364eab636c8a903e622
+    m_Address: tumba_texture
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  - m_GUID: eb523bd2fd654e74d9674bc7998f223b
+    m_Address: tv_tex
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - material
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 39d1e5c5c0b84d145bbb2fc7c85eb2df, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e67ff167bdb5a8c43ba4237da4a6cf62, type: 2}
+    - {fileID: 11400000, guid: a03cace037a0bdc46a0d95a414fcfca1, type: 2}

@@ -41348,7 +41348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2188d32b87989c4ca916bfca6032645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCursorHit: 0
+  isCursorHit: 1
   objectClick:
     m_PersistentCalls:
       m_Calls: []
@@ -41367,10 +41367,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabLabel:
     m_LabelString: prefab
-  prefabReady:
+  materialLabel:
+    m_LabelString: material
+  listReady:
     m_PersistentCalls:
       m_Calls: []
-  isPrefabLoaded: 0
+  isListLoaded: 0
 --- !u!114 &2051918464
 MonoBehaviour:
   m_ObjectHideFlags: 0
