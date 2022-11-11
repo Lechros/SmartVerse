@@ -172,6 +172,11 @@ public class EditPanel : MonoBehaviour, IPanel
         editObject = target;
         editObject.GetComponent<Outline>().color = 2;
         editObject.GetComponent<Outline>().enabled = true;
+        foreach(Transform child in editObject.transform)
+        {
+            child.GetComponent<Outline>().color = 2;
+            child.GetComponent<Outline>().enabled = true;
+        }
 
         renderOffset = Utils.GetRenderOffset(editObject);
         objectName.SetText(GetObjectNameText());
@@ -184,6 +189,10 @@ public class EditPanel : MonoBehaviour, IPanel
         if(!editObject) return;
 
         editObject.GetComponent<Outline>().enabled = false;
+        foreach(Transform child in editObject.transform)
+        {
+            child.GetComponent<Outline>().enabled = false;
+        }
         editObject = null;
     }
 

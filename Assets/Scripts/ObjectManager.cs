@@ -39,6 +39,8 @@ public class ObjectManager : MonoBehaviour
 
         obj.name = original.name;
 
+        MeshEditor.SplitSubMesh(obj);
+
         obj.layer = parent.gameObject.layer;
         if(!obj.GetComponent<Collider>())
         {
@@ -52,7 +54,12 @@ public class ObjectManager : MonoBehaviour
                 child.AddComponent<MeshCollider>();
             }
         }
+
         obj.AddComponent<Outline>().enabled = false;
+        foreach(Transform child in obj.transform)
+        {
+            child.AddComponent<Outline>().enabled = false;
+        }
 
         return obj;
     }
@@ -64,6 +71,10 @@ public class ObjectManager : MonoBehaviour
         tempObject = Spawn(original, position, rotation, tempObjectParent);
 
         tempObject.GetComponent<Outline>().enabled = true;
+        foreach(Transform child in tempObject.transform)
+        {
+            child.GetComponent<Outline>().enabled = true;
+        }
 
         return tempObject;
     }
@@ -77,6 +88,10 @@ public class ObjectManager : MonoBehaviour
 
         SetParentAndLayer(tempObject, objectParent);
         tempObject.GetComponent<Outline>().enabled = false;
+        foreach(Transform child in tempObject.transform)
+        {
+            child.GetComponent<Outline>().enabled = false;
+        }
         tempObject = null;
         return true;
     }
