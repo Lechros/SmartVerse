@@ -44,12 +44,12 @@ public class SaveManager : MonoBehaviour
         List<SvObject> objects = new List<SvObject>();
         foreach(Transform child in objectParent)
         {
-            child.gameObject.GetComponent<Renderer>().material.name = child.gameObject.GetComponent<Renderer>().material.name.Replace(" (Instance)", "");
-            SvObject tempObject = new SvObject(child.gameObject.name, child.position, child.rotation, new SvMaterial(child.gameObject.GetComponent<Renderer>().material));
+            //child.gameObject.GetComponent<Renderer>().material.name = child.gameObject.GetComponent<Renderer>().material.name.Replace(" (Instance)", "");
+            SvObject tempObject = new SvObject(child.gameObject.name, child.position, child.rotation, new SvMaterial(child.gameObject.GetComponent<Renderer>().sharedMaterial));
             foreach (Transform nestedchild in child)
             {
-                nestedchild.gameObject.GetComponent<Renderer>().material.name = nestedchild.gameObject.GetComponent<Renderer>().material.name.Replace(" (Instance)", "");
-                var tempMaterial = new SvMaterial(nestedchild.gameObject.GetComponent<Renderer>().material);
+                //nestedchild.gameObject.GetComponent<Renderer>().material.name = nestedchild.gameObject.GetComponent<Renderer>().material.name.Replace(" (Instance)", "");
+                var tempMaterial = new SvMaterial(nestedchild.gameObject.GetComponent<Renderer>().sharedMaterial);
                 tempObject.sublist.Add(new SubObject(nestedchild.gameObject.name, tempMaterial));
             }
             objects.Add(tempObject);
