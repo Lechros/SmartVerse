@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -111,18 +107,18 @@ public class MeshEditor : MonoBehaviour
         GameObject tempObject = Instantiate(gameObject);
         tempObject.name = gameObject.name;
         var meshFilter = tempObject.GetComponent<MeshFilter>();
-        var materials = tempObject.GetComponent<MeshRenderer>().materials;
+        var materials = tempObject.GetComponent<MeshRenderer>().sharedMaterials;
 
         if(meshFilter == null || meshFilter.sharedMesh == null)
         {
-            Debug.LogWarning("No mesh exists on this gameObject");
-            DestroyImmediate(tempObject);
+            // Debug.LogWarning("No mesh exists on this gameObject");
+            Destroy(tempObject);
             return;
         }
         if(meshFilter.sharedMesh.subMeshCount <= 1)
         {
-            Debug.LogWarning("Mesh has <= 1 submesh components. No additional extraction required.");
-            DestroyImmediate(tempObject);
+            // Debug.LogWarning("Mesh has <= 1 submesh components. No additional extraction required.");
+            Destroy(tempObject);
             return;
         }
 
@@ -133,6 +129,8 @@ public class MeshEditor : MonoBehaviour
         {
             var child = Instantiate(tempObject, gameObject.transform);
             child.name = $"{tempObject.name} Submesh {i}";
+            child.transform.localPosition = Vector3.zero;
+            child.transform.localRotation = Quaternion.identity;
             child.transform.localScale = Vector3.one;
             child.GetComponent<MeshFilter>().mesh = ExtractSubmesh(meshFilter.sharedMesh, i);
             child.GetComponent<MeshRenderer>().materials = new[] { materials[i] };

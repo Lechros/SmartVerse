@@ -21039,7 +21039,6 @@ GameObject:
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
-  - component: {fileID: 963194232}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -21192,19 +21191,6 @@ MonoBehaviour:
   outlineShaderMaterial: {fileID: 0}
   renderTexture: {fileID: 0}
   extraRenderTexture: {fileID: 0}
---- !u!114 &963194232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 344a297128965be4ba57bc4ef9035bdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageEffect: {fileID: 2100000, guid: b5bf5014863c2024e8d693fdd4e14fa1, type: 2}
 --- !u!1 &964674288
 GameObject:
   m_ObjectHideFlags: 0
@@ -35287,8 +35273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59aaf5c6485d1ea4bb0ad5b9d4932a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 531219355}
-  defaultUIMaterial: {fileID: 1121459921}
   texturePreview: {fileID: 396233478}
   oldColorPreview: {fileID: 744419778}
   colorPreview: {fileID: 511722035}
@@ -41304,6 +41288,7 @@ GameObject:
   - component: {fileID: 2051918462}
   - component: {fileID: 2051918461}
   - component: {fileID: 2051918460}
+  - component: {fileID: 2051918465}
   m_Layer: 0
   m_Name: SingletonManager
   m_TagString: Untagged
@@ -41407,6 +41392,21 @@ MonoBehaviour:
   objectManager: {fileID: 0}
   saveManager: {fileID: 0}
   interactionManager: {fileID: 0}
+  materialManager: {fileID: 0}
+--- !u!114 &2051918465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051918458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7dd5a4b036c0b49861c968bd64b01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorMaterial: {fileID: 2100000, guid: 1b7c55a99a0f69e4891358c15dc27dea, type: 2}
+  colorUIMaterial: {fileID: 2100000, guid: 5084197e1f26731489e4d7081638772a, type: 2}
 --- !u!1 &2060959491
 GameObject:
   m_ObjectHideFlags: 3

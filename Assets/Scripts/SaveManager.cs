@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using MaterialType = MaterialManager.MaterialType;
 
 public class SaveManager : MonoBehaviour
 {
@@ -11,19 +12,20 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     Transform objectParent;
 
-    ObjectManager objectManager;
     AddressableManager addressableManager;
+    ObjectManager objectManager;
+    MaterialManager materialManager;
 
-    public void Constructor(ObjectManager objectManager)
+    public void Constructor(AddressableManager addressableManager, ObjectManager objectManager, MaterialManager materialManager)
     {
+        this.addressableManager = addressableManager;
         this.objectManager = objectManager;
-        this.addressableManager = objectManager.addressableManager;
+        this.materialManager = materialManager;
     }
 
     private void Awake()
     {
         SavePath = Path.Join(Application.persistentDataPath, SAVE_FOLDER);
-        Debug.Log(SavePath);
     }
 
     void DestroyAllObjects()
@@ -40,21 +42,10 @@ public class SaveManager : MonoBehaviour
 
         // Build world data
         WorldData world = new WorldData(worldName);
-
-        List<SvObject> objects = new List<SvObject>();
         foreach(Transform child in objectParent)
         {
-            //child.gameObject.GetComponent<Renderer>().material.name = child.gameObject.GetComponent<Renderer>().material.name.Replace(" (Instance)", "");
-            SvObject tempObject = new SvObject(child.gameObject.name, child.position, child.rotation, new SvMaterial(child.gameObject.GetComponent<Renderer>().sharedMaterial));
-            foreach (Transform nestedchild in child)
-            {
-                //nestedchild.gameObject.GetComponent<Renderer>().material.name = nestedchild.gameObject.GetComponent<Renderer>().material.name.Replace(" (Instance)", "");
-                var tempMaterial = new SvMaterial(nestedchild.gameObject.GetComponent<Renderer>().sharedMaterial);
-                tempObject.sublist.Add(new SubObject(nestedchild.gameObject.name, tempMaterial));
-            }
-            objects.Add(tempObject);
+            world.objects.Add(ToSvObject(child));
         }
-        world.objects = objects.ToArray();
 
         // Save world data to file.
         string json = JsonUtility.ToJson(world);
@@ -82,44 +73,123 @@ public class SaveManager : MonoBehaviour
         //Destroy All Objects First
         DestroyAllObjects();
 
-        foreach(var obj in world.objects)
+        foreach(SvObject obj in world.objects)
         {
-            var instance = objectManager.Spawn(obj.name, obj.position, obj.rotation);
-            Material parentMat;
-            //if (FindMaterial(obj.material, out parentMat)) instance.GetComponent<Renderer>().material = parentMat;
-            foreach (Transform childObj in instance.transform)
+            GameObject gameObject = null;
+            try
             {
-                var matchObject = obj.sublist.Find(x => x.name == childObj.gameObject.name);
-                Material childMat;
-                //if (FindMaterial(matchObject.material, out childMat)) childObj.gameObject.GetComponent<Renderer>().material = childMat;
+                gameObject = SpawnFromSvObject(obj);
+            }
+            catch(InvalidDataException e)
+            {
+                Destroy(gameObject);
+                Debug.LogError($"Error on loading object: {obj.name}.\n" + e.Message);
             }
         }
 
         return true;
     }
-    /*
-    bool FindMaterial(SvMaterial svmat, out Material mat)
+
+    SvObject ToSvObject(Transform transform)
     {
-        Material foundMat;
-        if (svmat.name == "Standard")
+        SvObject obj = new SvObject(transform.name, transform.position, transform.rotation, GetSvMaterial(transform));
+        foreach(Transform child in transform)
         {
-            var selectedMaterial = new(defaultMaterial.GetComponent<Renderer>().material.shader);
-            selectedMaterial.color = colorPreview.color;
-            mat = new(selectedMaterial);
-            return true;
+            obj.children.Add(ToSubObject(child));
         }
-        else if (addressableManager.TryGetMaterial(svmat.name, out foundMat))
+        return obj;
+    }
+
+    SubObject ToSubObject(Transform transform)
+    {
+        SubObject obj = new SubObject(transform.name, GetSvMaterial(transform));
+        foreach(Transform child in transform)
         {
-            mat = foundMat;
-            return true;
+            obj.children.Add(ToSubObject(child));
         }
-        else
+        return obj;
+    }
+        
+    GameObject SpawnFromSvObject(SvObject svObject)
+    {
+        GameObject gameObject = objectManager.Spawn(svObject.name, svObject.position, svObject.rotation);
+        if(!gameObject)
         {
-            mat = null;
-            return false;
+            throw new InvalidDataException($"Unknown prefab name: {svObject.name}.");
+        }
+
+        ApplySvMaterial(svObject.material, gameObject);
+
+        for(int i = 0; i < svObject.children.Count; i++)
+        {
+            SubObject subObject = svObject.children[i];
+            Transform child = gameObject.transform.GetChild(i);
+            if(subObject.name != child.name)
+            {
+                throw new InvalidDataException($"Invalid child in object: {svObject.name}.");
+            }
+            ApplySubObject(subObject, child);
+        }
+        return gameObject;
+    }
+
+    void ApplySubObject(SubObject subObject, Transform target)
+    {
+        ApplySvMaterial(subObject.material, target.gameObject);
+
+        for(int i = 0; i < subObject.children.Count; i++)
+        {
+            SubObject subSubObject = subObject.children[i];
+            Transform child = target.transform.GetChild(i);
+            if(subSubObject.name != child.name)
+            {
+                throw new InvalidDataException($"Invalid child in object: {subObject.name}.");
+            }
+            ApplySubObject(subSubObject, child);
         }
     }
-    */
+
+    SvMaterial GetSvMaterial(Transform transform)
+    {
+        var type = transform.GetComponent<SvInfo>().materialType;
+        switch(type)
+        {
+            case MaterialType.Default:
+                return SvMaterial.Default;
+            case MaterialType.Addressable:
+                return new SvMaterial(transform.GetComponent<Renderer>().sharedMaterial.name);
+            case MaterialType.Color:
+                return new SvMaterial(transform.GetComponent<Renderer>().sharedMaterial.color);
+            default:
+                throw new Exception();
+        }
+    }
+
+    bool ApplySvMaterial(SvMaterial svMaterial, GameObject target)
+    {
+        Material material;
+        switch(svMaterial.type)
+        {
+            case MaterialType.Default:
+                return false;
+            case MaterialType.Addressable:
+                if(addressableManager.TryGetMaterial(svMaterial.name, out material))
+                {
+                    materialManager.SetMaterial(target, material, MaterialType.Addressable);
+                    return true;
+                }
+                else
+                {
+                    throw new InvalidDataException($"Unknown material name: {svMaterial.name}.");
+                }
+            case MaterialType.Color:
+                materialManager.SetMaterial(target, materialManager.GetColorMaterial(svMaterial.color), MaterialType.Color);
+                return true;
+            default:
+                throw new InvalidDataException($"Unknown material type: {svMaterial.type}.");
+        }
+    }
+
     string WorldNameToPath(string worldName) => Path.Join(SavePath, worldName + ".sv");
 
     [Serializable]
@@ -128,11 +198,11 @@ public class SaveManager : MonoBehaviour
         public WorldData(string name)
         {
             this.name = name;
-            this.objects = new SvObject[0];
+            this.objects = new List<SvObject>();
         }
 
         public string name;
-        public SvObject[] objects;
+        public List<SvObject> objects;
     }
 
     [Serializable]
@@ -144,14 +214,14 @@ public class SaveManager : MonoBehaviour
             this.position = position;
             this.rotation = rotation;
             this.material = material;
-            this.sublist = new List<SubObject>();
+            this.children = new List<SubObject>(0);
         }
 
         public string name;
         public Vector3 position;
         public Quaternion rotation;
         public SvMaterial material;
-        public List<SubObject> sublist;
+        public List<SubObject> children;
     }
 
     [Serializable]
@@ -161,28 +231,34 @@ public class SaveManager : MonoBehaviour
         {
             this.name = name;
             this.material = material;
+            this.children = new List<SubObject>(0);
         }
 
         public string name;
         public SvMaterial material;
+        public List<SubObject> children;
     }
 
     [Serializable]
     struct SvMaterial
     {
-        //If Material is found
-        public SvMaterial(Material material)
+        public static SvMaterial Default { get; } = new SvMaterial("");
+
+        public SvMaterial(string name)
         {
-            this.name = material.name;
-            this.color = material.color;
-        }
-        public SvMaterial(string str)
-        {
-            this.name = str;
-            this.color = new Color();
+            this.type = MaterialType.Addressable;
+            this.name = name;
+            this.color = Color.white;
         }
 
-        //If Material name is "Standard", not found
+        public SvMaterial(Color color)
+        {
+            this.type = MaterialType.Color;
+            this.name = "";
+            this.color = color;
+        }
+        
+        public MaterialType type;
         public string name;
         public Color color;
     }

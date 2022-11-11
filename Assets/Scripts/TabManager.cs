@@ -55,7 +55,6 @@ public class TabManager : MonoBehaviour
 
         tabPanels[index].tab.isOn = true;
         PanelSetActive(tabPanels[index].panel, true);
-        Debug.Log("Done set tab. " + tabPanels[index].panel.name + ": " + tabPanels[index].panel.activeSelf);
     }
 
     [Serializable]

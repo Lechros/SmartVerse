@@ -17,10 +17,6 @@ public class FloorPanel : MonoBehaviour, IPanel
     {
         worldSizeInput.characterValidation = TMP_InputField.CharacterValidation.Decimal;
         worldSizeInput.onEndEdit.AddListener(SetWorldSize);
-    }
-
-    void Start()
-    {
         worldSizeInput.text = worldSize.ToString();
         SetWorldSize(worldSize.ToString());
     }

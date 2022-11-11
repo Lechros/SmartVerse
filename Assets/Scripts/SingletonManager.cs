@@ -13,6 +13,8 @@ public class SingletonManager : MonoBehaviour
     public SaveManager saveManager;
     [HideInInspector]
     public InteractionManager interactionManager;
+    [HideInInspector]
+    public MaterialManager materialManager;
 
     void Awake()
     {
@@ -30,10 +32,12 @@ public class SingletonManager : MonoBehaviour
         objectManager = FindObjectOfType<ObjectManager>();
         saveManager = FindObjectOfType<SaveManager>();
         interactionManager = FindObjectOfType<InteractionManager>();
+        materialManager = FindObjectOfType<MaterialManager>();
 
         addressableManager.Constructor();
         objectManager.Constructor(addressableManager);
-        saveManager.Constructor(objectManager);
+        saveManager.Constructor(addressableManager, objectManager, materialManager);
         interactionManager.Constructor();
+        materialManager.Constructor(addressableManager);
     }
 }

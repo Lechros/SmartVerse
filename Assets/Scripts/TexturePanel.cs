@@ -9,11 +9,8 @@ public class TexturePanel : MonoBehaviour, IPanel
     AddressableManager addressableManager;
     ObjectManager objectManager;
     InteractionManager interactionManager;
+    MaterialManager materialManager;
 
-    [SerializeField]
-    Transform defaultMaterial;
-    [SerializeField]
-    Transform defaultUIMaterial;
     [SerializeField]
     RawImage texturePreview;
     [SerializeField]
@@ -33,10 +30,8 @@ public class TexturePanel : MonoBehaviour, IPanel
     int totalPages;
     int currentPage;
 
-    Shader standardShader;
-    Shader uiDefaultShader;
-
     Material selectedMaterial;
+    MaterialManager.MaterialType selectedType;
 
     List<RawImage> materialImages;
 
@@ -45,12 +40,10 @@ public class TexturePanel : MonoBehaviour, IPanel
         addressableManager = SingletonManager.instance.addressableManager;
         objectManager = SingletonManager.instance.objectManager;
         interactionManager = SingletonManager.instance.interactionManager;
+        materialManager = SingletonManager.instance.materialManager;
 
-        colorPreview.GetComponent<Button>().onClick.AddListener(SelectColorTexture);
-        interactionManager.objectClick.AddListener(ApplyTextureToObject);
-
-        standardShader = defaultMaterial.GetComponent<Renderer>().material.shader;
-        uiDefaultShader = defaultUIMaterial.GetComponent<Image>().material.shader;
+        colorPreview.GetComponent<Button>().onClick.AddListener(SelectColor);
+        interactionManager.objectClick.AddListener(SetObjectMaterial);
 
         ButtonsOnAwake();
         addressableManager.listReady.AddListener(ButtonsOnStart);
@@ -103,8 +96,7 @@ public class TexturePanel : MonoBehaviour, IPanel
             else
             {
                 var material = addressableManager.materials[materialIndex];
-                Material displayMaterial = new(material);
-                displayMaterial.shader = uiDefaultShader;
+                var displayMaterial = materialManager.ConvertToUIMaterial(material);
                 imageButton.material = displayMaterial;
                 imageButton.GetComponent<Button>().onClick.AddListener(() => OnMaterialButtonClick(material, displayMaterial));
                 imageButton.GetComponent<Button>().interactable = true;
@@ -116,6 +108,38 @@ public class TexturePanel : MonoBehaviour, IPanel
     {
         selectedMaterial = material;
         texturePreview.material = displayMaterial;
+        selectedType = MaterialManager.MaterialType.Addressable;
+
+        interactionManager.cursorState = InteractionManager.CursorState.Texture;
+    }
+
+    void SetObjectMaterial()
+    {
+        if(interactionManager.cursorState != InteractionManager.CursorState.Texture)
+        {
+            return;
+        }
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        var obj = interactionManager.cursorHitInfo.collider.transform;
+        if(!objectManager.IsSpawnedObject(obj))
+        {
+            return;
+        }
+
+        materialManager.SetMaterial(obj.gameObject, selectedMaterial, selectedType);
+    }
+
+    void SelectColor()
+    {
+        oldColorPreview.color = colorPreview.color;
+        selectedMaterial = materialManager.GetColorMaterial(colorPreview.color);
+        texturePreview.material = materialManager.ConvertToUIMaterial(selectedMaterial);
+        selectedType = MaterialManager.MaterialType.Color;
+
         interactionManager.cursorState = InteractionManager.CursorState.Texture;
     }
 
@@ -145,39 +169,6 @@ public class TexturePanel : MonoBehaviour, IPanel
         {
             interactionManager.cursorState = InteractionManager.CursorState.Texture;
         }
-    }
-
-    void ApplyTextureToObject()
-    {
-        if(interactionManager.cursorState != InteractionManager.CursorState.Texture)
-        {
-            return;
-        }
-        if(EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
-
-        var obj = interactionManager.cursorHitInfo.collider.transform;
-        if(!objectManager.IsSpawnedObject(obj))
-        {
-            return;
-        }
-        obj.GetComponent<Renderer>().material = selectedMaterial;
-    }
-
-    void SelectColorTexture()
-    {
-        oldColorPreview.color = colorPreview.color;
-
-        selectedMaterial = new(standardShader);
-        selectedMaterial.color = colorPreview.color;
-
-        Material mat = new(selectedMaterial);
-        mat.shader = uiDefaultShader;
-        texturePreview.material = mat;
-
-        interactionManager.cursorState = InteractionManager.CursorState.Texture;
     }
 
     bool TrySetPage(int page)
