@@ -34,6 +34,18 @@ public class TabManager : MonoBehaviour
         panel.SetActive(call);
     }
 
+    public int GetActiveTabIndex()
+    {
+        for(int i = 0; i < tabPanels.Count; i++)
+        {
+            if(tabPanels[i].tab.isOn)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void SetTab(int index)
     {
         if(index < 0 && index >= tabPanels.Count)

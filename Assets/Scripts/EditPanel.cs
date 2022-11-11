@@ -154,7 +154,10 @@ public class EditPanel : MonoBehaviour, IPanel
         else
         {
             StopEditObject();
-            tabManager.SetTab(0);
+            if(tabManager.GetActiveTabIndex() == 1)
+            {
+                tabManager.SetTab(0);
+            }
         }
     }
 
