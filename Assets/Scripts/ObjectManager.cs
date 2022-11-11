@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    AddressableManager addressableManager;
+    [HideInInspector]
+    public AddressableManager addressableManager;
 
     [SerializeField]
     Transform objectParent;

@@ -69,6 +69,11 @@ public class AddressableManager : MonoBehaviour
         return prefabsIndex.TryGetValue(name, out prefab);
     }
 
+    public bool TryGetMaterial(string name, out Material material)
+    {
+        return materialIndex.TryGetValue(name, out material);
+    }
+
     void BuildPrefabsIndex()
     {
         prefabsIndex = new Dictionary<string, GameObject>();
