@@ -123,6 +123,10 @@ public class TexturePanel : MonoBehaviour, IPanel
         {
             return;
         }
+        if(!selectedMaterial)
+        {
+            return;
+        }
 
         var obj = interactionManager.cursorHitInfo.collider.transform;
         if(!objectManager.IsSpawnedObject(obj))
