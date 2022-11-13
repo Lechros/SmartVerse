@@ -1,5 +1,4 @@
 using cakeslice;
-using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -36,26 +35,32 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject Spawn(GameObject original, Vector3 position, Quaternion rotation, Transform parent)
     {
-        var obj = Instantiate(original, position, rotation, parent);
+        var newObject = Instantiate(original, position, rotation, parent);
 
-        obj.name = original.name;
+        newObject.name = original.name;
 
-        obj.layer = parent.gameObject.layer;
-        if(!obj.GetComponent<Collider>())
+        MeshEditor.SplitSubMesh(newObject);
+
+        newObject.layer = parent.gameObject.layer;
+        newObject.AddComponent<Outline>().enabled = false;
+        newObject.AddComponent<SvInfo>();
+        if(!newObject.GetComponent<Collider>())
         {
-            obj.AddComponent<MeshCollider>();
+            newObject.AddComponent<MeshCollider>();
         }
-        foreach(Transform child in obj.transform)
+
+        foreach(Transform child in newObject.transform)
         {
             child.gameObject.layer = parent.gameObject.layer;
+            child.AddComponent<Outline>().enabled = false;
+            child.AddComponent<SvInfo>();
             if(!child.GetComponent<Collider>())
             {
                 child.AddComponent<MeshCollider>();
             }
         }
-        obj.AddComponent<Outline>().enabled = false;
 
-        return obj;
+        return newObject;
     }
 
     public GameObject SpawnTempObject(GameObject original, Vector3 position, Quaternion rotation)
@@ -65,6 +70,10 @@ public class ObjectManager : MonoBehaviour
         tempObject = Spawn(original, position, rotation, tempObjectParent);
 
         tempObject.GetComponent<Outline>().enabled = true;
+        foreach(Transform child in tempObject.transform)
+        {
+            child.GetComponent<Outline>().enabled = true;
+        }
 
         return tempObject;
     }
@@ -78,6 +87,10 @@ public class ObjectManager : MonoBehaviour
 
         SetParentAndLayer(tempObject, objectParent);
         tempObject.GetComponent<Outline>().enabled = false;
+        foreach(Transform child in tempObject.transform)
+        {
+            child.GetComponent<Outline>().enabled = false;
+        }
         tempObject = null;
         return true;
     }

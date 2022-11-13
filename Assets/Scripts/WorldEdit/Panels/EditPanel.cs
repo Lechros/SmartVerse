@@ -31,8 +31,8 @@ public class EditPanel : MonoBehaviour, IPanel
 
     void Awake()
     {
-        objectManager = SingletonManager.instance.objectManager;
-        interactionManager = SingletonManager.instance.interactionManager;
+        objectManager = EditSingleton.instance.objectManager;
+        interactionManager = EditSingleton.instance.interactionManager;
 
         interactionManager.objectClick.AddListener(OnSelectObject);
         groundButton.onClick.AddListener(PutOnSurface);
@@ -93,7 +93,7 @@ public class EditPanel : MonoBehaviour, IPanel
             objectPosition.SetText(GetObjectPositionText());
 
             // Rotate cursor object
-            if(Input.GetKeyDown(KeyCode.Q))
+            if(Input.GetKeyDown(KeyCode.Z))
             {
                 Vector3 pivot = editObject.transform.position - editObject.transform.rotation * renderOffset;
                 editObject.transform.Rotate(Vector3.up, -30);
@@ -101,7 +101,7 @@ public class EditPanel : MonoBehaviour, IPanel
 
                 objectRotation.SetText(GetObjectRotationText());
             }
-            if(Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKeyDown(KeyCode.X))
             {
                 Vector3 pivot = editObject.transform.position - editObject.transform.rotation * renderOffset;
                 editObject.transform.Rotate(Vector3.up, 30);
@@ -154,7 +154,10 @@ public class EditPanel : MonoBehaviour, IPanel
         else
         {
             StopEditObject();
-            tabManager.SetTab(0);
+            if(tabManager.GetActiveTabIndex() == 1)
+            {
+                tabManager.SetTab(0);
+            }
         }
     }
 
@@ -169,6 +172,11 @@ public class EditPanel : MonoBehaviour, IPanel
         editObject = target;
         editObject.GetComponent<Outline>().color = 2;
         editObject.GetComponent<Outline>().enabled = true;
+        foreach(Transform child in editObject.transform)
+        {
+            child.GetComponent<Outline>().color = 2;
+            child.GetComponent<Outline>().enabled = true;
+        }
 
         renderOffset = Utils.GetRenderOffset(editObject);
         objectName.SetText(GetObjectNameText());
@@ -181,6 +189,10 @@ public class EditPanel : MonoBehaviour, IPanel
         if(!editObject) return;
 
         editObject.GetComponent<Outline>().enabled = false;
+        foreach(Transform child in editObject.transform)
+        {
+            child.GetComponent<Outline>().enabled = false;
+        }
         editObject = null;
     }
 

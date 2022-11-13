@@ -14,7 +14,7 @@ public class SavePanel : MonoBehaviour, IPanel
 
     void Awake()
     {
-        saveManager = SingletonManager.instance.saveManager;
+        saveManager = EditSingleton.instance.saveManager;
 
         saveButton.GetComponent<Button>().onClick.AddListener(() => saveManager.Save("TempWorld"));
         loadButton.GetComponent<Button>().onClick.AddListener(() => saveManager.Load("TempWorld"));

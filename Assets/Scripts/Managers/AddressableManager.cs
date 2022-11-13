@@ -8,14 +8,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class AddressableManager : MonoBehaviour
 {
-/*    [SerializeField]
-    AssetLabelReference textureLabel;
-    public IList<GameObject> textures;
-    [HideInInspector]
-    public UnityEvent textureReady;
-    [HideInInspector]
-    public bool isTextureLoaded = false;*/
-
     [SerializeField]
     AssetLabelReference prefabLabel;
     [SerializeField]
@@ -30,8 +22,8 @@ public class AddressableManager : MonoBehaviour
 
     Dictionary<string, GameObject> prefabsIndex;
     Dictionary<string, Material> materialIndex;
-    AsyncOperationHandle<IList<GameObject>> loadHandle;
-    AsyncOperationHandle<IList<Material>> materialHandle;
+    AsyncOperationHandle<IList<GameObject>> prefabLoadHandle;
+    AsyncOperationHandle<IList<Material>> materialLoadHandle;
 
     public void Constructor() { }
 
@@ -46,19 +38,18 @@ public class AddressableManager : MonoBehaviour
         var prefab_locations = Addressables.LoadResourceLocationsAsync(prefabLabel.labelString);
         yield return prefab_locations;
 
-        loadHandle = Addressables.LoadAssetsAsync<GameObject>(prefab_locations.Result, (a) => { });
-        yield return loadHandle;
+        prefabLoadHandle = Addressables.LoadAssetsAsync<GameObject>(prefab_locations.Result, (a) => { });
+        yield return prefabLoadHandle;
 
-        prefabs = loadHandle.Result;
+        prefabs = prefabLoadHandle.Result;
 
         var material_locations = Addressables.LoadResourceLocationsAsync(materialLabel.labelString);
         yield return material_locations;
 
-        materialHandle = Addressables.LoadAssetsAsync<Material>(material_locations.Result, (a) => { });
-        yield return materialHandle;
+        materialLoadHandle = Addressables.LoadAssetsAsync<Material>(material_locations.Result, (a) => { });
+        yield return materialLoadHandle;
 
-        materials = materialHandle.Result;
-
+        materials = materialLoadHandle.Result;
 
         BuildPrefabsIndex();
         BuildTexturesIndex();
@@ -69,12 +60,18 @@ public class AddressableManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Addressables.Release(loadHandle);
+        Addressables.Release(prefabLoadHandle);
+        Addressables.Release(materialLoadHandle);
     }
 
     public bool TryGetPrefab(string name, out GameObject prefab)
     {
         return prefabsIndex.TryGetValue(name, out prefab);
+    }
+
+    public bool TryGetMaterial(string name, out Material material)
+    {
+        return materialIndex.TryGetValue(name, out material);
     }
 
     void BuildPrefabsIndex()

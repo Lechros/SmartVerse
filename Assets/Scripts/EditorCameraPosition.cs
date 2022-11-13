@@ -1,9 +1,4 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class EditorCameraPosition : MonoBehaviour
 {
@@ -21,7 +16,7 @@ public class EditorCameraPosition : MonoBehaviour
     {
         Vector3 move = frontFacing.forward * Input.GetAxis("Vertical")
              + frontFacing.right * Input.GetAxis("Horizontal")
-             + Vector3.up * Input.GetAxis("Keyboard Y Axis");
+             + frontFacing.up * Input.GetAxis("Keyboard Y Axis");
         transform.position += Vector3.ClampMagnitude(move, 1) * moveSpeed * Time.deltaTime;
     }
 }
