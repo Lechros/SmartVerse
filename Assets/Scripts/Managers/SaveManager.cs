@@ -6,7 +6,6 @@ using MaterialType = MaterialManager.MaterialType;
 
 public class SaveManager : MonoBehaviour
 {
-    static string SAVE_FOLDER = "Worlds";
     public static string SavePath { get; private set; }
 
     [SerializeField]
@@ -25,7 +24,7 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        SavePath = Path.Join(Application.persistentDataPath, SAVE_FOLDER);
+        SavePath = GlobalVariables.SavePath;
     }
 
     void DestroyAllObjects()
@@ -38,7 +37,8 @@ public class SaveManager : MonoBehaviour
 
     public bool Save(string worldName)
     {
-        string path = WorldNameToPath(worldName);
+        string fullPath = WorldNameToPath(worldName);
+        string path = JoinPath(fullPath);
 
         // Build world data
         WorldData world = new WorldData(worldName);
@@ -53,6 +53,10 @@ public class SaveManager : MonoBehaviour
         {
             Directory.CreateDirectory(SavePath);
         }
+        if (!Directory.Exists(fullPath))
+        {
+            Directory.CreateDirectory(fullPath);
+        }
         File.WriteAllText(path, json);
 
         return true;
@@ -60,9 +64,10 @@ public class SaveManager : MonoBehaviour
 
     public bool Load(string worldName)
     {
-        string path = WorldNameToPath(worldName);
+        string fullPath = WorldNameToPath(worldName);
+        string path = JoinPath(fullPath);
 
-        if(!File.Exists(path))
+        if (!File.Exists(path))
         {
             return false;
         }
@@ -190,7 +195,8 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    string WorldNameToPath(string worldName) => Path.Join(SavePath, worldName + ".sv");
+    string WorldNameToPath(string worldName) => Path.Join(SavePath, worldName);
+    string JoinPath(string fullPath) => Path.Join(fullPath, "world.sv");
 
     [Serializable]
     struct WorldData
