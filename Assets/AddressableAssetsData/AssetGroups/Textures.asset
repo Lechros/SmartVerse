@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Textures
+  m_EditorClassIdentifier: 
+  m_GroupName: Textures
+  m_Data:
+    m_SerializedData: []
+  m_GUID: abcf4ab4a0a4238499ae0d7a72ffd9b6
+  m_SerializeEntries:
+  - m_GUID: db4265b11df6af1438db306cd16c60ee
+    m_Address: cloth_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: 06d346647450a0d4688aa76e20b03d78
+    m_Address: cloth_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: 4acc9fdd66048cb4e96d08ca021d5f41
+    m_Address: cloth_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: 8742cf5389ec13846ae404783db50532
+    m_Address: cloth_4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: b8daff8b7c3733a4c89e2dc3cbd49222
+    m_Address: cloth_5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: 5b23a0b3534da9b44975ad134ad8033a
+    m_Address: floor
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: e062115192ae44040b73f45112562490
+    m_Address: floor_nm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: e985334e4a9d3ab448b77393b5c06265
+    m_Address: wood_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: 2d3f16073f817e74ca26282b96b3593b
+    m_Address: wood_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: b85f57159dd296e40941510cbde61814
+    m_Address: wood_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: a2a56db6421bc114ab94a5e145006cd6
+    m_Address: StoveTop
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  - m_GUID: 9a1a78cd418cf1747abdb83401565c91
+    m_Address: Texture
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - texture
+    - textures
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 39d1e5c5c0b84d145bbb2fc7c85eb2df, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 160e691bea16ab04d862d7c2ed3eb9fd, type: 2}
+    - {fileID: 11400000, guid: af0de7d96e94e07499fd86d22d73c553, type: 2}
