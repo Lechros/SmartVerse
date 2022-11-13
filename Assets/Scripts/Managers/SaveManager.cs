@@ -37,6 +37,7 @@ public class SaveManager : MonoBehaviour
 
     public bool Save(string worldName)
     {
+        Debug.Log(SavePath);
         string fullPath = WorldNameToPath(worldName);
         string path = JoinPath(fullPath);
 
