@@ -164,9 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: NotoSansKR-Medium SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 1710806509
   material: {fileID: -4355181393355693563}
-  materialHashCode: 0
+  materialHashCode: 906543661
   m_Version: 1.1.0
   m_SourceFontFileGUID: ddd30ae81cb707941a85132f23c22b2d
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: ddd30ae81cb707941a85132f23c22b2d, type: 3}

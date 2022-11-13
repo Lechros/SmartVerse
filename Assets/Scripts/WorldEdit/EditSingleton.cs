@@ -40,5 +40,10 @@ public class EditSingleton : MonoBehaviour
         saveManager.Constructor(addressableManager, objectManager, materialManager);
         interactionManager.Constructor();
         materialManager.Constructor(addressableManager);
+
+        if (GlobalVariables.ChosenFile != null)
+        {
+            addressableManager.listReady.AddListener(() => saveManager.Load(GlobalVariables.ChosenFile));
+        }
     }
 }
