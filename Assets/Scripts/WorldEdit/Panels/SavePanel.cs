@@ -13,16 +13,16 @@ public class SavePanel : MonoBehaviour, IPanel
     Button loadButton;
     [SerializeField]
     InputField saveField;
-    private int type;
+    private submitType type;
     void Awake()
     {
         saveManager = EditSingleton.instance.saveManager;
-        type = -1;
+        type = submitType.None;
 
-        saveButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(0));
-        loadButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(1));
+        saveButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(submitType.Save, saveField));
+        loadButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(submitType.Load, saveField));
         saveField.onSubmit.AddListener(delegate { OnSubmit(saveField); });
-        saveField.onEndEdit.AddListener(delegate { OnEndEdit(); });
+        saveField.onEndEdit.AddListener(delegate { OnEndEdit(saveField); });
     }
 
     private void Update()
@@ -34,31 +34,46 @@ public class SavePanel : MonoBehaviour, IPanel
 
     }
 
-    public void OnButtonClick(int value)
+    public void OnButtonClick(submitType value, InputField input)
     {
         type = value;
-        saveField.gameObject.SetActive(true);
+        input.interactable = true;
+        input.text = GlobalVariables.ChosenFile;
     }
 
-    public void OnSubmit(InputField input)
+    public bool OnSubmit(InputField input)
     {
         switch (type)
         {
-            case 0:
-                if (Input.GetKeyDown(KeyCode.Return)) saveManager.Save(input.text);
+            case submitType.Save:
+                if (Input.GetKeyDown(KeyCode.Return)) 
+                    if (input.text != "") saveManager.Save(input.text);
                 break;
-            case 1:
-                if (Input.GetKeyDown(KeyCode.Return)) saveManager.Load(input.text);
+            case submitType.Load:
+                if (Input.GetKeyDown(KeyCode.Return))
+                    if (input.text != "") saveManager.Load(input.text);
                 break;
             default:
                 break;
         }
-        saveField.gameObject.SetActive(false);
-        type = -1;
+        type = submitType.None;
+        input.interactable = false;
+        input.text = null;
+        return true;
     }
-    public void OnEndEdit()
+    public bool OnEndEdit(InputField input)
     {
-        saveField.gameObject.SetActive(false);
-        type = -1;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            type = submitType.None;
+            input.interactable = false;
+            input.text = null;
+        }
+        return true;
+    }
+
+    public enum submitType
+    {
+        None, Save, Load
     }
 }
