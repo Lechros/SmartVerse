@@ -1,9 +1,10 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SingletonManager : MonoBehaviour
+public class EditSingleton : MonoBehaviour
 {
-    public static SingletonManager instance { get; private set; }
+    // a;
+    public static EditSingleton instance { get; private set; }
 
     [HideInInspector]
     public AddressableManager addressableManager;
