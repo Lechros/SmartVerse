@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     public GameObject WorldEditButton;
     public GameObject CharEditButton;
     public GameObject ExitButton;
+    public GameObject MapList;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,9 @@ public class MainMenu : MonoBehaviour
 
     void OnWorldEditButtonClick()
     {
-        SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
+        //SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
+        gameObject.SetActive(false);
+        MapList.SetActive(true);
     }
 
     void OnCharEditButtonClick()
