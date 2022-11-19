@@ -249,7 +249,12 @@ public class SaveManager : MonoBehaviour
     [Serializable]
     struct SvMaterial
     {
-        public static SvMaterial Default { get; } = new SvMaterial("");
+        public static SvMaterial Default { get; } = new SvMaterial
+        {
+            type = MaterialType.Default,
+            name = "",
+            color = Color.white
+        };
 
         public SvMaterial(string name)
         {
