@@ -31,8 +31,8 @@ public class EditPanel : MonoBehaviour, IPanel
 
     void Awake()
     {
-        objectManager = EditSingleton.instance.objectManager;
-        interactionManager = EditSingleton.instance.interactionManager;
+        objectManager = EditSceneManager.instance.objectManager;
+        interactionManager = EditSceneManager.instance.interactionManager;
 
         interactionManager.objectClick.AddListener(OnSelectObject);
         groundButton.onClick.AddListener(PutOnSurface);

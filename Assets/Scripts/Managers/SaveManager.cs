@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using MaterialType = MaterialManager.MaterialType;
 
@@ -33,6 +34,12 @@ public class SaveManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public static IEnumerable<string> GetWorldDirectories()
+    {
+        DirectoryInfo di = new(GlobalVariables.SavePath);
+        return di.GetDirectories().Select(subDir => subDir.Name);
     }
 
     public bool Save(string worldName)

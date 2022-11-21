@@ -1,10 +1,9 @@
-using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class ThirdPersonMovement : NetworkBehaviour
+public class ThirdPersonMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Transform frontFacing;
@@ -22,22 +21,22 @@ public class ThirdPersonMovement : NetworkBehaviour
     private void Start()
     {
         frontFacing = Camera.main.transform;
-        if(isLocalPlayer)
+/*        if(isLocalPlayer)
         {
             var thirdPersonCam_cmFreeLook = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
             thirdPersonCam_cmFreeLook.Follow = this.transform;
             thirdPersonCam_cmFreeLook.LookAt = this.transform;
             cameraSwitch = GameObject.Find("State Driven Camera").GetComponent<CameraSwitch>();
-        }
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isLocalPlayer)
+/*        if(!isLocalPlayer)
         {
             return;
-        }
+        }*/
 
         if(ShouldMove())
         {

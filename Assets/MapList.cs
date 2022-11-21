@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,12 +12,12 @@ public class MapList : MonoBehaviour
     public GameObject backButton;
     public GameObject scrollParent;
     public GameObject MainMenu;
+
     void Start()
     {
-        DirectoryInfo di = new DirectoryInfo(GlobalVariables.SavePath);
-        foreach (DirectoryInfo subDir in di.GetDirectories())
+        foreach (string worldDir in SaveManager.GetWorldDirectories())
         {
-            SpawnButton(subDir.Name);
+            SpawnButton(worldDir);
         }
         //»õ ¿ùµå
         SpawnButton(null);

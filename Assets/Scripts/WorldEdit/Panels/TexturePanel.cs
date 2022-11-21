@@ -37,10 +37,10 @@ public class TexturePanel : MonoBehaviour, IPanel
 
     void Awake()
     {
-        addressableManager = EditSingleton.instance.addressableManager;
-        objectManager = EditSingleton.instance.objectManager;
-        interactionManager = EditSingleton.instance.interactionManager;
-        materialManager = EditSingleton.instance.materialManager;
+        addressableManager = EditSceneManager.instance.addressableManager;
+        objectManager = EditSceneManager.instance.objectManager;
+        interactionManager = EditSceneManager.instance.interactionManager;
+        materialManager = EditSceneManager.instance.materialManager;
 
         colorPreview.GetComponent<Button>().onClick.AddListener(SelectColor);
         interactionManager.objectClick.AddListener(SetObjectMaterial);

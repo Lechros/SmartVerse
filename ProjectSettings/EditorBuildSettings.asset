@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WorldEditScene.unity
     guid: 16aece87ccef3a74da426bd91db86afe
+  - enabled: 1
+    path: Assets/Scenes/Connect.unity
+    guid: 6997fb8f0817fde4480944f8342036f9
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 1f6ba3ca522913f41814e4c1642f4ddc
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 6ad0a337d96b58746be96b9031b0aed7, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 747cf1c7abeb10141bd3e30d18019f68, type: 2}

@@ -29,9 +29,9 @@ public class SpawnPanel : MonoBehaviour, IPanel
 
     void Awake()
     {
-        addressableManager = EditSingleton.instance.addressableManager;
-        objectManager = EditSingleton.instance.objectManager;
-        interactionManager = EditSingleton.instance.interactionManager;
+        addressableManager = EditSceneManager.instance.addressableManager;
+        objectManager = EditSceneManager.instance.objectManager;
+        interactionManager = EditSceneManager.instance.interactionManager;
 
         ButtonsOnAwake();
         addressableManager.listReady.AddListener(ButtonsOnStart);

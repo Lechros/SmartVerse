@@ -10,17 +10,14 @@ public class SavePanel : MonoBehaviour, IPanel
     [SerializeField]
     Button saveButton;
     [SerializeField]
-    Button loadButton;
-    [SerializeField]
     InputField saveField;
     private submitType type;
     void Awake()
     {
-        saveManager = EditSingleton.instance.saveManager;
+        saveManager = EditSceneManager.instance.saveManager;
         type = submitType.None;
 
         saveButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(submitType.Save, saveField));
-        loadButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(submitType.Load, saveField));
         saveField.onSubmit.AddListener(delegate { OnSubmit(saveField); });
         saveField.onEndEdit.AddListener(delegate { OnEndEdit(saveField); });
     }
