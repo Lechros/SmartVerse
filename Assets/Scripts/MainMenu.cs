@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnCharEditButtonClick()
     {
-        // SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("CharEditScene", LoadSceneMode.Single);
     }
 
     public void OnExitButtonClick()
