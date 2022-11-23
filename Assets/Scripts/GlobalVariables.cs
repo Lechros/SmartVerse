@@ -6,19 +6,19 @@ using UnityEngine;
 public class GlobalVariables : MonoBehaviour
 {
     static string SAVE_FOLDER = "Worlds";
-    public static string SavePath { get; private set; }
-    public static string ChosenFile;
-    // Start is called before the first frame update
-    void Start()
+    static string _savePath;
+    public static string SavePath
     {
-        ChosenFile = null;
-        DontDestroyOnLoad(gameObject);
-        SavePath = Path.Join(Application.persistentDataPath, SAVE_FOLDER);
+        get
+        {
+            if(_savePath == null)
+            {
+                _savePath = Path.Join(Application.persistentDataPath, SAVE_FOLDER);
+            }
+            return _savePath;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static string ChosenFile;
+
 }

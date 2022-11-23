@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EditSceneManager : MonoBehaviour
 {
@@ -45,5 +46,10 @@ public class EditSceneManager : MonoBehaviour
         {
             addressableManager.listReady.AddListener(() => saveManager.Load(GlobalVariables.ChosenFile));
         }
+    }
+
+    public void LeaveOnClick()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

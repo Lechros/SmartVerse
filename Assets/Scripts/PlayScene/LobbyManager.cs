@@ -19,7 +19,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     List<RoomItem> roomItems = new List<RoomItem>();
     public Transform contentObject;
 
-    public float tiemBetweenUpdates = 1.5f;
+    public float timeBetweenUpdates = 1.5f;
     float nextUpdateTime;
 
     private void Start()
@@ -84,7 +84,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if(Time.time >= nextUpdateTime)
         {
             UpdateRoomList(roomList);
-            nextUpdateTime = Time.time + tiemBetweenUpdates;
+            nextUpdateTime = Time.time + timeBetweenUpdates;
         }
     }
 

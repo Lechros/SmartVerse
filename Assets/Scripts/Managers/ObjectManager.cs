@@ -1,4 +1,6 @@
 using cakeslice;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -61,6 +63,24 @@ public class ObjectManager : MonoBehaviour
         }
 
         return newObject;
+    }
+
+    public IList<Transform> GetObjects()
+    {
+        List<Transform> list = new();
+        foreach(Transform t in objectParent)
+        {
+            list.Add(t);
+        }
+        return list;
+    }
+
+    public void DestroyAll()
+    {
+        foreach(Transform child in objectParent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     public GameObject SpawnTempObject(GameObject original, Vector3 position, Quaternion rotation)

@@ -9,9 +9,6 @@ public class SaveManager : MonoBehaviour
 {
     public static string SavePath { get; private set; }
 
-    [SerializeField]
-    Transform objectParent;
-
     AddressableManager addressableManager;
     ObjectManager objectManager;
     MaterialManager materialManager;
@@ -28,14 +25,6 @@ public class SaveManager : MonoBehaviour
         SavePath = GlobalVariables.SavePath;
     }
 
-    void DestroyAllObjects()
-    {
-        foreach(Transform child in objectParent)
-        {
-            Destroy(child.gameObject);
-        }
-    }
-
     public static IEnumerable<string> GetWorldDirectories()
     {
         DirectoryInfo di = new(GlobalVariables.SavePath);
@@ -44,49 +33,68 @@ public class SaveManager : MonoBehaviour
 
     public bool Save(string worldName)
     {
-        Debug.Log(SavePath);
-        string fullPath = WorldNameToPath(worldName);
-        string path = JoinPath(fullPath);
-
-        // Build world data
-        WorldData world = new WorldData(worldName);
-        foreach(Transform child in objectParent)
-        {
-            world.objects.Add(ToSvObject(child));
-        }
-
-        // Save world data to file.
-        string json = JsonUtility.ToJson(world);
-        if(!Directory.Exists(SavePath))
-        {
-            Directory.CreateDirectory(SavePath);
-        }
-        if (!Directory.Exists(fullPath))
-        {
-            Directory.CreateDirectory(fullPath);
-        }
-        File.WriteAllText(path, json);
-
-        return true;
+        return SaveWorldDataToFile(worldName, BuildWorldData(worldName));
     }
 
     public bool Load(string worldName)
     {
-        string fullPath = WorldNameToPath(worldName);
-        string path = JoinPath(fullPath);
-
-        if (!File.Exists(path))
+        if(!LoadWorldDataFromFile(worldName, out WorldData data))
         {
             return false;
         }
 
-        string json = File.ReadAllText(path);
-        WorldData world = JsonUtility.FromJson<WorldData>(json);
+        ApplyWorldData(data);
 
-        //Destroy All Objects First
-        DestroyAllObjects();
+        return true;
+    }
 
-        foreach(SvObject obj in world.objects)
+    public WorldData BuildWorldData(string worldName)
+    {
+        WorldData data = new WorldData(worldName);
+        foreach(Transform child in objectManager.GetObjects())
+        {
+            data.objects.Add(ToSvObject(child));
+        }
+        return data;
+    }
+
+    public bool SaveWorldDataToFile(string worldName, WorldData data)
+    {
+        string worldPath = WorldNameToPath(worldName);
+        string worldDataPath = Path.Join(worldPath, "world.sv");
+
+        // Save world data to file.
+        string json = JsonUtility.ToJson(data);
+        if(!Directory.Exists(worldPath))
+        {
+            Directory.CreateDirectory(worldPath);
+        }
+        File.WriteAllText(worldDataPath, json);
+
+        return true;
+    }
+
+    public bool LoadWorldDataFromFile(string worldName, out WorldData data)
+    {
+        string worldPath = WorldNameToPath(worldName);
+        string worldDataPath = Path.Join(worldPath, "world.sv");
+
+        if(!File.Exists(worldDataPath))
+        {
+            data = default;
+            return false;
+        }
+
+        string json = File.ReadAllText(worldDataPath);
+        data = JsonUtility.FromJson<WorldData>(json);
+        return true;
+    }
+
+    public bool ApplyWorldData(WorldData data)
+    {
+        objectManager.DestroyAll();
+
+        foreach(SvObject obj in data.objects)
         {
             GameObject gameObject = null;
             try
@@ -204,10 +212,9 @@ public class SaveManager : MonoBehaviour
     }
 
     string WorldNameToPath(string worldName) => Path.Join(SavePath, worldName);
-    string JoinPath(string fullPath) => Path.Join(fullPath, "world.sv");
 
     [Serializable]
-    struct WorldData
+    public struct WorldData
     {
         public WorldData(string name)
         {
@@ -220,7 +227,7 @@ public class SaveManager : MonoBehaviour
     }
 
     [Serializable]
-    struct SvObject
+    public struct SvObject
     {
         public SvObject(string name, Vector3 position, Quaternion rotation, SvMaterial material)
         {
@@ -239,7 +246,7 @@ public class SaveManager : MonoBehaviour
     }
 
     [Serializable]
-    struct SubObject
+    public struct SubObject
     {
         public SubObject(string name, SvMaterial material)
         {
@@ -254,7 +261,7 @@ public class SaveManager : MonoBehaviour
     }
 
     [Serializable]
-    struct SvMaterial
+    public struct SvMaterial
     {
         public static SvMaterial Default { get; } = new SvMaterial
         {
