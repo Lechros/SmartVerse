@@ -7,7 +7,6 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Transform frontFacing;
-    private CameraSwitch cameraSwitch;
 
     public float speed = 6;
     public float gravity = -9.81f;
@@ -30,18 +29,9 @@ public class ThirdPersonMovement : MonoBehaviour
         }*/
     }
 
-    // Update is called once per frame
     void Update()
     {
-/*        if(!isLocalPlayer)
-        {
-            return;
-        }*/
 
-        if(ShouldMove())
-        {
-            HandleMovement();
-        }
     }
 
     void HandleMovement()
@@ -60,10 +50,5 @@ public class ThirdPersonMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
-    }
-
-    bool ShouldMove()
-    {
-        return cameraSwitch.state == CameraSwitch.CameraState.Player;
     }
 }
