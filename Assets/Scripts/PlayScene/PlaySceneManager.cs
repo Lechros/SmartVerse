@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ public class PlaySceneManager : MonoBehaviour
     [HideInInspector]
     public MaterialManager materialManager;
 
+    [HideInInspector]
+    public AvatarManager avatarManager;
+
     void Awake()
     {
         if(instance != null && instance != this)
@@ -33,6 +37,7 @@ public class PlaySceneManager : MonoBehaviour
         objectManager = FindObjectOfType<ObjectManager>();
         saveManager = FindObjectOfType<SaveManager>();
         materialManager = FindObjectOfType<MaterialManager>();
+        avatarManager = FindObjectOfType<AvatarManager>();
 
         addressableManager.Constructor();
         objectManager.Constructor(addressableManager);
