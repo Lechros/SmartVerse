@@ -6,7 +6,11 @@ using UnityEngine;
 public class GlobalVariables : MonoBehaviour
 {
     static string SAVE_FOLDER = "Worlds";
+    static string CHARACTER_FOLDER = "Characters";
+    static string DATA_FOLDER = "Data";
     static string _savePath;
+    static string _characterPath;
+    static string _dataPath;
     public static string SavePath
     {
         get
@@ -19,8 +23,31 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
-    public static string ChosenWorld;
+    public static string CharacterPath
+    {
+        get
+        {
+            if (_characterPath == null)
+            {
+                _characterPath = Path.Join(Application.persistentDataPath, CHARACTER_FOLDER);
+            }
+            return _characterPath;
+        }
+    }
+    public static string DataPath
+    {
+        get
+        {
+            if (_dataPath == null)
+            {
+                _dataPath = Path.Join(Application.persistentDataPath, DATA_FOLDER);
+            }
+            return _dataPath;
+        }
+    }
 
+    public static string ChosenWorld;
+    public static string ChosenCharacter;
     public static bool ShouldLoadWorld;
 
 }
