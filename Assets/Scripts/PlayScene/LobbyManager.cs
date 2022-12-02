@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SubsystemsImplementation;
+using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -59,8 +60,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             table.Add("secret", roomPassword.text);
         }
-        // Some code to load world json and add to table
-        //table.Add("world", worldList)
+        // Load world json and add to table
+        string worldName = worldDropdown.options[worldDropdown.value].text;
+        SaveManager.LoadTextFromFile(worldName, out string dataJson);
+        table.Add("world", dataJson);
 
         RoomOptions roomOptions = new();
         roomOptions.MaxPlayers = 20;
@@ -71,12 +74,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             roomOptions.CustomRoomPropertiesForLobby = new string[] { "secret" };
         }
 
-        PhotonNetwork.CreateRoom(roomName.text);
+        PhotonNetwork.CreateRoom(roomName.text, roomOptions);
     }
 
     public override void OnJoinedRoom()
     {
         SceneManager.LoadScene("PlayScene");
+        GlobalVariables.ShouldLoadWorld = true;
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -112,6 +116,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClickLeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
+    }
+
+    public void OnClickExit()
+    {
+        PhotonNetwork.LeaveLobby();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public override void OnLeftRoom()

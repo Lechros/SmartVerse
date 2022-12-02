@@ -33,19 +33,17 @@ public class SaveManager : MonoBehaviour
 
     public bool Save(string worldName)
     {
-        return SaveWorldDataToFile(worldName, BuildWorldData(worldName));
+        return SaveTextToFile(worldName, WorldDataToJson(BuildWorldData(worldName)));
     }
 
     public bool Load(string worldName)
     {
-        if(!LoadWorldDataFromFile(worldName, out WorldData data))
+        if(!LoadTextFromFile(worldName, out string json))
         {
             return false;
         }
 
-        ApplyWorldData(data);
-
-        return true;
+        return ApplyWorldData(JsonToWorldData(json));
     }
 
     public WorldData BuildWorldData(string worldName)
@@ -58,36 +56,43 @@ public class SaveManager : MonoBehaviour
         return data;
     }
 
-    public bool SaveWorldDataToFile(string worldName, WorldData data)
+    public static bool SaveTextToFile(string worldName, string text)
     {
         string worldPath = WorldNameToPath(worldName);
         string worldDataPath = Path.Join(worldPath, "world.sv");
 
-        // Save world data to file.
-        string json = JsonUtility.ToJson(data);
         if(!Directory.Exists(worldPath))
         {
             Directory.CreateDirectory(worldPath);
         }
-        File.WriteAllText(worldDataPath, json);
+        File.WriteAllText(worldDataPath, text);
 
         return true;
     }
 
-    public bool LoadWorldDataFromFile(string worldName, out WorldData data)
+    public static bool LoadTextFromFile(string worldName, out string text)
     {
         string worldPath = WorldNameToPath(worldName);
         string worldDataPath = Path.Join(worldPath, "world.sv");
 
         if(!File.Exists(worldDataPath))
         {
-            data = default;
+            text = default;
             return false;
         }
 
-        string json = File.ReadAllText(worldDataPath);
-        data = JsonUtility.FromJson<WorldData>(json);
+        text = File.ReadAllText(worldDataPath);
         return true;
+    }
+
+    public static string WorldDataToJson(WorldData data)
+    {
+        return JsonUtility.ToJson(data);
+    }
+
+    public static WorldData JsonToWorldData(string json)
+    {
+        return JsonUtility.FromJson<WorldData>(json);
     }
 
     public bool ApplyWorldData(WorldData data)
@@ -211,7 +216,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    string WorldNameToPath(string worldName) => Path.Join(SavePath, worldName);
+    static string WorldNameToPath(string worldName) => Path.Join(SavePath, worldName);
 
     [Serializable]
     public struct WorldData

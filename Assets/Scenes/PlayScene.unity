@@ -20312,6 +20312,8 @@ GameObject:
   - component: {fileID: 1374667672}
   - component: {fileID: 1374667675}
   - component: {fileID: 1374667674}
+  - component: {fileID: 1374667677}
+  - component: {fileID: 1374667676}
   m_Layer: 0
   m_Name: PlaySceneManager
   m_TagString: Untagged
@@ -20331,6 +20333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6d42aef00cd1a438353c6a008dfe5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addressableManager: {fileID: 0}
+  objectManager: {fileID: 0}
+  saveManager: {fileID: 0}
+  materialManager: {fileID: 0}
 --- !u!4 &1374667673
 Transform:
   m_ObjectHideFlags: 0
@@ -20339,7 +20345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374667671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0072626, y: 4.3477364, z: 3.6479268}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20373,6 +20379,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834e5827c98284149930d767d5505e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1374667676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374667671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7dd5a4b036c0b49861c968bd64b01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorMaterial: {fileID: 2100000, guid: 1b7c55a99a0f69e4891358c15dc27dea, type: 2}
+  colorUIMaterial: {fileID: 2100000, guid: 5084197e1f26731489e4d7081638772a, type: 2}
+--- !u!114 &1374667677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374667671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02b3c670e5df6349b885ddd9af96ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabLabel:
+    m_LabelString: prefab
+  materialLabel:
+    m_LabelString: material
+  listReady:
+    m_PersistentCalls:
+      m_Calls: []
+  isListLoaded: 0
 --- !u!1 &1376706995
 GameObject:
   m_ObjectHideFlags: 3
@@ -22293,12 +22333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

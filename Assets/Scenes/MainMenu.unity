@@ -2327,7 +2327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26d760c93feab94fad5044cfd7d4033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapList: {fileID: 0}
+  MapList: {fileID: 1712889626}
   rot1: {x: 0, y: 0, z: 0, w: 1}
   rot2: {x: 0.2419219, y: 0, z: 0, w: 0.9702957}
 --- !u!114 &1771394625
