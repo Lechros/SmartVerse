@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Photon.Pun;
 
-public class ThirdPersonMovement : MonoBehaviour
+public class ThirdPersonMovement : MonoBehaviourPun
 {
     public CharacterController controller;
-    public Transform frontFacing;
+    Transform frontFacing;
 
     public float speed = 6;
     public float gravity = -9.81f;
@@ -20,22 +21,26 @@ public class ThirdPersonMovement : MonoBehaviour
     private void Start()
     {
         frontFacing = Camera.main.transform;
-/*        if(isLocalPlayer)
+        if(photonView.IsMine)
         {
-            var thirdPersonCam_cmFreeLook = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
-            thirdPersonCam_cmFreeLook.Follow = this.transform;
-            thirdPersonCam_cmFreeLook.LookAt = this.transform;
-            cameraSwitch = GameObject.Find("State Driven Camera").GetComponent<CameraSwitch>();
-        }*/
+            var freeLook = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
+            // freeLook.Follow = transform;
+            freeLook.LookAt = transform;
+        }
     }
 
     void Update()
     {
-
+        HandleMovement();
     }
 
     void HandleMovement()
     {
+        if(!photonView.IsMine && PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
         //walk
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
