@@ -46,7 +46,10 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
-    public static string ChosenFile;
+    public static string ChosenWorld;
+
     public static string ChosenCharacter;
+
+    public static bool ShouldLoadWorld;
 
 }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,20 +6,54 @@ using UnityEngine.SceneManagement;
 
 public class PlaySceneManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static PlaySceneManager instance { get; private set; }
+
+    [HideInInspector]
+    public AddressableManager addressableManager;
+    [HideInInspector]
+    public ObjectManager objectManager;
+    [HideInInspector]
+    public SaveManager saveManager;
+    [HideInInspector]
+    public MaterialManager materialManager;
+
+    void Awake()
     {
-        
+        if(instance != null && instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+
+        addressableManager = FindObjectOfType<AddressableManager>();
+        objectManager = FindObjectOfType<ObjectManager>();
+        saveManager = FindObjectOfType<SaveManager>();
+        materialManager = FindObjectOfType<MaterialManager>();
+
+        addressableManager.Constructor();
+        objectManager.Constructor(addressableManager);
+        saveManager.Constructor(addressableManager, objectManager, materialManager);
+        materialManager.Constructor(addressableManager);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-
+        if(GlobalVariables.ShouldLoadWorld)
+        {
+            string dataJson = PhotonNetwork.CurrentRoom.CustomProperties["world"] as string;
+            SaveManager.WorldData data = SaveManager.JsonToWorldData(dataJson);
+            addressableManager.listReady.AddListener(() => saveManager.ApplyWorldData(data));
+            GlobalVariables.ShouldLoadWorld = false;
+        }
     }
 
     public void LeaveOnClick()
     {
+        PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class EditSceneManager : MonoBehaviour
 {
-    // a;
     public static EditSceneManager instance { get; private set; }
 
     [HideInInspector]
@@ -42,9 +41,9 @@ public class EditSceneManager : MonoBehaviour
         interactionManager.Constructor();
         materialManager.Constructor(addressableManager);
 
-        if (GlobalVariables.ChosenFile != null)
+        if (GlobalVariables.ChosenWorld != null)
         {
-            addressableManager.listReady.AddListener(() => saveManager.Load(GlobalVariables.ChosenFile));
+            addressableManager.listReady.AddListener(() => saveManager.Load(GlobalVariables.ChosenWorld));
         }
     }
 

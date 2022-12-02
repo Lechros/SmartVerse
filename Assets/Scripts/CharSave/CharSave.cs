@@ -31,10 +31,6 @@ public class CharSave : MonoBehaviour
         saveField.onEndEdit.AddListener(delegate { OnEndEdit(saveField); });
     }
 
-    private void Update()
-    {
-    }
-
     public void OnSetActive(bool value)
     {
 
@@ -44,7 +40,7 @@ public class CharSave : MonoBehaviour
     {
         type = value;
         input.interactable = true;
-        input.text = GlobalVariables.ChosenFile;
+        input.text = GlobalVariables.ChosenWorld;
     }
 
     public bool OnSubmit(InputField input)

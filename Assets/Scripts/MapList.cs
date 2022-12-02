@@ -26,7 +26,7 @@ public class MapList : MonoBehaviour
 
     void OnDirectoryButtonClick(string worldName)
     {
-        GlobalVariables.ChosenFile = worldName;
+        GlobalVariables.ChosenWorld = worldName;
         SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
     }
 
