@@ -11,7 +11,7 @@ public class SaveManager : MonoBehaviour
 
     //For MapType
     public GameObject plane;
-    Renderer renderer;
+    Renderer planeRenderer;
     public List<Material> maptypes;
 
     AddressableManager addressableManager;
@@ -28,7 +28,7 @@ public class SaveManager : MonoBehaviour
     private void Awake()
     {
         SavePath = GlobalVariables.SavePath;
-        renderer = plane.GetComponent<Renderer>();
+        planeRenderer = plane.GetComponent<Renderer>();
         if (GlobalVariables.MapType != null)
         {
             ApplyMapTypeFromString(GlobalVariables.MapType);
@@ -42,7 +42,7 @@ public class SaveManager : MonoBehaviour
         if (targetMat == null) return false;
         else
         {
-            renderer.material = targetMat;
+            planeRenderer.material = targetMat;
             GlobalVariables.MapType = maptype;
         }
         return true;

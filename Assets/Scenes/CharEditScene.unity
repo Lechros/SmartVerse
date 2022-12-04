@@ -298,7 +298,6 @@ GameObject:
   - component: {fileID: 43846648}
   - component: {fileID: 43846647}
   - component: {fileID: 43846646}
-  - component: {fileID: 43846645}
   m_Layer: 5
   m_Name: No Button
   m_TagString: Untagged
@@ -327,18 +326,6 @@ RectTransform:
   m_AnchoredPosition: {x: 95, y: 41.230545}
   m_SizeDelta: {x: 125.15393, y: 30}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &43846645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 43846643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aaa175d0ef217e4a9db7d7547ec2fac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &43846646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,6 +1187,7 @@ GameObject:
   - component: {fileID: 335900572}
   - component: {fileID: 335900576}
   - component: {fileID: 335900577}
+  - component: {fileID: 335900578}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1330,6 +1318,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AvatarReferences: {fileID: 11400000, guid: 64fdaf6301ddadf4984fbd23b73c1671, type: 2}
+--- !u!114 &335900578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335900571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b3258c97e9a134ebc9e9711b9bbc91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveButton: {fileID: 1660576224}
+  loadButton: {fileID: 213774266}
+  saveField: {fileID: 909054285}
+  avatarInstance: {fileID: 2050411846241618745}
 --- !u!1 &363182422
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,7 +3213,6 @@ GameObject:
   - component: {fileID: 787681728}
   - component: {fileID: 787681727}
   - component: {fileID: 787681726}
-  - component: {fileID: 787681725}
   m_Layer: 5
   m_Name: Yes Button
   m_TagString: Untagged
@@ -3238,18 +3241,6 @@ RectTransform:
   m_AnchoredPosition: {x: -95, y: 41.230545}
   m_SizeDelta: {x: 125.15393, y: 30}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &787681725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787681723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aaa175d0ef217e4a9db7d7547ec2fac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &787681726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5384,7 +5375,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1247350339}
   - component: {fileID: 1247350340}
-  - component: {fileID: 1247350341}
   m_Layer: 5
   m_Name: Save Panel
   m_TagString: Untagged
@@ -5443,22 +5433,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1247350341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247350338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dcbf9f3058e7e045a2b42558a0df3e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveButton: {fileID: 1660576224}
-  loadButton: {fileID: 213774266}
-  saveField: {fileID: 909054285}
-  avatarInstance: {fileID: 2050411846241618745}
 --- !u!1 &1253734760
 GameObject:
   m_ObjectHideFlags: 0
@@ -9374,7 +9348,6 @@ GameObject:
   - component: {fileID: 2138858430}
   - component: {fileID: 2138858429}
   - component: {fileID: 2138858428}
-  - component: {fileID: 2138858431}
   m_Layer: 5
   m_Name: Leave Button
   m_TagString: Untagged
@@ -9447,9 +9420,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2138858431}
-        m_TargetAssemblyTypeName: CharEditLeave, Assembly-CSharp
-        m_MethodName: ButtonOnClick
+      - m_Target: {fileID: 335900578}
+        m_TargetAssemblyTypeName: CharEditorManager, Assembly-CSharp
+        m_MethodName: OnLeaveButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9497,18 +9470,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138858426}
   m_CullTransparentMesh: 1
---- !u!114 &2138858431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138858426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eba538f6451be94c9e5df44991a4e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &33678356723118203
 GameObject:
   m_ObjectHideFlags: 0

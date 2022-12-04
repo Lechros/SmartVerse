@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.IO;
 
-public class CharSave : MonoBehaviour
+public class CharEditorManager : MonoBehaviour
 {
-
     [SerializeField]
     Button saveButton;
     [SerializeField]
@@ -29,10 +29,11 @@ public class CharSave : MonoBehaviour
         loadButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(submitType.Load, saveField));
         saveField.onSubmit.AddListener(delegate { OnSubmit(saveField); });
         saveField.onEndEdit.AddListener(delegate { OnEndEdit(saveField); });
-    }
 
-    private void Update()
-    {
+        if (GlobalVariables.ChosenCharacter != null)
+        {
+            LoadChar(GlobalVariables.ChosenCharacter, avatarInstance);
+        }
     }
 
     public void OnSetActive(bool value)
@@ -110,9 +111,13 @@ public class CharSave : MonoBehaviour
     }
     string CharNameToPath(string charName) => Path.Join(SavePath, charName + ".sv");
 
-    
+
     public enum submitType
     {
         None, Save, Load
+    }
+    public void OnLeaveButtonClick()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

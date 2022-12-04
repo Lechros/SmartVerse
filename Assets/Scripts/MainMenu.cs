@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     public GameObject CharacterList;
     public GameObject selectCharButton;
     string dataPath;
-    CharSave charSave;
+    CharEditorManager charEditorManager;
     DataStruct data;
 
     
