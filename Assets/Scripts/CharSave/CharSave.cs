@@ -105,7 +105,7 @@ public class CharSave : MonoBehaviour
         }
 
         string json = File.ReadAllText(path);
-        avatarManager.ApplyCharacter(json, avatarManager.GetAvatarCustomization(character));
+        avatarManager.ApplyAvatarCustomization(json, avatarManager.GetAvatarCustomization(character));
         return true;
     }
     string CharNameToPath(string charName) => Path.Join(SavePath, charName + ".sv");

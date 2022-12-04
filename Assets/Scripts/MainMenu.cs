@@ -17,7 +17,6 @@ public class MainMenu : MonoBehaviour
     void Awake()
     {
         dataPath = new(GlobalVariables.DataPath);
-        Debug.Log(dataPath);
         LoadData();
     }
 

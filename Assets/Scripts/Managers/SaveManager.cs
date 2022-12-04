@@ -9,6 +9,11 @@ public class SaveManager : MonoBehaviour
 {
     public static string SavePath { get; private set; }
 
+    //For MapType
+    public GameObject plane;
+    Renderer renderer;
+    public List<Material> maptypes;
+
     AddressableManager addressableManager;
     ObjectManager objectManager;
     MaterialManager materialManager;
@@ -23,8 +28,25 @@ public class SaveManager : MonoBehaviour
     private void Awake()
     {
         SavePath = GlobalVariables.SavePath;
+        renderer = plane.GetComponent<Renderer>();
+        if (GlobalVariables.MapType != null)
+        {
+            ApplyMapTypeFromString(GlobalVariables.MapType);
+        }
     }
 
+
+    public bool ApplyMapTypeFromString(string maptype)
+    {
+        Material targetMat = maptypes.Find(x => x.name == maptype);
+        if (targetMat == null) return false;
+        else
+        {
+            renderer.material = targetMat;
+            GlobalVariables.MapType = maptype;
+        }
+        return true;
+    }
     public static IEnumerable<string> GetWorldDirectories()
     {
         DirectoryInfo di = new(GlobalVariables.SavePath);
@@ -50,7 +72,7 @@ public class SaveManager : MonoBehaviour
 
     public WorldData BuildWorldData(string worldName)
     {
-        WorldData data = new WorldData(worldName);
+        WorldData data = new WorldData(worldName, GlobalVariables.MapType);
         foreach(Transform child in objectManager.GetObjects())
         {
             data.objects.Add(ToSvObject(child));
@@ -107,7 +129,7 @@ public class SaveManager : MonoBehaviour
                 Debug.LogError($"Error on loading object: {obj.name}.\n" + e.Message);
             }
         }
-
+        ApplyMapTypeFromString(data.maptype);
         return true;
     }
 
@@ -216,13 +238,15 @@ public class SaveManager : MonoBehaviour
     [Serializable]
     public struct WorldData
     {
-        public WorldData(string name)
+        public WorldData(string name, string maptype)
         {
             this.name = name;
+            this.maptype = maptype;
             this.objects = new List<SvObject>();
         }
 
         public string name;
+        public string maptype;
         public List<SvObject> objects;
     }
 

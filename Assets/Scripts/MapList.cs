@@ -12,6 +12,7 @@ public class MapList : MonoBehaviour
     public GameObject backButton;
     public GameObject scrollParent;
     public GameObject MainMenu;
+    public GameObject MapTypeList;
 
     void Start()
     {
@@ -26,15 +27,22 @@ public class MapList : MonoBehaviour
 
     void OnDirectoryButtonClick(string worldName)
     {
-        GlobalVariables.ChosenFile = worldName;
-        SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
+        if (worldName == null)
+        {
+            gameObject.SetActive(false);
+            MapTypeList.SetActive(true);
+        }
+        else
+        {
+            GlobalVariables.ChosenFile = worldName;
+            SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
+        }
     }
 
     void OnBackButtonClick()
     {
         gameObject.SetActive(false);
         MainMenu.SetActive(true);
-
     }
 
     void SpawnButton(string worldName)

@@ -48,5 +48,6 @@ public class GlobalVariables : MonoBehaviour
 
     public static string ChosenFile;
     public static string ChosenCharacter;
+    public static string MapType;
 
 }

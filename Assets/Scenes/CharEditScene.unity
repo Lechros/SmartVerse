@@ -9446,7 +9446,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2138858429}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2138858431}
+        m_TargetAssemblyTypeName: CharEditLeave, Assembly-CSharp
+        m_MethodName: ButtonOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &2138858429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9494,7 +9506,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2138858426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aaa175d0ef217e4a9db7d7547ec2fac, type: 3}
+  m_Script: {fileID: 11500000, guid: 6eba538f6451be94c9e5df44991a4e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &33678356723118203
