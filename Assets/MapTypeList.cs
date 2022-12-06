@@ -14,7 +14,7 @@ public class MapTypeList : MonoBehaviour
 
     public void OnTypeButtonClick(string type)
     {
-        GlobalVariables.MapType = type;
+        GlobalVariables.SelectedWorldType = type;
         SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
     }
 }

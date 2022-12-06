@@ -1,6 +1,5 @@
 using cakeslice;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,9 +14,34 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject tempObject;
 
+    public Renderer floor;
+    public List<Material> worldTypes;
+
     public void Constructor(AddressableManager addressableManager)
     {
         this.addressableManager = addressableManager;
+    }
+
+    private void Start()
+    {
+        if(!string.IsNullOrEmpty(GlobalVariables.SelectedWorldType))
+        {
+            SetWorldType(GlobalVariables.SelectedWorldType);
+        }
+    }
+
+    public bool SetWorldType(string worldType)
+    {
+        Material material = worldTypes.Find(x => x.name == worldType);
+        if(!material)
+        {
+            return false;
+        }
+
+        floor.material = material;
+        GlobalVariables.SelectedWorldType = worldType;
+
+        return true;
     }
 
     public GameObject Spawn(string name, Vector3 position, Quaternion rotation)

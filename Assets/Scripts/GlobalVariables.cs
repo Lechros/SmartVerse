@@ -8,9 +8,8 @@ public class GlobalVariables : MonoBehaviour
     static string SAVE_FOLDER = "Worlds";
     static string CHARACTER_FOLDER = "Characters";
     static string DATA_FOLDER = "Data";
+
     static string _savePath;
-    static string _characterPath;
-    static string _dataPath;
     public static string SavePath
     {
         get
@@ -23,6 +22,7 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
+    static string _characterPath;
     public static string CharacterPath
     {
         get
@@ -34,6 +34,8 @@ public class GlobalVariables : MonoBehaviour
             return _characterPath;
         }
     }
+
+    static string _dataPath;
     public static string DataPath
     {
         get
@@ -47,7 +49,8 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public static string SelectedWorld;
-    public static string MapType;
+    public static string SelectedWorldType;
+
     public static bool ShouldLoadWorld;
 
     public static string SelectedAvatar;

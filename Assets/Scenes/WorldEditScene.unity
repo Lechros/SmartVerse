@@ -4642,7 +4642,7 @@ GameObject:
   - component: {fileID: 180170656}
   - component: {fileID: 180170655}
   m_Layer: 5
-  m_Name: Button 1
+  m_Name: Auditorium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4715,16 +4715,16 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1200625815}
         m_TargetAssemblyTypeName: FloorPanel, Assembly-CSharp
-        m_MethodName: SetFloorMaterial
-        m_Mode: 2
+        m_MethodName: SetWorldType
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 1aa8579752d26a04b8f588814768b714, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Auditorium
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
 --- !u!114 &180170656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21473,7 +21473,7 @@ GameObject:
   - component: {fileID: 819251494}
   - component: {fileID: 819251493}
   m_Layer: 5
-  m_Name: Button 2
+  m_Name: Classroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21546,14 +21546,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1200625815}
         m_TargetAssemblyTypeName: FloorPanel, Assembly-CSharp
-        m_MethodName: SetFloorMaterial
-        m_Mode: 2
+        m_MethodName: SetWorldType
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: c564f323aac796c4087b9800fdc63310, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Classroom
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &819251494
@@ -27010,7 +27010,7 @@ GameObject:
   - component: {fileID: 1019432572}
   - component: {fileID: 1019432571}
   m_Layer: 5
-  m_Name: Button 3
+  m_Name: Forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27083,14 +27083,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1200625815}
         m_TargetAssemblyTypeName: FloorPanel, Assembly-CSharp
-        m_MethodName: SetFloorMaterial
-        m_Mode: 2
+        m_MethodName: SetWorldType
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 1099a4d836030e24ba2936ec86875a6d, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Forest
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &1019432572
@@ -29719,7 +29719,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: "10 (Binding \uD574\uC57C\uD568)"
+  m_Text: 10
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -36096,7 +36096,7 @@ GameObject:
   - component: {fileID: 1435903687}
   - component: {fileID: 1435903686}
   m_Layer: 5
-  m_Name: Button 4
+  m_Name: Office
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36169,14 +36169,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1200625815}
         m_TargetAssemblyTypeName: FloorPanel, Assembly-CSharp
-        m_MethodName: SetFloorMaterial
-        m_Mode: 2
+        m_MethodName: SetWorldType
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 9b00a3d8bfc92d04aabaa693e886b675, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Office
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &1435903687
@@ -41137,7 +41137,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "10 (Binding \uD574\uC57C\uD568)\u200B"
+  m_text: "10\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 422ea2efef0b6a247afba7ca2f26706a, type: 2}
   m_sharedMaterial: {fileID: -7511948831074115586, guid: 422ea2efef0b6a247afba7ca2f26706a, type: 2}
@@ -51543,12 +51543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834e5827c98284149930d767d5505e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plane: {fileID: 250618345}
-  maptypes:
-  - {fileID: 2100000, guid: 1aa8579752d26a04b8f588814768b714, type: 2}
-  - {fileID: 2100000, guid: c564f323aac796c4087b9800fdc63310, type: 2}
-  - {fileID: 2100000, guid: 1099a4d836030e24ba2936ec86875a6d, type: 2}
-  - {fileID: 2100000, guid: 9b00a3d8bfc92d04aabaa693e886b675, type: 2}
 --- !u!114 &2051918461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51564,6 +51558,12 @@ MonoBehaviour:
   objectParent: {fileID: 1821814578}
   tempObjectParent: {fileID: 601184315}
   tempObject: {fileID: 0}
+  floor: {fileID: 250618347}
+  worldTypes:
+  - {fileID: 2100000, guid: 1aa8579752d26a04b8f588814768b714, type: 2}
+  - {fileID: 2100000, guid: c564f323aac796c4087b9800fdc63310, type: 2}
+  - {fileID: 2100000, guid: 1099a4d836030e24ba2936ec86875a6d, type: 2}
+  - {fileID: 2100000, guid: 9b00a3d8bfc92d04aabaa693e886b675, type: 2}
 --- !u!114 &2051918462
 MonoBehaviour:
   m_ObjectHideFlags: 0
