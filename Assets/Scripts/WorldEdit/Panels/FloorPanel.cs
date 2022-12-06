@@ -27,6 +27,11 @@ public class FloorPanel : MonoBehaviour, IPanel
         ground.localScale = new Vector3(worldSize / 10f, 1f, worldSize / 10f);
     }
 
+    public void SetFloorMaterial(Material mat)
+    {
+        ground.GetComponent<Renderer>().material = mat;
+    }
+
     public void OnSetActive(bool value)
     {
 

@@ -49,6 +49,7 @@ public class GlobalVariables : MonoBehaviour
     public static string ChosenWorld;
 
     public static string ChosenCharacter;
+    public static string MapType;
 
     public static bool ShouldLoadWorld;
 

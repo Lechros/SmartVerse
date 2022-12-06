@@ -11,11 +11,9 @@ public class CharacterList : MonoBehaviour
     public GameObject backButton;
     public GameObject scrollParent;
     public GameObject MainMenu;
-    string dataPath;
 
     void Start()
     {
-        dataPath = new(GlobalVariables.DataPath);
         foreach (string charDir in GetCharacterFiles())
         {
             SpawnButton(charDir);
@@ -56,6 +54,10 @@ public class CharacterList : MonoBehaviour
     public static IEnumerable<string> GetCharacterFiles()
     {
         DirectoryInfo di = new(GlobalVariables.CharacterPath);
+        if (!Directory.Exists(GlobalVariables.CharacterPath))
+        {
+            Directory.CreateDirectory(GlobalVariables.CharacterPath);
+        }
         return di.GetFiles("*.sv").Select(file => Path.GetFileNameWithoutExtension(file.Name));
     }
 
