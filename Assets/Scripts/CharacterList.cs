@@ -10,7 +10,7 @@ public class CharacterList : MonoBehaviour
     public GameObject templateButton;
     public GameObject backButton;
     public GameObject scrollParent;
-    public GameObject MainMenu;
+    public GameObject mainMenu;
 
     void Start()
     {
@@ -23,9 +23,9 @@ public class CharacterList : MonoBehaviour
         backButton.GetComponent<Button>().onClick.AddListener(OnBackButtonClick);
     }
 
-    void OnCharacterButtonClick(string charName)
+    void OnAvatarButtonClick(string avatarName)
     {
-        GlobalVariables.SelectedAvatar = charName;
+        mainMenu.GetComponent<MainMenu>().SelectAvatar(avatarName);
         ReturnToMainMenu();
     }
 
@@ -37,7 +37,7 @@ public class CharacterList : MonoBehaviour
     void ReturnToMainMenu()
     {
         gameObject.SetActive(false);
-        MainMenu.SetActive(true);
+        mainMenu.SetActive(true);
     }
 
     void SpawnButton(string charName)
@@ -48,7 +48,7 @@ public class CharacterList : MonoBehaviour
         newButton.transform.localScale = new Vector3(1, 1, 1);
         if (charName == null) newButton.GetComponentInChildren<Text>().text = "캐릭터 없음";
         else newButton.GetComponentInChildren<Text>().text = charName;
-        newButton.GetComponent<Button>().onClick.AddListener(() => OnCharacterButtonClick(charName));
+        newButton.GetComponent<Button>().onClick.AddListener(() => OnAvatarButtonClick(charName));
     }
 
     public static IEnumerable<string> GetCharacterFiles()

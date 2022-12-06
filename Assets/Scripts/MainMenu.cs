@@ -10,21 +10,15 @@ public class MainMenu : MonoBehaviour
     public GameObject CharacterList;
     public GameObject selectCharButton;
     string dataPath;
-    CharEditorManager charEditorManager;
-    GlobalConfig data;
-
 
     void Awake()
     {
         dataPath = new(GlobalVariables.DataPath);
-        LoadGlobalConfig();
     }
 
     private void Start()
     {
-        UpdateSelectedCharacter();
-        UpdateSelectButton();
-        SaveGlobalConfig();
+        LoadGlobalConfig();
     }
 
     public void OnStartButtonClick()
@@ -57,27 +51,17 @@ public class MainMenu : MonoBehaviour
         CharacterList.SetActive(true);
     }
 
-    void UpdateSelectedCharacter()
+    public void SelectAvatar(string avatar)
     {
-        data.SelectedAvatar = GlobalVariables.SelectedAvatar;
-    }
-
-    void UpdateSelectButton()
-    {
-        if(GlobalVariables.SelectedAvatar != null)
-        {
-            selectCharButton.GetComponentInChildren<Text>().text = GlobalVariables.SelectedAvatar;
-        }
-        else
-        {
-            selectCharButton.GetComponentInChildren<Text>().text = "(없음)";
-        }
+        GlobalVariables.SelectedAvatar = avatar;
+        selectCharButton.GetComponentInChildren<Text>().text = string.IsNullOrEmpty(avatar) ? "(없음)" : avatar;
     }
 
     public bool SaveGlobalConfig()
     {
+        Preferences pre = new Preferences() { SelectedAvatar = GlobalVariables.SelectedAvatar };
         string path = GetDataPath(dataPath);
-        string json = JsonUtility.ToJson(data);
+        string json = JsonUtility.ToJson(pre);
         if(!Directory.Exists(dataPath))
         {
             Directory.CreateDirectory(dataPath);
@@ -91,16 +75,17 @@ public class MainMenu : MonoBehaviour
         string path = GetDataPath(dataPath);
         if(!File.Exists(path))
         {
-            data = default;
             return false;
         }
         string json = File.ReadAllText(path);
-        data = JsonUtility.FromJson<GlobalConfig>(json);
-        GlobalVariables.SelectedAvatar = data.SelectedAvatar;
+        Preferences pre = JsonUtility.FromJson<Preferences>(json);
+
+        SelectAvatar(pre.SelectedAvatar);
+
         return true;
     }
 
-    public struct GlobalConfig
+    public struct Preferences
     {
         public string SelectedAvatar;
     }

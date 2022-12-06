@@ -1081,7 +1081,7 @@ MonoBehaviour:
   templateButton: {fileID: 66003348}
   backButton: {fileID: 363019744}
   scrollParent: {fileID: 1665432827}
-  MainMenu: {fileID: 1771394622}
+  mainMenu: {fileID: 1771394622}
 --- !u!1 &363019744
 GameObject:
   m_ObjectHideFlags: 0
