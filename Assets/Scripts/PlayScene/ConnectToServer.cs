@@ -17,6 +17,11 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         }
     }
 
+    public void OnCancelClick()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public override void OnConnectedToMaster()
     {
         SceneManager.LoadScene("Lobby");
