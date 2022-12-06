@@ -1,11 +1,12 @@
 using JetBrains.Annotations;
 using Photon.Pun;
+using Sunbox.Avatars;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlaySceneManager : MonoBehaviour
+public class PlaySceneManager : MonoBehaviour, IPunInstantiateMagicCallback
 {
     public static PlaySceneManager instance { get; private set; }
 
@@ -47,6 +48,43 @@ public class PlaySceneManager : MonoBehaviour
         materialManager.Constructor(addressableManager);
     }
 
+    private void Start()
+    {
+        if(GlobalVariables.ShouldLoadWorld)
+        {
+            string dataJson = PhotonNetwork.CurrentRoom.CustomProperties["world"] as string;
+            if(!string.IsNullOrEmpty(dataJson))
+            {
+                SaveManager.WorldData data = SaveManager.JsonToWorldData(dataJson);
+                addressableManager.listReady.AddListener(() => saveManager.ApplyWorldData(data));
+                GlobalVariables.ShouldLoadWorld = false;
+            }
+        }
+
+        if(ThirdPersonMovement.LocalPlayerInstance == null)
+        {
+            string charData = string.Empty;
+            if(!string.IsNullOrEmpty(GlobalVariables.ChosenCharacter))
+            {
+                charData = avatarManager.LoadCharData(GlobalVariables.ChosenCharacter);
+            }
+            object[] initData = new string[]
+            {
+                charData
+            };
+            PhotonNetwork.Instantiate(playerPrefab.name, Vector3.up * 5.0f, Quaternion.identity, 0, initData);
+        }
+    }
+
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        string avatarData = (string)info.photonView.InstantiationData[0];
+        if(!string.IsNullOrEmpty(avatarData))
+        {
+            avatarManager.ApplyCharacter(avatarData, info.photonView.gameObject.GetComponent<AvatarCustomization>());
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -55,6 +93,7 @@ public class PlaySceneManager : MonoBehaviour
 
     public void LeaveOnClick()
     {
+        Destroy(ThirdPersonMovement.LocalPlayerInstance);
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
     }

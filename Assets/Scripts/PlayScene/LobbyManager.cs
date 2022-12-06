@@ -79,8 +79,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        SceneManager.LoadScene("PlayScene");
         GlobalVariables.ShouldLoadWorld = true;
+        SceneManager.LoadScene("PlayScene");
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

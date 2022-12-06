@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Sunbox.Avatars;
 using UnityEngine;
+using System.IO;
 
 public class AvatarManager : MonoBehaviour
 {
@@ -13,6 +14,20 @@ public class AvatarManager : MonoBehaviour
         AvatarCustomization ac = instance.GetComponent<AvatarCustomization>();
         return ac;
     }
+
+    public string LoadCharData(string filename)
+    {
+        string path = CharNameToPath(filename);
+
+        if(!File.Exists(path))
+        {
+            return "";
+        }
+
+        string data = File.ReadAllText(path);
+        return data;
+    }
+    string CharNameToPath(string charName) => Path.Join(GlobalVariables.CharacterPath, charName + ".sv");
 
     public string GetConfigString(AvatarCustomization ac)
     {
