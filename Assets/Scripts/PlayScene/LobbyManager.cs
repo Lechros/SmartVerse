@@ -1,5 +1,7 @@
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -16,6 +18,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public TMP_InputField roomPassword;
     public TMP_Dropdown worldDropdown;
 
+    public GameObject enterPanel;
+    public TMP_InputField enteringRoomName;
+    public TMP_InputField enteringRoomPassword;
+
+    public GameObject errorText;
+
     public RoomItem roomItemPrefab;
     List<RoomItem> roomItems = new List<RoomItem>();
     public Transform contentObject;
@@ -26,6 +34,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         roomPanel.SetActive(false);
+        enterPanel.SetActive(false);
+        errorText.SetActive(false);
 
         worldDropdown.ClearOptions();
         worldDropdown.AddOptions(SaveManager.GetWorldDirectories().ToList());
@@ -36,6 +46,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClickOpenPanel()
     {
         roomPanel.SetActive(true);
+    }
+
+    public void OnClickOpenEnterPanel()
+    {
+        enterPanel.SetActive(true);
     }
 
     public void OnClickCancel()
@@ -77,10 +92,46 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(roomName.text, roomOptions);
     }
 
+    public void OnClickEnter()
+    {
+        if(enteringRoomName.text.Length == 0)
+        {
+            return;
+        }
+
+        PhotonNetwork.JoinRoom(enteringRoomName.text);
+    }
+
+    public void OnClickEnterCancel()
+    {
+        enteringRoomName.text = string.Empty;
+        enteringRoomPassword.text = string.Empty;
+        enterPanel.SetActive(false);
+    }
+
     public override void OnJoinedRoom()
     {
+        // check password
+        if(PhotonNetwork.CurrentRoom.PropertiesListedInLobby[0] == "secret")
+        {
+            string secret = (string)PhotonNetwork.CurrentRoom.CustomProperties["secret"];
+            if(!string.IsNullOrWhiteSpace(secret) && roomPassword.text != secret && enteringRoomPassword.text != secret)
+            {
+                errorText.SetActive(true);
+                StartCoroutine(HideErrorText());
+                PhotonNetwork.LeaveRoom();
+                return;
+            }
+        }
+
         GlobalVariables.ShouldLoadWorld = true;
         SceneManager.LoadScene("PlayScene");
+    }
+
+    IEnumerator HideErrorText()
+    {
+        yield return new WaitForSeconds(2f);
+        errorText.SetActive(false);
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -132,5 +183,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        errorText.SetActive(true);
+        StartCoroutine(HideErrorText());
+        OnClickCancel();
+        OnClickEnterCancel();
+        base.OnJoinRoomFailed(returnCode, message);
     }
 }
