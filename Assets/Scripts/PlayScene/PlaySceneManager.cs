@@ -21,6 +21,8 @@ public class PlaySceneManager : MonoBehaviour
     [HideInInspector]
     public AvatarManager avatarManager;
 
+    public GameObject playerPrefab;
+
     void Awake()
     {
         if(instance != null && instance != this)
@@ -53,6 +55,11 @@ public class PlaySceneManager : MonoBehaviour
             SaveManager.WorldData data = SaveManager.JsonToWorldData(dataJson);
             addressableManager.listReady.AddListener(() => saveManager.ApplyWorldData(data));
             GlobalVariables.ShouldLoadWorld = false;
+        }
+
+        if(ThirdPersonMovement.LocalPlayerInstance == null)
+        {
+            PhotonNetwork.Instantiate(playerPrefab.name, Vector3.up * 5.0f, Quaternion.identity, 0);
         }
     }
 

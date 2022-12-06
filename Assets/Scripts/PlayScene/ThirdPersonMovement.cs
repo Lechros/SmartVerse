@@ -18,13 +18,25 @@ public class ThirdPersonMovement : MonoBehaviourPun
     float turnSmoothVelocity;
     public float turnSmoothTime = 0.1f;
 
+    public static GameObject LocalPlayerInstance;
+
+    private void Awake()
+    {
+        if(photonView.IsMine)
+        {
+            LocalPlayerInstance = gameObject;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         frontFacing = Camera.main.transform;
         if(photonView.IsMine)
         {
             var freeLook = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
-            // freeLook.Follow = transform;
+            freeLook.Follow = transform;
             freeLook.LookAt = transform;
         }
     }
@@ -36,7 +48,7 @@ public class ThirdPersonMovement : MonoBehaviourPun
 
     void HandleMovement()
     {
-        if(!photonView.IsMine && PhotonNetwork.IsConnected)
+        if(!photonView.IsMine)
         {
             return;
         }

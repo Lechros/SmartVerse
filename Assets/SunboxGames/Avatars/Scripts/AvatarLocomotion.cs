@@ -1,10 +1,13 @@
 
+using Photon.Pun;
 using UnityEngine;
 
-namespace Sunbox.Avatars {
+namespace Sunbox.Avatars
+{
 
-    public class AvatarLocomotion : MonoBehaviour {
-        
+    public class AvatarLocomotion : MonoBehaviourPun
+    {
+
         public float MovementAcceleration = 1f;
         public float MovementDamping = 1f;
 
@@ -12,11 +15,17 @@ namespace Sunbox.Avatars {
 
         public Vector2 _inputVector;
 
-        void Start()  {
+        void Start()
+        {
             _avatar = GetComponent<AvatarCustomization>();
         }
 
-        void Update()  {
+        void Update()
+        {
+            if(!photonView.IsMine)
+            {
+                return;
+            }
 
             _inputVector.x = Mathf.MoveTowards(_inputVector.x, 0, Time.deltaTime * MovementDamping);
             _inputVector.y = Mathf.MoveTowards(_inputVector.y, 0, Time.deltaTime * MovementDamping);
@@ -32,15 +41,18 @@ namespace Sunbox.Avatars {
 
         }
 
-        public void Dance(){
+        public void Dance()
+        {
             _avatar.Animator.SetTrigger("Dance01");
         }
 
-        public void Wave(){
+        public void Wave()
+        {
             _avatar.Animator.SetTrigger("Wave");
         }
 
-        public void Clap(){
+        public void Clap()
+        {
             _avatar.Animator.SetTrigger("Clap");
         }
     }
