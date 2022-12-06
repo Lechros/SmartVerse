@@ -11,21 +11,22 @@ public class MainMenu : MonoBehaviour
     public GameObject selectCharButton;
     string dataPath;
     CharEditorManager charEditorManager;
-    DataStruct data;
+    GlobalConfig data;
 
-    
+
     void Awake()
     {
         dataPath = new(GlobalVariables.DataPath);
-        LoadData();
+        LoadGlobalConfig();
     }
 
-    void OnEnable()
+    private void Start()
     {
-        UpdateData();
+        UpdateSelectedCharacter();
         UpdateSelectButton();
-        SaveData();
+        SaveGlobalConfig();
     }
+
     public void OnStartButtonClick()
     {
         SceneManager.LoadScene("Connect", LoadSceneMode.Single);
@@ -44,9 +45,9 @@ public class MainMenu : MonoBehaviour
 
     public void OnExitButtonClick()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
         Application.Quit();
     }
 
@@ -56,23 +57,28 @@ public class MainMenu : MonoBehaviour
         CharacterList.SetActive(true);
     }
 
-    void UpdateData()
+    void UpdateSelectedCharacter()
     {
-        data.chosenCharacter = GlobalVariables.ChosenCharacter;
-    }
-    void UpdateSelectButton()
-    {
-        if (GlobalVariables.ChosenCharacter != null)
-            selectCharButton.GetComponentInChildren<Text>().text = GlobalVariables.ChosenCharacter;
-        else
-            selectCharButton.GetComponentInChildren<Text>().text = "없음";
+        data.SelectedAvatar = GlobalVariables.SelectedAvatar;
     }
 
-    public bool SaveData()
+    void UpdateSelectButton()
+    {
+        if(GlobalVariables.SelectedAvatar != null)
+        {
+            selectCharButton.GetComponentInChildren<Text>().text = GlobalVariables.SelectedAvatar;
+        }
+        else
+        {
+            selectCharButton.GetComponentInChildren<Text>().text = "(없음)";
+        }
+    }
+
+    public bool SaveGlobalConfig()
     {
         string path = GetDataPath(dataPath);
         string json = JsonUtility.ToJson(data);
-        if (!Directory.Exists(dataPath))
+        if(!Directory.Exists(dataPath))
         {
             Directory.CreateDirectory(dataPath);
         }
@@ -80,25 +86,24 @@ public class MainMenu : MonoBehaviour
         return true;
     }
 
-    public bool LoadData()
+    public bool LoadGlobalConfig()
     {
         string path = GetDataPath(dataPath);
-        if (!File.Exists(path))
+        if(!File.Exists(path))
         {
             data = default;
             return false;
         }
         string json = File.ReadAllText(path);
-        data = JsonUtility.FromJson<DataStruct>(json);
-        // Assigning Data to GlobalVariables
-        GlobalVariables.ChosenCharacter = data.chosenCharacter;
-        // End of Assign
+        data = JsonUtility.FromJson<GlobalConfig>(json);
+        GlobalVariables.SelectedAvatar = data.SelectedAvatar;
         return true;
     }
-    public struct DataStruct
+
+    public struct GlobalConfig
     {
-        public bool initialized;
-        public string chosenCharacter;
+        public string SelectedAvatar;
     }
+
     string GetDataPath(string dataPath) => Path.Join(dataPath, "data.dat");
 }

@@ -46,11 +46,11 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
-    public static string ChosenWorld;
-
-    public static string ChosenCharacter;
+    public static string SelectedWorld;
     public static string MapType;
-
     public static bool ShouldLoadWorld;
+
+    public static string SelectedAvatar;
+
 
 }

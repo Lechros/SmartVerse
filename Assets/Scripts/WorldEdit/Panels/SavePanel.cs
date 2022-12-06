@@ -19,6 +19,6 @@ public class SavePanel : MonoBehaviour, IPanel
 
     public void OnClickSave()
     {
-        saveManager.Save(GlobalVariables.ChosenWorld);
+        saveManager.Save(GlobalVariables.SelectedWorld);
     }
 }

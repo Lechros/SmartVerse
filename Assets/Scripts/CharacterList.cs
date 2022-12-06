@@ -25,7 +25,7 @@ public class CharacterList : MonoBehaviour
 
     void OnCharacterButtonClick(string charName)
     {
-        GlobalVariables.ChosenCharacter = charName;
+        GlobalVariables.SelectedAvatar = charName;
         ReturnToMainMenu();
     }
 

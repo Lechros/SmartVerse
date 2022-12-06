@@ -41,9 +41,9 @@ public class EditSceneManager : MonoBehaviour
         interactionManager.Constructor();
         materialManager.Constructor(addressableManager);
 
-        if (GlobalVariables.ChosenWorld != null)
+        if(GlobalVariables.SelectedWorld != null)
         {
-            addressableManager.listReady.AddListener(() => saveManager.Load(GlobalVariables.ChosenWorld));
+            addressableManager.listReady.AddListener(() => saveManager.Load(GlobalVariables.SelectedWorld));
         }
     }
 

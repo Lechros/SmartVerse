@@ -35,7 +35,6 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-
     public bool ApplyMapTypeFromString(string maptype)
     {
         Material targetMat = maptypes.Find(x => x.name == maptype);
@@ -47,6 +46,7 @@ public class SaveManager : MonoBehaviour
         }
         return true;
     }
+
     public static IEnumerable<string> GetWorldDirectories()
     {
         DirectoryInfo di = new(GlobalVariables.SavePath);

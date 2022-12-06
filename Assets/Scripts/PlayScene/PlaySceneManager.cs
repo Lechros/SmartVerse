@@ -64,9 +64,9 @@ public class PlaySceneManager : MonoBehaviour, IPunInstantiateMagicCallback
         if(ThirdPersonMovement.LocalPlayerInstance == null)
         {
             string charData = string.Empty;
-            if(!string.IsNullOrEmpty(GlobalVariables.ChosenCharacter))
+            if(!string.IsNullOrEmpty(GlobalVariables.SelectedAvatar))
             {
-                charData = avatarManager.LoadCharData(GlobalVariables.ChosenCharacter);
+                charData = avatarManager.LoadCharData(GlobalVariables.SelectedAvatar);
             }
             object[] initData = new string[]
             {
@@ -81,14 +81,8 @@ public class PlaySceneManager : MonoBehaviour, IPunInstantiateMagicCallback
         string avatarData = (string)info.photonView.InstantiationData[0];
         if(!string.IsNullOrEmpty(avatarData))
         {
-            avatarManager.ApplyCharacter(avatarData, info.photonView.gameObject.GetComponent<AvatarCustomization>());
+            avatarManager.ApplyAvatarCustomization(avatarData, info.photonView.gameObject.GetComponent<AvatarCustomization>());
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void LeaveOnClick()

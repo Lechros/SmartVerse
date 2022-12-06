@@ -30,9 +30,9 @@ public class CharEditorManager : MonoBehaviour
         saveField.onSubmit.AddListener(delegate { OnSubmit(saveField); });
         saveField.onEndEdit.AddListener(delegate { OnEndEdit(saveField); });
 
-        if (GlobalVariables.ChosenCharacter != null)
+        if (GlobalVariables.SelectedAvatar != null)
         {
-            LoadChar(GlobalVariables.ChosenCharacter, avatarInstance);
+            LoadChar(GlobalVariables.SelectedAvatar, avatarInstance);
         }
     }
 
@@ -45,7 +45,7 @@ public class CharEditorManager : MonoBehaviour
     {
         type = value;
         input.interactable = true;
-        input.text = GlobalVariables.ChosenWorld;
+        input.text = GlobalVariables.SelectedWorld;
     }
 
     public bool OnSubmit(InputField input)

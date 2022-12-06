@@ -5,8 +5,6 @@ using Sunbox.Avatars;
 using UnityEngine;
 using System.IO;
 
-
-//무언가 에러나면 다른 스크립트 파일에 using Sunbox.Avatars; 추가하기
 public class AvatarManager : MonoBehaviour
 {
     public AvatarReferences AvatarReferences;
@@ -29,6 +27,7 @@ public class AvatarManager : MonoBehaviour
         string data = File.ReadAllText(path);
         return data;
     }
+
     string CharNameToPath(string charName) => Path.Join(GlobalVariables.CharacterPath, charName + ".sv");
 
     public string GetConfigString(AvatarCustomization ac)
@@ -36,6 +35,7 @@ public class AvatarManager : MonoBehaviour
         string json = AvatarCustomization.ToConfigString(ac);
         return json;
     }
+
     public bool ApplyAvatarCustomization(string json, AvatarCustomization avatar)
     {
         avatar.ClothingItemHat = null;

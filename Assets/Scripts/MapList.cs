@@ -34,7 +34,7 @@ public class MapList : MonoBehaviour
         }
         else
         {
-            GlobalVariables.ChosenFile = worldName;
+            GlobalVariables.SelectedWorld = worldName;
             SceneManager.LoadScene("WorldEditScene", LoadSceneMode.Single);
         }
     }
