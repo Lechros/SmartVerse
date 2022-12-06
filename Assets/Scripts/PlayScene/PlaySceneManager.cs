@@ -47,20 +47,10 @@ public class PlaySceneManager : MonoBehaviour
         materialManager.Constructor(addressableManager);
     }
 
-    private void Start()
+    // Update is called once per frame
+    void Update()
     {
-        if(GlobalVariables.ShouldLoadWorld)
-        {
-            string dataJson = PhotonNetwork.CurrentRoom.CustomProperties["world"] as string;
-            SaveManager.WorldData data = SaveManager.JsonToWorldData(dataJson);
-            addressableManager.listReady.AddListener(() => saveManager.ApplyWorldData(data));
-            GlobalVariables.ShouldLoadWorld = false;
-        }
 
-        if(ThirdPersonMovement.LocalPlayerInstance == null)
-        {
-            PhotonNetwork.Instantiate(playerPrefab.name, Vector3.up * 5.0f, Quaternion.identity, 0);
-        }
     }
 
     public void LeaveOnClick()

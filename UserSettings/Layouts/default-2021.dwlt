@@ -453,18 +453,18 @@ MonoBehaviour:
       m_ExpandedIDs: 98cbffffbacdffffeaceffff94d1ffff40d4ffffd8d4ffff6ed8ffffb6dcffffa4ddfffffae4ffff16eaffff4ceaffffe6ecffff42edffff56efffff54f0ffffd0f0ffff58f2ffff60f3ffff3ef4ffff12f7ffff58f8ffff9ef8ffffc4faffff8e700000ca7c0000967e0000d47f0000f491000032930000fc960000c0a4000028a50000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Directional Light
+        m_OriginalName: Directional Light
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 239960
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
