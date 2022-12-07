@@ -1439,7 +1439,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 975479575}
         m_TargetAssemblyTypeName: ConnectToServer, Assembly-CSharp
-        m_MethodName: OnClickConnect
+        m_MethodName: OnCancelClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

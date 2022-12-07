@@ -1,3 +1,4 @@
+using Cinemachine;
 using JetBrains.Annotations;
 using Photon.Pun;
 using Sunbox.Avatars;
@@ -21,6 +22,8 @@ public class PlaySceneManager : MonoBehaviour
 
     [HideInInspector]
     public AvatarManager avatarManager;
+
+    public CinemachineFreeLook thirdPersonCamera;
 
     public GameObject playerPrefab;
 

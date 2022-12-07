@@ -19,6 +19,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public void OnCancelClick()
     {
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
 

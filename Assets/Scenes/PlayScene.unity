@@ -20370,6 +20370,7 @@ MonoBehaviour:
   saveManager: {fileID: 0}
   materialManager: {fileID: 0}
   avatarManager: {fileID: 0}
+  thirdPersonCamera: {fileID: 1981337285}
   playerPrefab: {fileID: 558158365799373879, guid: ea450653aa499eb4697253d538b095c1, type: 3}
 --- !u!4 &1374667673
 Transform:
@@ -20401,8 +20402,12 @@ MonoBehaviour:
   objectParent: {fileID: 1821814578}
   tempObjectParent: {fileID: 1821814578}
   tempObject: {fileID: 0}
-  floor: {fileID: 0}
-  worldTypes: []
+  floor: {fileID: 250618347}
+  worldTypes:
+  - {fileID: 2100000, guid: 1aa8579752d26a04b8f588814768b714, type: 2}
+  - {fileID: 2100000, guid: c564f323aac796c4087b9800fdc63310, type: 2}
+  - {fileID: 2100000, guid: 1099a4d836030e24ba2936ec86875a6d, type: 2}
+  - {fileID: 2100000, guid: 9b00a3d8bfc92d04aabaa693e886b675, type: 2}
 --- !u!114 &1374667675
 MonoBehaviour:
   m_ObjectHideFlags: 0

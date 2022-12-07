@@ -28,7 +28,7 @@ public class ThirdPersonMovement : MonoBehaviourPun
 
     private void Awake()
     {
-        thirdPersonCamera = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
+        thirdPersonCamera = PlaySceneManager.instance.thirdPersonCamera;
 
         if(photonView.IsMine)
         {
