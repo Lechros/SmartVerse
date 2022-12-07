@@ -53,6 +53,22 @@ public class ThirdPersonMovement : MonoBehaviourPun
         }
     }
 
+    Vector3 yVel;
+
+    private void FixedUpdate()
+    {
+        // gravity
+        if(!controller.isGrounded)
+        {
+            yVel += Physics.gravity * Time.deltaTime;
+            controller.Move(yVel * Time.deltaTime);
+        }
+        else
+        {
+            yVel.y = 0f;
+        }
+    }
+
     void Update()
     {
         if(photonView.IsMine)
@@ -65,14 +81,14 @@ public class ThirdPersonMovement : MonoBehaviourPun
     void HandleMovement()
     {
         //walk
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector3 moveDir = transform.rotation * new Vector3(horizontal, 0f, vertical);
 
-        controller.Move(frontFacing.transform.rotation * direction * speed * Time.deltaTime);
+        controller.Move(moveDir * speed * Time.deltaTime);
 
         // rotate
-        if(direction.magnitude >= 0.1f)
+        if(moveDir.magnitude >= 0.1f)
         {
             float targetAngle = frontFacing.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
