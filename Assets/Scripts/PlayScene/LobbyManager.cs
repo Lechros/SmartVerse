@@ -112,7 +112,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // check password
-        if(PhotonNetwork.CurrentRoom.PropertiesListedInLobby[0] == "secret")
+        if(PhotonNetwork.CurrentRoom.PropertiesListedInLobby.Length > 0 && PhotonNetwork.CurrentRoom.PropertiesListedInLobby[0] == "secret")
         {
             string secret = (string)PhotonNetwork.CurrentRoom.CustomProperties["secret"];
             if(!string.IsNullOrWhiteSpace(secret) && roomPassword.text != secret && enteringRoomPassword.text != secret)
