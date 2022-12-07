@@ -25,14 +25,19 @@ public class CharEditorManager : MonoBehaviour
         SavePath = new(GlobalVariables.CharacterPath);
         type = submitType.None;
 
+        saveButton.GetComponent<Button>().onClick.AddListener(() => OnSaveButtonClick(saveField));
+        loadButton.GetComponent<Button>().onClick.AddListener(() => OnLoadButtonClick(saveField));
+
+        /*
         saveButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(submitType.Save, saveField));
         loadButton.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(submitType.Load, saveField));
         saveField.onSubmit.AddListener(delegate { OnSubmit(saveField); });
         saveField.onEndEdit.AddListener(delegate { OnEndEdit(saveField); });
-
+        */
         if (GlobalVariables.SelectedAvatar != null)
         {
             LoadChar(GlobalVariables.SelectedAvatar, avatarInstance);
+            saveField.text = GlobalVariables.SelectedAvatar;
         }
     }
 
@@ -41,6 +46,29 @@ public class CharEditorManager : MonoBehaviour
 
     }
 
+    public void OnSaveButtonClick(InputField input)
+    {
+        SaveChar(input.text);
+        StartCoroutine(TimedPlaceholder("ภ๚ภๅตส!", 3, input));
+    }
+
+    public void OnLoadButtonClick(InputField input)
+    {
+        LoadChar(input.text, avatarInstance);
+    }
+
+    IEnumerator TimedPlaceholder(string message, float delay, InputField input)
+    {
+        var tempPlaceholder = ((Text)input.placeholder).text;
+        var tempText = input.text;
+        ((Text)input.placeholder).text = message;
+        input.text = null;
+        yield return new WaitForSeconds(delay);
+        ((Text)input.placeholder).text = tempPlaceholder;
+        input.text = tempText;
+    }
+
+    /*
     public void OnButtonClick(submitType value, InputField input)
     {
         type = value;
@@ -68,6 +96,7 @@ public class CharEditorManager : MonoBehaviour
         input.text = null;
         return true;
     }
+    
     public bool OnEndEdit(InputField input)
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -78,7 +107,7 @@ public class CharEditorManager : MonoBehaviour
         }
         return true;
     }
-
+    */
     public bool SaveChar(string filename)
     {
         Debug.Log(SavePath);
