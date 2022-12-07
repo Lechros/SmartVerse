@@ -27,6 +27,12 @@ namespace Sunbox.Avatars
                 return;
             }
 
+            MovementAnimationControl();
+            OtherAnimationControl();
+        }
+
+        void MovementAnimationControl()
+        {
             _inputVector.x = Mathf.MoveTowards(_inputVector.x, 0, Time.deltaTime * MovementDamping);
             _inputVector.y = Mathf.MoveTowards(_inputVector.y, 0, Time.deltaTime * MovementDamping);
 
@@ -38,9 +44,26 @@ namespace Sunbox.Avatars
 
             _avatar.Animator.SetFloat("MoveX", _inputVector.x);
             _avatar.Animator.SetFloat("MoveY", _inputVector.y);
-
         }
 
+        void OtherAnimationControl()
+        {
+            if (Input.GetKey(KeyCode.Z))
+            {
+                if (Input.GetKeyDown(KeyCode.X))
+                    Dance();
+                if (Input.GetKeyDown(KeyCode.C))
+                    Wave();
+                if (Input.GetKeyDown(KeyCode.V))
+                    Clap();
+            }
+            else if (Input.GetKeyUp(KeyCode.Z))
+            {
+                _avatar.Animator.ResetTrigger("Dance01");
+                _avatar.Animator.ResetTrigger("Wave");
+                _avatar.Animator.ResetTrigger("Clap");
+            }
+        }
         public void Dance()
         {
             _avatar.Animator.SetTrigger("Dance01");

@@ -46,6 +46,7 @@ public class PlaySceneManager : MonoBehaviour, IPunInstantiateMagicCallback
         objectManager.Constructor(addressableManager);
         saveManager.Constructor(addressableManager, objectManager, materialManager);
         materialManager.Constructor(addressableManager);
+        avatarManager.Constructor();
     }
 
     private void Start()
@@ -79,6 +80,7 @@ public class PlaySceneManager : MonoBehaviour, IPunInstantiateMagicCallback
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
         string avatarData = (string)info.photonView.InstantiationData[0];
+        Debug.Log(avatarData);
         if(!string.IsNullOrEmpty(avatarData))
         {
             avatarManager.ApplyAvatarCustomization(avatarData, info.photonView.gameObject.GetComponent<AvatarCustomization>());

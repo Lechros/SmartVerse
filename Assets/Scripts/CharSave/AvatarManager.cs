@@ -9,6 +9,8 @@ public class AvatarManager : MonoBehaviour
 {
     public AvatarReferences AvatarReferences;
 
+    public void Constructor() { }
+
     public AvatarCustomization GetAvatarCustomization(GameObject instance)
     {
         AvatarCustomization ac = instance.GetComponent<AvatarCustomization>();

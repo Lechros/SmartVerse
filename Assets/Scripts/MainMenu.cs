@@ -14,11 +14,12 @@ public class MainMenu : MonoBehaviour
     void Awake()
     {
         dataPath = new(GlobalVariables.DataPath);
+        LoadGlobalConfig();
     }
 
     private void Start()
     {
-        LoadGlobalConfig();
+        
     }
 
     public void OnStartButtonClick()
@@ -54,7 +55,15 @@ public class MainMenu : MonoBehaviour
     public void SelectAvatar(string avatar)
     {
         GlobalVariables.SelectedAvatar = avatar;
-        selectCharButton.GetComponentInChildren<Text>().text = string.IsNullOrEmpty(avatar) ? "(없음)" : avatar;
+        if (!string.IsNullOrEmpty(avatar))
+        {
+            selectCharButton.GetComponentInChildren<Text>().text = avatar;
+            SaveGlobalConfig();
+        }
+        else
+        {
+            selectCharButton.GetComponentInChildren<Text>().text = "(없음)";
+        }
     }
 
     public bool SaveGlobalConfig()
@@ -75,6 +84,7 @@ public class MainMenu : MonoBehaviour
         string path = GetDataPath(dataPath);
         if(!File.Exists(path))
         {
+            SelectAvatar(null);
             return false;
         }
         string json = File.ReadAllText(path);
