@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlaySceneManager : MonoBehaviour, IPunInstantiateMagicCallback
+public class PlaySceneManager : MonoBehaviour
 {
     public static PlaySceneManager instance { get; private set; }
 
@@ -74,16 +74,6 @@ public class PlaySceneManager : MonoBehaviour, IPunInstantiateMagicCallback
                 charData
             };
             PhotonNetwork.Instantiate(playerPrefab.name, Vector3.up * 5.0f, Quaternion.identity, 0, initData);
-        }
-    }
-
-    public void OnPhotonInstantiate(PhotonMessageInfo info)
-    {
-        string avatarData = (string)info.photonView.InstantiationData[0];
-        Debug.Log(avatarData);
-        if(!string.IsNullOrEmpty(avatarData))
-        {
-            avatarManager.ApplyAvatarCustomization(avatarData, info.photonView.gameObject.GetComponent<AvatarCustomization>());
         }
     }
 
