@@ -86,4 +86,5 @@ public class PlaySceneManager : MonoBehaviour
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
     }
+
 }
