@@ -19,8 +19,13 @@ public class AvatarInstantiate : MonoBehaviour, IPunInstantiateMagicCallback
 
     void OnGUI()
     {
+        //Get PhotonView
+        var photonView = gameObject.GetComponent<PhotonView>();
+        string name = photonView.Owner.NickName;
+
         //Style of nametag
-        var style = new GUIStyle();
+        GUIContent content = new(name);
+        GUIStyle style = new();
         style.normal = new GUIStyleState();
         style.normal.textColor = Color.black;
         style.normal.background = new Texture2D(256, 256, TextureFormat.ARGB32, false);
@@ -31,11 +36,16 @@ public class AvatarInstantiate : MonoBehaviour, IPunInstantiateMagicCallback
         Vector3 point = Camera.main.WorldToScreenPoint(transform.position + offset);
         point.y = Screen.height - point.y;
 
-        //Get PhotonView
-        var photonView = gameObject.GetComponent<PhotonView>();
-
         //Put Label
-        int xOffset = photonView.Owner.NickName.Length;
-        GUI.Label(new Rect(point.x - 5 * xOffset, point.y, 10 * xOffset, 20), photonView.Owner.NickName, style);
+        var size = style.CalcSize(content);
+        Vector2 padding = new(4.0f, 2.0f);
+        GUI.Label(
+            new Rect(
+                point.x - (size.x * 0.5f) - padding.x,
+                point.y - padding.y,
+                size.x + (padding.x * 2f),
+                size.y + (padding.y * 2f)),
+            name,
+            style);
     }
 }
