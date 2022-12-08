@@ -172,6 +172,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClickExit()
     {
         PhotonNetwork.LeaveLobby();
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
 
