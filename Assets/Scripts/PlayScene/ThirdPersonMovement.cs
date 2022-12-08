@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Photon.Pun;
+using UnityEngine.EventSystems;
 
 public class ThirdPersonMovement : MonoBehaviourPun
 {
@@ -49,9 +48,9 @@ public class ThirdPersonMovement : MonoBehaviourPun
             thirdPersonCamera.LookAt = transform;
 
             targetDistance = camDistance;
-            thirdPersonCamera.m_Orbits[0] = new CinemachineFreeLook.Orbit(camDistance, 0);
+            thirdPersonCamera.m_Orbits[0] = new CinemachineFreeLook.Orbit(camDistance, 0.5f);
             thirdPersonCamera.m_Orbits[1] = new CinemachineFreeLook.Orbit(0, camDistance);
-            thirdPersonCamera.m_Orbits[2] = new CinemachineFreeLook.Orbit(-camDistance, 0);
+            thirdPersonCamera.m_Orbits[2] = new CinemachineFreeLook.Orbit(-camDistance, 0.5f);
         }
     }
 
@@ -100,7 +99,7 @@ public class ThirdPersonMovement : MonoBehaviourPun
 
     void HandleCameraControl()
     {
-        if(Input.mouseScrollDelta.y != 0)
+        if(!EventSystem.current.IsPointerOverGameObject() && Input.mouseScrollDelta.y != 0)
         {
             targetDistance = Mathf.Clamp(targetDistance - Input.mouseScrollDelta.y, minCamDistance, maxCamDistance);
         }
@@ -108,9 +107,9 @@ public class ThirdPersonMovement : MonoBehaviourPun
         {   
             camDistance = Mathf.SmoothDamp(camDistance, targetDistance, ref camZoomVelocity, camZoomTime);
 
-            thirdPersonCamera.m_Orbits[0] = new CinemachineFreeLook.Orbit(camDistance, 0);
+            thirdPersonCamera.m_Orbits[0] = new CinemachineFreeLook.Orbit(camDistance, 0.5f);
             thirdPersonCamera.m_Orbits[1] = new CinemachineFreeLook.Orbit(0, camDistance);
-            thirdPersonCamera.m_Orbits[2] = new CinemachineFreeLook.Orbit(-camDistance, 0);
+            thirdPersonCamera.m_Orbits[2] = new CinemachineFreeLook.Orbit(-camDistance, 0.5f);
         }
     }
 }
