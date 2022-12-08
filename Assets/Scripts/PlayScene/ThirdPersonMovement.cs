@@ -7,6 +7,7 @@ using Photon.Pun;
 public class ThirdPersonMovement : MonoBehaviourPun
 {
     public CharacterController controller;
+
     Transform frontFacing;
 
     public float speed;
@@ -28,7 +29,6 @@ public class ThirdPersonMovement : MonoBehaviourPun
 
     private void Awake()
     {
-        thirdPersonCamera = PlaySceneManager.instance.thirdPersonCamera;
 
         if(photonView.IsMine)
         {
@@ -40,6 +40,8 @@ public class ThirdPersonMovement : MonoBehaviourPun
 
     private void Start()
     {
+        thirdPersonCamera = PlaySceneManager.instance.thirdPersonCamera;
+
         frontFacing = Camera.main.transform;
         if(photonView.IsMine)
         {
