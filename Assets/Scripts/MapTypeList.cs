@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MapTypeList : MonoBehaviour
 {
     public GameObject MapList;
+
     public void OnBackButtonClick()
     {
         gameObject.SetActive(false);

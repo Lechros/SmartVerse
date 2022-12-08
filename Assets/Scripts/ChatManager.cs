@@ -1,12 +1,8 @@
 using ExitGames.Client.Photon;
 using Photon.Chat;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class ChatManager : MonoBehaviour, IChatClientListener
 {

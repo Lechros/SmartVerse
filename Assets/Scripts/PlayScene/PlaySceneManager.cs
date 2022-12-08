@@ -43,13 +43,11 @@ public class PlaySceneManager : MonoBehaviour
         objectManager = FindObjectOfType<ObjectManager>();
         saveManager = FindObjectOfType<SaveManager>();
         materialManager = FindObjectOfType<MaterialManager>();
-        avatarManager = FindObjectOfType<AvatarManager>();
 
         addressableManager.Constructor();
         objectManager.Constructor(addressableManager);
         saveManager.Constructor(addressableManager, objectManager, materialManager);
         materialManager.Constructor(addressableManager);
-        avatarManager.Constructor();
     }
 
     private void Start()
@@ -70,7 +68,7 @@ public class PlaySceneManager : MonoBehaviour
             string charData = string.Empty;
             if(!string.IsNullOrEmpty(GlobalVariables.SelectedAvatar))
             {
-                charData = avatarManager.LoadCharData(GlobalVariables.SelectedAvatar);
+                charData = AvatarManager.LoadCharData(GlobalVariables.SelectedAvatar);
             }
             object[] initData = new string[]
             {
@@ -83,6 +81,7 @@ public class PlaySceneManager : MonoBehaviour
     public void LeaveOnClick()
     {
         Destroy(ThirdPersonMovement.LocalPlayerInstance);
+        ThirdPersonMovement.LocalPlayerInstance = null;
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
     }

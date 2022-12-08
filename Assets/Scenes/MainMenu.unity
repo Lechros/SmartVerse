@@ -8662,6 +8662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c2d45f42789d74885e3e01a7ea744c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avatarReferencesSetter: {fileID: 11400000, guid: 64fdaf6301ddadf4984fbd23b73c1671, type: 2}
 --- !u!4 &1162547954
 Transform:
   m_ObjectHideFlags: 0

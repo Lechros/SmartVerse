@@ -1,4 +1,5 @@
 using cakeslice;
+using Photon.Pun.Demo.Procedural;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,14 +8,13 @@ public class ObjectManager : MonoBehaviour
 {
     AddressableManager addressableManager;
 
-    [SerializeField]
-    Transform objectParent;
-    [SerializeField]
-    Transform tempObjectParent;
+    public Transform objectParent;
+    public Transform tempObjectParent;
+    public Transform wallParent;
+    public Renderer floor;
 
     public GameObject tempObject;
 
-    public Renderer floor;
     public List<Material> worldTypes;
 
     public void Constructor(AddressableManager addressableManager)
@@ -28,6 +28,16 @@ public class ObjectManager : MonoBehaviour
         {
             SetWorldType(GlobalVariables.SelectedWorldType);
         }
+    }
+
+    public float GetWorldSize()
+    {
+        return floor.transform.localScale.x * 10f;
+    }
+
+    public void SetWorldSize(float size)
+    {
+        floor.transform.localScale = wallParent.localScale = new Vector3(size / 10f, 1f, size / 10f);
     }
 
     public bool SetWorldType(string worldType)

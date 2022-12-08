@@ -115,12 +115,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.CurrentRoom.PropertiesListedInLobby.Length > 0 && PhotonNetwork.CurrentRoom.PropertiesListedInLobby[0] == "secret")
         {
             string secret = (string)PhotonNetwork.CurrentRoom.CustomProperties["secret"];
-            if(!string.IsNullOrWhiteSpace(secret) && roomPassword.text != secret && enteringRoomPassword.text != secret)
+            Debug.LogWarning("Current room has secret. secret: " + secret);
+            if(!string.IsNullOrWhiteSpace(secret))
             {
-                errorText.SetActive(true);
-                StartCoroutine(HideErrorText());
-                PhotonNetwork.LeaveRoom();
-                return;
+                Debug.LogWarning("enter password: " + enteringRoomPassword.text);
+                if(roomPassword.text != secret && enteringRoomPassword.text != secret)
+                {
+                    StartCoroutine(ShowErrorText());
+                    PhotonNetwork.LeaveRoom();
+                    return;
+                }
             }
         }
 
@@ -128,9 +132,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("PlayScene");
     }
 
-    IEnumerator HideErrorText()
+    IEnumerator ShowErrorText()
     {
-        yield return new WaitForSeconds(2f);
+        errorText.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
         errorText.SetActive(false);
     }
 
@@ -188,10 +193,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        errorText.SetActive(true);
-        StartCoroutine(HideErrorText());
+        HandleJoinRoomFail();
+        base.OnJoinRoomFailed(returnCode, message);
+    }
+
+    void HandleJoinRoomFail()
+    {
+        StartCoroutine(ShowErrorText());
         OnClickCancel();
         OnClickEnterCancel();
-        base.OnJoinRoomFailed(returnCode, message);
     }
 }

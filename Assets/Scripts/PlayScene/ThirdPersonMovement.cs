@@ -28,6 +28,11 @@ public class ThirdPersonMovement : MonoBehaviourPun
 
     private void Awake()
     {
+        if(!PhotonNetwork.InRoom)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         if(photonView.IsMine)
         {
@@ -39,11 +44,17 @@ public class ThirdPersonMovement : MonoBehaviourPun
 
     private void Start()
     {
-        thirdPersonCamera = PlaySceneManager.instance.thirdPersonCamera;
+        if(!PhotonNetwork.InRoom)
+        {
+            return;
+        }
 
-        frontFacing = Camera.main.transform;
         if(photonView.IsMine)
         {
+            frontFacing = Camera.main.transform;
+
+            thirdPersonCamera = PlaySceneManager.instance.thirdPersonCamera;
+
             thirdPersonCamera.Follow = transform;
             thirdPersonCamera.LookAt = transform;
 

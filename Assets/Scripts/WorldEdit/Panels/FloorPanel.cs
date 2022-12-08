@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class FloorPanel : MonoBehaviour, IPanel
 {
-    [SerializeField]
-    Transform ground;
+    ObjectManager objectManager;
+
     [SerializeField]
     TMP_InputField worldSizeInput;
 
@@ -15,6 +15,8 @@ public class FloorPanel : MonoBehaviour, IPanel
 
     void Awake()
     {
+        objectManager = EditSceneManager.instance.objectManager;
+
         worldSizeInput.characterValidation = TMP_InputField.CharacterValidation.Decimal;
         worldSizeInput.onEndEdit.AddListener(SetWorldSize);
         worldSizeInput.text = worldSize.ToString();
@@ -24,12 +26,12 @@ public class FloorPanel : MonoBehaviour, IPanel
     void SetWorldSize(string input)
     {
         worldSize = float.Parse(input);
-        ground.localScale = new Vector3(worldSize / 10f, 1f, worldSize / 10f);
+        objectManager.SetWorldSize(worldSize);
     }
 
     public void SetWorldType(string mapType)
     {
-        EditSceneManager.instance.objectManager.SetWorldType(mapType);
+        objectManager.SetWorldType(mapType);
     }
 
     public void OnSetActive(bool value)

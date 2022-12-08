@@ -1,3 +1,4 @@
+using Sunbox.Avatars;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -55,5 +56,12 @@ public class GlobalVariables : MonoBehaviour
 
     public static string SelectedAvatar;
 
+    public static AvatarReferences avatarReferences;
 
+    public AvatarReferences avatarReferencesSetter;
+
+    private void Awake()
+    {
+        avatarReferences = avatarReferencesSetter;
+    }
 }

@@ -8,13 +8,18 @@ public class AvatarInstantiate : MonoBehaviour, IPunInstantiateMagicCallback
 {
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        string avatarData = (string)info.photonView.InstantiationData[0];
-        Debug.Log(avatarData);
-        if(!string.IsNullOrEmpty(avatarData))
+        if(!PhotonNetwork.InRoom)
         {
-            PlaySceneManager.instance.avatarManager.ApplyAvatarCustomization(avatarData, info.photonView.gameObject.GetComponent<AvatarCustomization>());
+            return;
         }
 
+        string avatarData = (string)info.photonView.InstantiationData[0];
+
+        if(!string.IsNullOrEmpty(avatarData))
+        {
+            var cus = info.photonView.gameObject.GetComponent<AvatarCustomization>();
+            AvatarManager.ApplyAvatarCustomization(avatarData, cus);
+        }
     }
 
     void OnGUI()

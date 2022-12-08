@@ -7,17 +7,7 @@ using System.IO;
 
 public class AvatarManager : MonoBehaviour
 {
-    public AvatarReferences AvatarReferences;
-
-    public void Constructor() { }
-
-    public AvatarCustomization GetAvatarCustomization(GameObject instance)
-    {
-        AvatarCustomization ac = instance.GetComponent<AvatarCustomization>();
-        return ac;
-    }
-
-    public string LoadCharData(string filename)
+    public static string LoadCharData(string filename)
     {
         string path = CharNameToPath(filename);
 
@@ -30,15 +20,15 @@ public class AvatarManager : MonoBehaviour
         return data;
     }
 
-    string CharNameToPath(string charName) => Path.Join(GlobalVariables.CharacterPath, charName + ".sv");
+    static string CharNameToPath(string charName) => Path.Join(GlobalVariables.CharacterPath, charName + ".sv");
 
-    public string GetConfigString(AvatarCustomization ac)
+    public static string GetConfigString(AvatarCustomization ac)
     {
         string json = AvatarCustomization.ToConfigString(ac);
         return json;
     }
 
-    public bool ApplyAvatarCustomization(string json, AvatarCustomization avatar)
+    public static bool ApplyAvatarCustomization(string json, AvatarCustomization avatar)
     {
         avatar.ClothingItemHat = null;
         avatar.ClothingItemTop = null;
@@ -123,7 +113,7 @@ public class AvatarManager : MonoBehaviour
                     break;
                 case "clothingItem":
                     string itemStr = value.Split('-')[0];
-                    ClothingItem item = Array.Find(AvatarReferences.AvailableClothingItems, item => item.Name == itemStr);
+                    ClothingItem item = Array.Find(GlobalVariables.avatarReferences.AvailableClothingItems, item => item.Name == itemStr);
                     int varIndex = int.Parse(value.Split('-')[1]);
                     avatar.AttachClothingItem(
                         item: item,

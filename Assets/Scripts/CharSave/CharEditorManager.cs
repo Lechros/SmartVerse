@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Sunbox.Avatars;
 
 public class CharEditorManager : MonoBehaviour
 {
@@ -16,12 +17,10 @@ public class CharEditorManager : MonoBehaviour
     private submitType type;
 
     public GameObject avatarInstance;
-    AvatarManager avatarManager;
     public static string SavePath { get; private set; }
 
     void Awake()
     {
-        avatarManager = FindObjectOfType<AvatarManager>();
         SavePath = new(GlobalVariables.CharacterPath);
         type = submitType.None;
 
@@ -85,7 +84,7 @@ public class CharEditorManager : MonoBehaviour
         string path = CharNameToPath(filename);
 
         // Save world data to file.
-        var json = avatarManager.GetConfigString(avatarManager.GetAvatarCustomization(avatarInstance));
+        var json = AvatarManager.GetConfigString(avatarInstance.GetComponent<AvatarCustomization>());
         Debug.Log(json);
         if (!Directory.Exists(SavePath))
         {
@@ -106,7 +105,7 @@ public class CharEditorManager : MonoBehaviour
         }
 
         string json = File.ReadAllText(path);
-        avatarManager.ApplyAvatarCustomization(json, avatarManager.GetAvatarCustomization(character));
+        AvatarManager.ApplyAvatarCustomization(json, character.GetComponent<AvatarCustomization>());
         return true;
     }
     string CharNameToPath(string charName) => Path.Join(SavePath, charName + ".sv");

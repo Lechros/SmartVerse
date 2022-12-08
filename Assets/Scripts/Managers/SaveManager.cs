@@ -48,7 +48,7 @@ public class SaveManager : MonoBehaviour
 
     public WorldData BuildWorldData(string worldName)
     {
-        WorldData data = new WorldData(worldName, GlobalVariables.SelectedWorldType);
+        WorldData data = new WorldData(worldName, objectManager.GetWorldSize(), GlobalVariables.SelectedWorldType);
         foreach(Transform child in objectManager.GetObjects())
         {
             data.objects.Add(ToSvObject(child));
@@ -98,6 +98,8 @@ public class SaveManager : MonoBehaviour
     public bool ApplyWorldData(WorldData data)
     {
         objectManager.DestroyAll();
+        objectManager.SetWorldSize(data.size);
+        objectManager.SetWorldType(data.type);
 
         foreach(SvObject obj in data.objects)
         {
@@ -222,14 +224,16 @@ public class SaveManager : MonoBehaviour
     [Serializable]
     public struct WorldData
     {
-        public WorldData(string name, string maptype)
+        public WorldData(string name, float size, string type)
         {
             this.name = name;
-            this.type = maptype;
+            this.size = size;
+            this.type = type;
             this.objects = new List<SvObject>();
         }
 
         public string name;
+        public float size;
         public string type;
         public List<SvObject> objects;
     }
