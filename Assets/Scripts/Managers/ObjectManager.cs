@@ -37,7 +37,9 @@ public class ObjectManager : MonoBehaviour
 
     public void SetWorldSize(float size)
     {
+        float oldSize = GetWorldSize();
         floor.transform.localScale = wallParent.localScale = new Vector3(size / 10f, 1f, size / 10f);
+        floor.material.mainTextureScale *= size / oldSize;
     }
 
     public bool SetWorldType(string worldType)
