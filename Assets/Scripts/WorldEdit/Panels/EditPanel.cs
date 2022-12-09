@@ -95,17 +95,13 @@ public class EditPanel : MonoBehaviour, IPanel
             // Rotate cursor object
             if(Input.GetKeyDown(KeyCode.Z))
             {
-                Vector3 pivot = editObject.transform.position - editObject.transform.rotation * renderOffset;
-                editObject.transform.Rotate(Vector3.up, -30);
-                editObject.transform.position = pivot + editObject.transform.rotation * renderOffset;
+                editObject.transform.RotateAround(Utils.GetBounds(editObject).center, editObject.transform.up, -30);
 
                 objectRotation.SetText(GetObjectRotationText());
             }
             if(Input.GetKeyDown(KeyCode.X))
             {
-                Vector3 pivot = editObject.transform.position - editObject.transform.rotation * renderOffset;
-                editObject.transform.Rotate(Vector3.up, 30);
-                editObject.transform.position = pivot + editObject.transform.rotation * renderOffset;
+                editObject.transform.RotateAround(Utils.GetBounds(editObject).center, editObject.transform.up, 30);
 
                 objectRotation.SetText(GetObjectRotationText());
             }
