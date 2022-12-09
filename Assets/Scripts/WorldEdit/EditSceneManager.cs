@@ -49,6 +49,7 @@ public class EditSceneManager : MonoBehaviour
 
     public void LeaveOnClick()
     {
+        GlobalVariables.SelectedWorld = null;
         SceneManager.LoadScene("MainMenu");
     }
 }
