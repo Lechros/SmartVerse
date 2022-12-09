@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -39,6 +40,17 @@ public class SpawnPanel : MonoBehaviour, IPanel
     
     void Update()
     {
+        foreach(var button in spawnButtons)
+        {
+            var preview = button.GetChild(1);
+
+            if(preview.childCount > 0)
+            {
+                var obj = preview.GetChild(0);
+                obj.transform.RotateAround(Utils.GetBounds(obj.gameObject).center, obj.parent.transform.up, 60 * Time.deltaTime);
+            }
+        }
+
         if(objectManager.tempObject)
         {
             var obj = objectManager.tempObject;
@@ -142,6 +154,11 @@ public class SpawnPanel : MonoBehaviour, IPanel
             var button = spawnButtons[i];
             button.GetComponent<Button>().onClick.RemoveAllListeners();
 
+            var preview = button.GetChild(1);
+            if(preview.childCount > 0)
+            {
+                Destroy(preview.GetChild(0).gameObject);
+            }
             var prefabIndex = currentPage * spawnButtons.Count + i;
             if(prefabIndex >= addressableManager.prefabs.Count)
             {
@@ -154,6 +171,24 @@ public class SpawnPanel : MonoBehaviour, IPanel
                 button.GetComponent<Button>().onClick.AddListener(() => OnSpawnButtonClick(prefab));
                 button.GetComponent<Button>().interactable = true;
                 button.GetComponentInChildren<TextMeshProUGUI>().text = prefab.name;
+
+                var obj = Instantiate(prefab, preview);
+                // set ui layer
+                obj.layer = 5;
+                foreach(Transform child in obj.transform)
+                {
+                    child.gameObject.layer = 5;
+                }
+
+                // resize
+                Vector3 objSize = Utils.GetBounds(obj).size;
+                float maxScaler = Mathf.Min(2 / objSize.x, 2 / objSize.y, 2 / objSize.z);
+                obj.transform.localScale *= maxScaler;
+
+                // set position
+                Vector3 normal = Vector3.up * Utils.GetBounds(obj).extents.y;
+                Vector3 offset = Utils.GetRenderOffset(obj);
+                obj.transform.position += offset + normal;
             }
         }
     }
