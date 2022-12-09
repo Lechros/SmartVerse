@@ -1,0 +1,175 @@
+fileFormatVersion: 2
+guid: 9c132be1ab7b66743bfb3a79be645e87
+timeCreated: 1521730906
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Inlay1_MSH
+    100002: Inlay2_MSH
+    100004: Inlay3_MSH
+    100006: Inlay4_MSH
+    100008: Inlay5_MSH
+    100010: //RootNode
+    400000: Inlay1_MSH
+    400002: Inlay2_MSH
+    400004: Inlay3_MSH
+    400006: Inlay4_MSH
+    400008: Inlay5_MSH
+    400010: //RootNode
+    2300000: Inlay1_MSH
+    2300002: Inlay2_MSH
+    2300004: Inlay3_MSH
+    2300006: Inlay4_MSH
+    2300008: Inlay5_MSH
+    2300010: //RootNode
+    3300000: Inlay1_MSH
+    3300002: Inlay2_MSH
+    3300004: Inlay3_MSH
+    3300006: Inlay4_MSH
+    3300008: Inlay5_MSH
+    3300010: //RootNode
+    4300000: Inlay1_MSH
+    4300002: Inlay2_MSH
+    4300004: Inlay3_MSH
+    4300006: Inlay4_MSH
+    4300008: Inlay5_MSH
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DarkWoodSub
+    second: {fileID: 2100000, guid: 134657ffcf1c7bc41b00fd2360b78e65, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay1_Wood1
+    second: {fileID: 2100000, guid: 6a9aa0461dbf3c34aacb5fff127e5ea4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay1_Wood2
+    second: {fileID: 2100000, guid: 0a2ef060a4e4b2448822bcf7a7641888, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay2_Wood1
+    second: {fileID: 2100000, guid: 6a9aa0461dbf3c34aacb5fff127e5ea4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay2_Wood2
+    second: {fileID: 2100000, guid: 0a2ef060a4e4b2448822bcf7a7641888, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay3_Wood1
+    second: {fileID: 2100000, guid: 0a2ef060a4e4b2448822bcf7a7641888, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay4_Wood1
+    second: {fileID: 2100000, guid: 6a9aa0461dbf3c34aacb5fff127e5ea4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay4_Wood2
+    second: {fileID: 2100000, guid: 0a2ef060a4e4b2448822bcf7a7641888, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay5_Wood1
+    second: {fileID: 2100000, guid: 6a9aa0461dbf3c34aacb5fff127e5ea4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Inlay5_Wood2
+    second: {fileID: 2100000, guid: 0a2ef060a4e4b2448822bcf7a7641888, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InlaySub
+    second: {fileID: 2100000, guid: 03ccc34a353383143b63cf5c6119004a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LightWoodSub
+    second: {fileID: 2100000, guid: 9de50b6097339e64195f71699dff6b43, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

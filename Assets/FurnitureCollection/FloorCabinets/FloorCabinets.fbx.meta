@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 36a139df194560148a2f976f826b8472
+timeCreated: 1521237233
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: floorcabinet10_MSH
+    100002: floorcabinet11_MSH
+    100004: floorcabinet12_MSH
+    100006: floorcabinet13_MSH
+    100008: floorcabinet14_MSH
+    100010: floorcabinet15_MSH
+    100012: floorcabinet16_MSH
+    100014: floorcabinet17_MSH
+    100016: floorcabinet18_MSH
+    100018: floorcabinet19_MSH
+    100020: floorcabinet1_MSH
+    100022: floorcabinet20_MSH
+    100024: floorcabinet21_MSH
+    100026: floorcabinet22_MSH
+    100028: floorcabinet23_MSH
+    100030: floorcabinet24_MSH
+    100032: floorcabinet25_MSH
+    100034: floorcabinet26_MSH
+    100036: floorcabinet27_MSH
+    100038: floorcabinet28_MSH
+    100040: floorcabinet29_MSH
+    100042: floorcabinet2_MSH
+    100044: floorcabinet3_MSH
+    100046: floorcabinet4_MSH
+    100048: floorcabinet5_MSH
+    100050: floorcabinet6_MSH
+    100052: floorcabinet7_MSH
+    100054: floorcabinet8_MSH
+    100056: floorcabinet9_MSH
+    100058: //RootNode
+    400000: floorcabinet10_MSH
+    400002: floorcabinet11_MSH
+    400004: floorcabinet12_MSH
+    400006: floorcabinet13_MSH
+    400008: floorcabinet14_MSH
+    400010: floorcabinet15_MSH
+    400012: floorcabinet16_MSH
+    400014: floorcabinet17_MSH
+    400016: floorcabinet18_MSH
+    400018: floorcabinet19_MSH
+    400020: floorcabinet1_MSH
+    400022: floorcabinet20_MSH
+    400024: floorcabinet21_MSH
+    400026: floorcabinet22_MSH
+    400028: floorcabinet23_MSH
+    400030: floorcabinet24_MSH
+    400032: floorcabinet25_MSH
+    400034: floorcabinet26_MSH
+    400036: floorcabinet27_MSH
+    400038: floorcabinet28_MSH
+    400040: floorcabinet29_MSH
+    400042: floorcabinet2_MSH
+    400044: floorcabinet3_MSH
+    400046: floorcabinet4_MSH
+    400048: floorcabinet5_MSH
+    400050: floorcabinet6_MSH
+    400052: floorcabinet7_MSH
+    400054: floorcabinet8_MSH
+    400056: floorcabinet9_MSH
+    400058: //RootNode
+    2300000: floorcabinet10_MSH
+    2300002: floorcabinet11_MSH
+    2300004: floorcabinet12_MSH
+    2300006: floorcabinet13_MSH
+    2300008: floorcabinet14_MSH
+    2300010: floorcabinet15_MSH
+    2300012: floorcabinet16_MSH
+    2300014: floorcabinet17_MSH
+    2300016: floorcabinet18_MSH
+    2300018: floorcabinet19_MSH
+    2300020: floorcabinet1_MSH
+    2300022: floorcabinet20_MSH
+    2300024: floorcabinet21_MSH
+    2300026: floorcabinet22_MSH
+    2300028: floorcabinet23_MSH
+    2300030: floorcabinet24_MSH
+    2300032: floorcabinet25_MSH
+    2300034: floorcabinet26_MSH
+    2300036: floorcabinet27_MSH
+    2300038: floorcabinet28_MSH
+    2300040: floorcabinet29_MSH
+    2300042: floorcabinet2_MSH
+    2300044: floorcabinet3_MSH
+    2300046: floorcabinet4_MSH
+    2300048: floorcabinet5_MSH
+    2300050: floorcabinet6_MSH
+    2300052: floorcabinet7_MSH
+    2300054: floorcabinet8_MSH
+    2300056: floorcabinet9_MSH
+    3300000: floorcabinet10_MSH
+    3300002: floorcabinet11_MSH
+    3300004: floorcabinet12_MSH
+    3300006: floorcabinet13_MSH
+    3300008: floorcabinet14_MSH
+    3300010: floorcabinet15_MSH
+    3300012: floorcabinet16_MSH
+    3300014: floorcabinet17_MSH
+    3300016: floorcabinet18_MSH
+    3300018: floorcabinet19_MSH
+    3300020: floorcabinet1_MSH
+    3300022: floorcabinet20_MSH
+    3300024: floorcabinet21_MSH
+    3300026: floorcabinet22_MSH
+    3300028: floorcabinet23_MSH
+    3300030: floorcabinet24_MSH
+    3300032: floorcabinet25_MSH
+    3300034: floorcabinet26_MSH
+    3300036: floorcabinet27_MSH
+    3300038: floorcabinet28_MSH
+    3300040: floorcabinet29_MSH
+    3300042: floorcabinet2_MSH
+    3300044: floorcabinet3_MSH
+    3300046: floorcabinet4_MSH
+    3300048: floorcabinet5_MSH
+    3300050: floorcabinet6_MSH
+    3300052: floorcabinet7_MSH
+    3300054: floorcabinet8_MSH
+    3300056: floorcabinet9_MSH
+    4300000: floorcabinet1_MSH
+    4300002: floorcabinet2_MSH
+    4300004: floorcabinet3_MSH
+    4300006: floorcabinet4_MSH
+    4300008: floorcabinet5_MSH
+    4300010: floorcabinet6_MSH
+    4300012: floorcabinet7_MSH
+    4300014: floorcabinet8_MSH
+    4300016: floorcabinet9_MSH
+    4300018: floorcabinet10_MSH
+    4300020: floorcabinet11_MSH
+    4300022: floorcabinet12_MSH
+    4300024: floorcabinet13_MSH
+    4300026: floorcabinet14_MSH
+    4300028: floorcabinet15_MSH
+    4300030: floorcabinet16_MSH
+    4300032: floorcabinet17_MSH
+    4300034: floorcabinet18_MSH
+    4300036: floorcabinet19_MSH
+    4300038: floorcabinet20_MSH
+    4300040: floorcabinet21_MSH
+    4300042: floorcabinet22_MSH
+    4300044: floorcabinet23_MSH
+    4300046: floorcabinet24_MSH
+    4300048: floorcabinet25_MSH
+    4300050: floorcabinet26_MSH
+    4300052: floorcabinet27_MSH
+    4300054: floorcabinet28_MSH
+    4300056: floorcabinet29_MSH
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BrassSub
+    second: {fileID: 2100000, guid: c7e63d29f17f28846b4c6e7d5e2f9bab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GlassSub
+    second: {fileID: 2100000, guid: 470ebf597ba019b4b8e1efdf4ddee46a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MirrorSub
+    second: {fileID: 2100000, guid: 48d2ad3942757b94fb1869b53c68321b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodSub
+    second: {fileID: 2100000, guid: 0a58827e70d823f459ce52ab25e3b0c0, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

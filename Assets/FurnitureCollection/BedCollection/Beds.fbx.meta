@@ -1,0 +1,163 @@
+fileFormatVersion: 2
+guid: 79b5489807a662048a30f54f9a2321f7
+timeCreated: 1521218462
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: bed10_MSH
+    100002: bed11_MSH
+    100004: bed1_MSH
+    100006: bed2_MSH
+    100008: bed3_MSH
+    100010: bed4_MSH
+    100012: bed5_MSH
+    100014: bed6_MSH
+    100016: bed7_MSH
+    100018: bed8_MSH
+    100020: bed9_MSH
+    100022: //RootNode
+    400000: bed10_MSH
+    400002: bed11_MSH
+    400004: bed1_MSH
+    400006: bed2_MSH
+    400008: bed3_MSH
+    400010: bed4_MSH
+    400012: bed5_MSH
+    400014: bed6_MSH
+    400016: bed7_MSH
+    400018: bed8_MSH
+    400020: bed9_MSH
+    400022: //RootNode
+    2300000: bed10_MSH
+    2300002: bed11_MSH
+    2300004: bed1_MSH
+    2300006: bed2_MSH
+    2300008: bed3_MSH
+    2300010: bed4_MSH
+    2300012: bed5_MSH
+    2300014: bed6_MSH
+    2300016: bed7_MSH
+    2300018: bed8_MSH
+    2300020: bed9_MSH
+    3300000: bed10_MSH
+    3300002: bed11_MSH
+    3300004: bed1_MSH
+    3300006: bed2_MSH
+    3300008: bed3_MSH
+    3300010: bed4_MSH
+    3300012: bed5_MSH
+    3300014: bed6_MSH
+    3300016: bed7_MSH
+    3300018: bed8_MSH
+    3300020: bed9_MSH
+    4300000: bed1_MSH
+    4300002: bed2_MSH
+    4300004: bed3_MSH
+    4300006: bed4_MSH
+    4300008: bed5_MSH
+    4300010: bed6_MSH
+    4300012: bed7_MSH
+    4300014: bed8_MSH
+    4300016: bed9_MSH
+    4300018: bed10_MSH
+    4300020: bed11_MSH
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodSub
+    second: {fileID: 2100000, guid: cd3a7cede24d56f49a0ed15d015b6c24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cover1Sub
+    second: {fileID: 2100000, guid: 89b0c37164c93e54c82b667b0671f63d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cover2Sub
+    second: {fileID: 2100000, guid: ee6536b4801787a4baa67de22fccea8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sheetSub
+    second: {fileID: 2100000, guid: d8c12e60a927deb4c823c4fdb257a4d3, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
