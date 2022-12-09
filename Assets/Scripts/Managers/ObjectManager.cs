@@ -15,7 +15,8 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject tempObject;
 
-    public List<Material> worldTypes;
+    public List<Material> floorTypes;
+    public List<Material> wallTypes;
 
     public void Constructor(AddressableManager addressableManager)
     {
@@ -42,13 +43,22 @@ public class ObjectManager : MonoBehaviour
 
     public bool SetWorldType(string worldType)
     {
-        Material material = worldTypes.Find(x => x.name == worldType);
-        if(!material)
+        Material floorMaterial = floorTypes.Find(x => x.name == worldType);
+        if(!floorMaterial)
+        {
+            return false;
+        }
+        Material wallMaterial = wallTypes.Find(x => x.name == worldType);
+        if (!wallMaterial)
         {
             return false;
         }
 
-        floor.material = material;
+        floor.material = floorMaterial;
+        foreach (Transform wall in wallParent)
+        {
+            wall.GetComponent<Renderer>().material = wallMaterial;
+        }
         GlobalVariables.SelectedWorldType = worldType;
 
         return true;
