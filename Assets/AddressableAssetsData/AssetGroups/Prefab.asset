@@ -870,6 +870,46 @@ MonoBehaviour:
     m_Address: Assets/Addressables/Prefabs/vase_3.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: fdcc69e0c959fff4095726e3b199082b
+    m_Address: Rock2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
+  - m_GUID: 3b938fbf711a5424baf3e5bc9a0f496c
+    m_Address: Rock1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
+  - m_GUID: 680cd6c8ccf7a6645ab14f214af9784a
+    m_Address: Rock4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
+  - m_GUID: f010c65f651b6bc4293d1bdc5d98f6d1
+    m_Address: Rock3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
+  - m_GUID: 8eb6c50b73617034caff2ae1bbe38cab
+    m_Address: Tree9_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
+  - m_GUID: 920d1517c218df340ac2a3e4b3d3d874
+    m_Address: Tree9_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
+  - m_GUID: fb61de61fc8fe7645b7bcd7ec516ac6c
+    m_Address: Tree9_4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
+  - m_GUID: 8d21724c68afe9340bc99eb3b2d4a324
+    m_Address: Tree9_5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - prefab
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 39d1e5c5c0b84d145bbb2fc7c85eb2df, type: 2}
   m_SchemaSet:
