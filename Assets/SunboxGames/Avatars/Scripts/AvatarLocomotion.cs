@@ -56,12 +56,15 @@ namespace Sunbox.Avatars
                     Wave();
                 if (Input.GetKeyDown(KeyCode.V))
                     Clap();
+                if (Input.GetKeyDown(KeyCode.B))
+                    Throw();
             }
             else if (Input.GetKeyUp(KeyCode.Z))
             {
                 _avatar.Animator.ResetTrigger("Dance01");
                 _avatar.Animator.ResetTrigger("Wave");
                 _avatar.Animator.ResetTrigger("Clap");
+                _avatar.Animator.ResetTrigger("Throw");
             }
         }
         public void Dance()
@@ -77,6 +80,10 @@ namespace Sunbox.Avatars
         public void Clap()
         {
             _avatar.Animator.SetTrigger("Clap");
+        }
+        public void Throw()
+        {
+            _avatar.Animator.SetTrigger("Throw");
         }
     }
 

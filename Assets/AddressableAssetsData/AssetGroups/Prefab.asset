@@ -866,6 +866,10 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - prefab
+  - m_GUID: 39f92682a6f627040a03467ebe52e7da
+    m_Address: Assets/Addressables/Prefabs/vase_3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 39d1e5c5c0b84d145bbb2fc7c85eb2df, type: 2}
   m_SchemaSet:

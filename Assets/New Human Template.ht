@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1105 &110500000
+HumanTemplate:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Human Template
+  m_BoneTemplate:
+    Chest: Chest
+    Head: Head
+    Hips: Hips
+    Left Index Distal: IndexDistal_L
+    Left Index Intermediate: IndexIntermediate_L
+    Left Index Proximal: IndexProximal_L
+    Left Little Distal: LittleDistal_L
+    Left Little Intermediate: LittleIntermediate_L
+    Left Little Proximal: LittleProximal_L
+    Left Middle Distal: MiddleDistal_L
+    Left Middle Intermediate: MiddleIntermediate_L
+    Left Middle Proximal: MiddleProximal_L
+    Left Ring Distal: RingDistal_L
+    Left Ring Intermediate: RingIntermediate_L
+    Left Ring Proximal: RingProximal_L
+    Left Thumb Distal: ThumbDistal_L
+    Left Thumb Intermediate: ThumbIntermediate_L
+    Left Thumb Proximal: ThumbProximal_L
+    LeftEye: Eye_L
+    LeftFoot: Foot_L
+    LeftHand: Hand_L
+    LeftLowerArm: LowerArm_L
+    LeftLowerLeg: LowerLeg_L
+    LeftShoulder: Shoulder_L
+    LeftToes: Toes_L
+    LeftUpperArm: UpperArm_L
+    LeftUpperLeg: UpperLeg_L
+    Neck: Neck
+    Right Index Distal: IndexDistal_R
+    Right Index Intermediate: IndexIntermediate_R
+    Right Index Proximal: IndexProximal_R
+    Right Little Distal: LittleDistal_R
+    Right Little Intermediate: LittleIntermediate_R
+    Right Little Proximal: LittleProximal_R
+    Right Middle Distal: MiddleDistal_R
+    Right Middle Intermediate: MiddleIntermediate_R
+    Right Middle Proximal: MiddleProximal_R
+    Right Ring Distal: RingDistal_R
+    Right Ring Intermediate: RingIntermediate_R
+    Right Ring Proximal: RingProximal_R
+    Right Thumb Distal: ThumbDistal_R
+    Right Thumb Intermediate: ThumbIntermediate_R
+    Right Thumb Proximal: ThumbProximal_R
+    RightEye: Eye_R
+    RightFoot: Foot_R
+    RightHand: Hand_R
+    RightLowerArm: LowerArm_R
+    RightLowerLeg: LowerLeg_R
+    RightShoulder: Shoulder_R
+    RightToes: Toes_R
+    RightUpperArm: UpperArm_R
+    RightUpperLeg: UpperLeg_R
+    Spine: Spine
+    UpperChest: UpperChest

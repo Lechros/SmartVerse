@@ -18895,7 +18895,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 572052512}
   m_HandleRect: {fileID: 572052511}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -21428,8 +21428,16 @@ MonoBehaviour:
   wallParent: {fileID: 1000207006}
   floor: {fileID: 250618347}
   tempObject: {fileID: 0}
-  floorTypes: []
-  wallTypes: []
+  floorTypes:
+  - {fileID: 2100000, guid: 752e694873dda0b479e12585468887c2, type: 2}
+  - {fileID: 2100000, guid: 461f0ef3cca2ff5479d488e1b98221cd, type: 2}
+  - {fileID: 2100000, guid: 1099a4d836030e24ba2936ec86875a6d, type: 2}
+  - {fileID: 2100000, guid: 74e17a108bc841c4aad88a78beacfb7e, type: 2}
+  wallTypes:
+  - {fileID: 2100000, guid: c5389aaf64ab1d345b2aa983a236902b, type: 2}
+  - {fileID: 2100000, guid: ac573fdd919b028448f6462e996c4583, type: 2}
+  - {fileID: 2100000, guid: 6bd3d4690fdc6c6428d9313337bdbd11, type: 2}
+  - {fileID: 2100000, guid: 39dec908d289f17468c73921eec6b62a, type: 2}
 --- !u!114 &1374667675
 MonoBehaviour:
   m_ObjectHideFlags: 0
